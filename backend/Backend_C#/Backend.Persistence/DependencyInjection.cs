@@ -17,6 +17,14 @@ namespace Backend.Persistence
             {
                 options.UseNpgsql(connectionString);
             });
+            services.AddDbContext<TourDbContext>(options =>
+            {
+                options.UseNpgsql(connectionString);
+            });
+            services.AddDbContext<OrderDbContext>(options =>
+            {
+                options.UseNpgsql(connectionString);
+            });
             //Далее другие пов аналогии\\
 
 
@@ -25,6 +33,10 @@ namespace Backend.Persistence
             services.AddScoped<IUserDbContext>(provider =>
                 provider.GetService<UserDbContext>());
             //Далее другие пов аналогии\\
+            services.AddScoped<ITourDbContext>(provider =>
+                provider.GetService<TourDbContext>());
+            services.AddScoped<IOrderDbContext>(provider =>
+                provider.GetService<OrderDbContext>());
 
             return services;
         }

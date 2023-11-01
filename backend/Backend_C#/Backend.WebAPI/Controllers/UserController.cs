@@ -3,6 +3,7 @@ using Backend.Application.Models.Users.Commands.CreateUser;
 using Backend.Application.Models.Users.Commands.DeleteUser;
 using Backend.Application.Models.Users.Commands.UpdateUser;
 using Backend.Application.Models.Users.Queries.GetUserDetails;
+using Backend.Application.Models.Users.Queries.GetUserList;
 using Backend.WebAPI.Models.CreateDto;
 using Backend.WebAPI.Models.UpdateDto;
 using Microsoft.AspNetCore.Mvc;
@@ -76,7 +77,15 @@ namespace Backend.WebAPI.Controllers
         }
 
 
-
+        [HttpGet]
+        public async Task<ActionResult<UserListVm>> GetAllUsers()
+        {
+            var query = new GetUserListQuery
+            {
+            };
+            var vm = await Mediator.Send(query);
+            return Ok(vm);
+        }
 
     }
 }

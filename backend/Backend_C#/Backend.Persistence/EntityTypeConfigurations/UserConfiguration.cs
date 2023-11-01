@@ -10,8 +10,10 @@ namespace Backend.Persistence.EntityTypeConfigurations
         public void Configure(EntityTypeBuilder<User> entity)
         {
             entity.HasIndex(user => user.UserId).IsUnique();
-            //! написать будущую конфигурацию связей между таблицами в бд!
-        }
 
+            entity.HasMany(user => user.Orders)
+             .WithOne(order => order.User)
+             .HasForeignKey(order => order.UserId);
+        }
     }
 }

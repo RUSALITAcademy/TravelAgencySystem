@@ -12,11 +12,13 @@ builder.Services.AddAutoMapper(config =>
 {
     config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
     config.AddProfile(new AssemblyMappingProfile(typeof(IUserDbContext).Assembly));
+    config.AddProfile(new AssemblyMappingProfile(typeof(ITourDbContext).Assembly));
+    config.AddProfile(new AssemblyMappingProfile(typeof(IOrderDbContext).Assembly));
 });
 
 
 //сам поставишь
-//builder.Services.AddSwaggerDocument();
+builder.Services.AddSwaggerDocument();
 builder.Services.AddApplication();
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddControllers();
@@ -51,6 +53,6 @@ app.UseCors("AllowAll");
 //app.UseAuthorization();
 app.MapControllers();
 //Swagger
-//app.UseOpenApi();
-//app.UseSwaggerUi3();
+app.UseOpenApi();
+app.UseSwaggerUi3();
 app.Run();
