@@ -10,6 +10,7 @@ namespace Backend.WebAPI.Models.UpdateDto
         public string? Email { get; set; }
         public string? Password { get; set; }
         public string? Name { get; set; }
+        public string ImgUrl { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -19,7 +20,9 @@ namespace Backend.WebAPI.Models.UpdateDto
                 .ForMember(userVm => userVm.Password,
                     opt => opt.MapFrom(user => user.Password))
                 .ForMember(userVm => userVm.Email,
-                    opt => opt.MapFrom(user => user.Email));
+                    opt => opt.MapFrom(user => user.Email))
+                .ForMember(userVm => userVm.ImgUrl,
+                    opt => opt.MapFrom(user => user.ImgUrl));
         }
     }
 }

@@ -10,6 +10,7 @@ namespace Backend.Application.Models.Users.Queries.GetUserDetails
         public string? Email { get; set; }
         public string? Password { get; set; }
         public string? Name { get; set; }
+        public string ImgUrl { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -21,7 +22,9 @@ namespace Backend.Application.Models.Users.Queries.GetUserDetails
                 .ForMember(clientVm => clientVm.Password,
                     opt => opt.MapFrom(client => client.Password))
                 .ForMember(clientVm => clientVm.Email,
-                    opt => opt.MapFrom(client => client.Email));
+                    opt => opt.MapFrom(client => client.Email))
+                .ForMember(clientVm => clientVm.ImgUrl,
+                    opt => opt.MapFrom(client => client.ImgUrl));
         }
     }
 }

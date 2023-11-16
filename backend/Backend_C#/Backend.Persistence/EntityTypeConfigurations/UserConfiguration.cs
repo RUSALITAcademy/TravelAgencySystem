@@ -14,6 +14,16 @@ namespace Backend.Persistence.EntityTypeConfigurations
             entity.HasMany(user => user.Orders)
              .WithOne(order => order.User)
              .HasForeignKey(order => order.UserId);
+
+            entity.HasOne(user => user.Passport)
+              .WithOne(passport => passport.User)
+              .HasForeignKey<Passport>(passport => passport.UserId);
+
+            // Связь с InternationalPassport (один к одному)
+            entity.HasOne(user => user.InternationalPassport)
+                  .WithOne(passport => passport.User)
+                  .HasForeignKey<InternationalPassport>(passport => passport.UserId);
+
         }
     }
 }

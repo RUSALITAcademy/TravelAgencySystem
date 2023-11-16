@@ -6,8 +6,10 @@
         public string? Name { get; set; }
         public string? Email { get; set; }
         public string? Password { get; set; }
-        //что-то про паспорт вопрос у Никиты возник
+        public string? ImgUrl { get; set; }
 
+        public Passport Passport { get; set; }
+        public InternationalPassport InternationalPassport { get; set; }
 
         public List<Order>? Orders { get; set; } // Связь с Order, один ко многим
     }

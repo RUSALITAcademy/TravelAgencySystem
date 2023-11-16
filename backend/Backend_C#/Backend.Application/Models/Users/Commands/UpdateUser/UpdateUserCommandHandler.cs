@@ -27,6 +27,7 @@ namespace Backend.Application.Models.Users.Commands.UpdateUser
             entity.Name = request.Name;
             entity.Password = request.Password;
             entity.Email = request.Email;
+            entity.ImgUrl = request.ImgUrl;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
         }

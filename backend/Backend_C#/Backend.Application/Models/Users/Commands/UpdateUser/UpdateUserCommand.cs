@@ -9,5 +9,6 @@ namespace Backend.Application.Models.Users.Commands.UpdateUser
         public string? Email { get; set; }
         public string? Password { get; set; }
         public string? Name { get; set; }
+        public string ImgUrl { get; set; }
     }
 }
