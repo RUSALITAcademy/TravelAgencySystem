@@ -1,0 +1,92 @@
+nav {
+    background-color: #E94057;
+    padding: 15px;
+}
+
+.navbar {
+    position: sticky;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar__item {
+    display: flex;
+    align-items: center;
+}
+
+.navbar__item__text {
+    color: #FFF;
+    font-size: 18px;
+    letter-spacing: 1px;
+    margin-left: 8px;
+}
+
+.navbar__item button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.navbar__item__svg {
+    color: #FFF;
+    margin-right: 5px;
+}
+
+.profile__menu {
+
+    background-color: #E94057;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    top: 50px;
+    right: -300px;
+    height: 25%;
+    width: 12%;
+    transition: right 0.75s ease-in-out;
+
+    ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            //Поиграйся со скоростью, мне зашло как 0.5 так и без анимации
+            transition: transform 0.5s ease;
+
+            &:hover {
+                transform: scale(1.05);
+            }
+        }
+    }
+}
+
+
+.nav-menu-button {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    background-color: #E94057;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.nav-login-button {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    background-color: #ce142dae !important;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 15px;
+
+    &:hover {
+        background-color: #ce142d !important;
+    }
+}

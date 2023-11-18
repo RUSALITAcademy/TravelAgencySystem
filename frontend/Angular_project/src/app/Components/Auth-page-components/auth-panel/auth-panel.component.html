@@ -1,0 +1,53 @@
+<div class="position">
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form action="#">
+                <h1>Создать аккаунт</h1>
+                <div class="social-container">
+                    <!--! реализовать кнопки для авторизации по соц сетям(перспектива, пока заглушки)  -->
+                    <a href="#" class="social"><i class="fab fa-vk"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                </div>
+                <span>или используй email для регистрации</span>
+                <input type="text" placeholder="Name" />
+                <input type="email" placeholder="Email" />
+                <input type="password" placeholder="Password" />
+                <!--! Реализовать логику регистрации  -->
+                <button (click)="SignUp()">Зарегистрироваться</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form action="#">
+                <h1>Войти</h1>
+                <div class="social-container">
+                    <!--! реализовать кнопки для авторизации по соц сетям(перспектива, пока заглушки)  -->
+                    <a href="#" class="social"><i class="fab fa-vk"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                </div>
+                <span>или используй свой аккаунт</span>
+                <input type="text" placeholder="Email" />
+                <input type="password" placeholder="Password" />
+                <!--! Реализовать востановление пороля  -->
+                <a href="#">Забыл пароль?</a>
+                <!--! Реализовать логику входа  -->
+                <button (click)="SignIn()">Войти</button>
+            </form>
+        </div>
+
+        <!-- Доп блоки для перехода на нужную функцию  -->
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>С возвращением!</h1>
+                    <p>Чтобы поддерживать с нами связь, пожалуйста, войдите в систему, указав свои личные данные</p>
+                    <button class="ghost" id="signIn">Войти</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Привет, друг!</h1>
+                    <p>Введите свои личные данные и начните путешествие вместе с нами</p>
+                    <button class="ghost" id="signUp">Зарегистрироваться</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
