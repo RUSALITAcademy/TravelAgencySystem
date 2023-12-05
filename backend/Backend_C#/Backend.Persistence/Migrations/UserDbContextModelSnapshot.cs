@@ -36,15 +36,17 @@ namespace Backend.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Number")
-                        .HasColumnType("integer");
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Patronymic")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Series")
-                        .HasColumnType("integer");
+                    b.Property<string>("Series")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
@@ -99,15 +101,17 @@ namespace Backend.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Number")
-                        .HasColumnType("integer");
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Patronymic")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Series")
-                        .HasColumnType("integer");
+                    b.Property<string>("Series")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");

@@ -14,6 +14,10 @@ namespace Backend.Application.Models.Orders.Queries.GetOrderDetails
         private readonly IOrderDbContext _dbContext;
         private readonly IMapper _mapper;
 
+        public GetOrderDetailsQueryHandler(IOrderDbContext dbContext,
+                IMapper mapper) =>
+                (_dbContext, _mapper) = (dbContext, mapper);
+
         public async Task<OrderDetailsVm> Handle(GetOrderDetailsQuery request,
             CancellationToken cancellationToken)
         {

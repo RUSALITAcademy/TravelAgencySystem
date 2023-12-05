@@ -13,6 +13,10 @@ namespace Backend.Application.Models.Users.Queries.GetUserDetails
         private readonly IUserDbContext _dbContext;
         private readonly IMapper _mapper;
 
+        public GetUserDetailsQueryHandler(IUserDbContext dbContext,
+                IMapper mapper) =>
+                (_dbContext, _mapper) = (dbContext, mapper);
+
         public async Task<UserDetailsVm> Handle(GetUserDetailsQuery request,
             CancellationToken cancellationToken)
         {

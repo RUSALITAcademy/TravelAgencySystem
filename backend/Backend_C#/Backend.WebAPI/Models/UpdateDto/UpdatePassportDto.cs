@@ -7,8 +7,8 @@ namespace Backend.WebAPI.Models.UpdateDto
 {
     public class UpdatePassportDto : IMapWith<UpdatePassportCommand>
     {
-        public int Series { get; set; }
-        public int Number { get; set; }
+        public string Series { get; set; }
+        public string Number { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Patronymic { get; set; }

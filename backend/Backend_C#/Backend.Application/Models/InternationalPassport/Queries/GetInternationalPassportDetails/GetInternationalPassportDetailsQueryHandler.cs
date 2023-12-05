@@ -17,6 +17,10 @@ namespace Backend.Application.Models.InternationalPassport.Queries.GetInternatio
         private readonly IInternationalPassportDbContext _dbContext;
         private readonly IMapper _mapper;
 
+        public GetInternationalPassportDetailsQueryHandler(IInternationalPassportDbContext dbContext,
+                IMapper mapper) =>
+                (_dbContext, _mapper) = (dbContext, mapper);
+
         public async Task<InternationalPassportDetailsVm> Handle(GetInternationalPassportDetailsQuery request,
             CancellationToken cancellationToken)
         {

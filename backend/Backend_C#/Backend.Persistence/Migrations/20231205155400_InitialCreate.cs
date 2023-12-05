@@ -51,8 +51,8 @@ namespace Backend.Persistence.Migrations
                 columns: table => new
                 {
                     InternationalPassportId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Series = table.Column<int>(type: "integer", nullable: false),
-                    Number = table.Column<int>(type: "integer", nullable: false),
+                    Series = table.Column<string>(type: "text", nullable: false),
+                    Number = table.Column<string>(type: "text", nullable: false),
                     FirstName = table.Column<string>(type: "text", nullable: false),
                     LastName = table.Column<string>(type: "text", nullable: false),
                     Patronymic = table.Column<string>(type: "text", nullable: false),
@@ -101,8 +101,8 @@ namespace Backend.Persistence.Migrations
                 columns: table => new
                 {
                     PassportId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Series = table.Column<int>(type: "integer", nullable: false),
-                    Number = table.Column<int>(type: "integer", nullable: false),
+                    Series = table.Column<string>(type: "text", nullable: false),
+                    Number = table.Column<string>(type: "text", nullable: false),
                     FirstName = table.Column<string>(type: "text", nullable: false),
                     LastName = table.Column<string>(type: "text", nullable: false),
                     Patronymic = table.Column<string>(type: "text", nullable: false),

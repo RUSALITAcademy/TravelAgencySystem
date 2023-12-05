@@ -11,6 +11,10 @@ namespace Backend.Application.Models.Passport.Queries.GetPassportDetails
         private readonly IPassportDbContext _dbContext;
         private readonly IMapper _mapper;
 
+        public GetPassportDetailsQueryHandler(IPassportDbContext dbContext,
+                IMapper mapper) =>
+                (_dbContext, _mapper) = (dbContext, mapper);
+
         public async Task<PassportDetailsVm> Handle(GetPassportDetailsQuery request,
             CancellationToken cancellationToken)
         {

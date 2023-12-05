@@ -19,6 +19,10 @@ namespace Backend.Application.Models.Tours.Queries.GetTourDetails
         private readonly ITourDbContext _dbContext;
         private readonly IMapper _mapper;
 
+        public GetTourDetailsQueryHandler(ITourDbContext dbContext,
+                IMapper mapper) =>
+                (_dbContext, _mapper) = (dbContext, mapper);
+
         public async Task<TourDetailsVm> Handle(GetTourDetailsQuery request,
             CancellationToken cancellationToken)
         {

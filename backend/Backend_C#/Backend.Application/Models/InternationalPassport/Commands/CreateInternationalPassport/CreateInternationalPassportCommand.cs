@@ -10,8 +10,8 @@ namespace Backend.Application.Models.InternationalPassport.Commands.CreateIntern
 {
     public class CreateInternationalPassportCommand : IRequest<Guid>
     {
-        public int Series { get; set; }
-        public int Number { get; set; }
+        public string Series { get; set; }
+        public string Number { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Patronymic { get; set; }
