@@ -12,6 +12,7 @@ import { AuthPageComponent } from './Pages/Auth-page/auth-page.component';
 import { PaymentPageComponent } from './Pages/Payment-page/payment-page.component';
 import { UserAccountPageComponent } from './Pages/User-account-page/user-account-page.component';
 import { TourPageComponent } from './Pages/Tour-page/tour-page.component';
+import { TourMainComponent } from './Components/Tour-page-components/tour-main/tour-main.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { TourPageComponent } from './Pages/Tour-page/tour-page.component';
     UserAccountPageComponent,
     TourPageComponent,
     NavbarComponent,
+    TourMainComponent,
     //Страницы
 
 
