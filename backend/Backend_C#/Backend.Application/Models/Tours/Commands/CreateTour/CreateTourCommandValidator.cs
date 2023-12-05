@@ -13,13 +13,13 @@ namespace Backend.Application.Models.Tours.Commands.CreateTour
         public CreateTourCommandValidator()
         {
             RuleFor(createTourCommand =>
-                createTourCommand.Name).NotEmpty().MaximumLength(35);
+                createTourCommand.Name).NotEmpty().MaximumLength(60);
             RuleFor(createTourCommand =>
-                createTourCommand.Description).NotEmpty().MaximumLength(255);
+                createTourCommand.Description).NotEmpty().MaximumLength(3200);
             RuleFor(createTourCommand =>
                 createTourCommand.Country).NotEmpty().MaximumLength(25);
             RuleFor(createTourCommand =>
-                createTourCommand.Region).MaximumLength(25);
+                createTourCommand.Region).MaximumLength(60);
             RuleFor(createTourCommand =>
                 createTourCommand.StartDate).NotEmpty().GreaterThan(DateTime.Today);
             RuleFor(createTourCommand =>
