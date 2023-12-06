@@ -12,7 +12,8 @@ namespace Backend.Application.Models.Tours.Commands.CreateTour
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int Quantity { get; set; }
-        public string ImgUrl { get; set; }
+        //public string ImgUrl { get; set; }
+        public string[] ImgUrl { get; set; }
         public double Price { get; set; }
     }
 }

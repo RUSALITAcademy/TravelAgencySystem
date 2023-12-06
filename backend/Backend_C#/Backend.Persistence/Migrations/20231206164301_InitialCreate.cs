@@ -24,7 +24,7 @@ namespace Backend.Persistence.Migrations
                     EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Price = table.Column<double>(type: "double precision", nullable: false),
                     Quantity = table.Column<int>(type: "integer", nullable: false),
-                    ImgUrl = table.Column<string>(type: "text", nullable: false)
+                    ImgUrl = table.Column<string[]>(type: "text[]", nullable: false)
                 },
                 constraints: table =>
                 {

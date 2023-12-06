@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Persistence.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20231205155400_InitialCreate")]
+    [Migration("20231206164301_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -144,9 +144,9 @@ namespace Backend.Persistence.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("ImgUrl")
+                    b.Property<string[]>("ImgUrl")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text[]");
 
                     b.Property<string>("Name")
                         .IsRequired()
