@@ -1,72 +1,202 @@
 @import url(https://fonts.googleapis.com/css?family=Arimo:400,400italic|Playfair+Display+SC:400,700&subset=latin,cyrillic);
-* {
-    box-sizing: border-box;
+
+hr{
+    border: none; /* Убираем границу */
+    background-color: red; /* Цвет линии */
+    color: red; /* Цвет линии для IE6-7 */
+    height: 3px; /* Толщина линии */
+}
+.container {
+    width: 100%;
 }
 
-.container {
-    max-width: 1240px;
+.tour-top {
+    position: relative;
+    height: 600px; /* или любая другая высота, которую вы хотите использовать */
+    background-size: cover;
+    background-position: center;
+    color: #fff; /* Цвет текста на изображении */
+}
+
+.content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.tour-title {
+    text-transform: uppercase; /* Преобразование текста в верхний регистр */
+    font-size: 60px; /* Измените размер шрифта по своему усмотрению */
+    margin-bottom: 28px;
+}
+.tour-info{
+    font-size: 24px; 
+}
+
+/* Затемнение фона с помощью псевдоэлемента */
+.tour-top::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(11, 8, 11, 0.681); /* Прозрачность затемнения */
+}
+
+.tour-description-main {
+    background-color: #fff; /* Цвет фона блока с описанием */
+    margin: 16px 0; /* Расстояние от блока с описанием до соседних элементов */
+    padding: 24px; /* Внутренний отступ блока с описанием */
+    text-align: center;
+    position: relative;
+    box-sizing: border-box;
     width: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25); /* Тень для подчеркивания блока */
+}
+
+.description-content {
+    max-width: 60%; /* Максимальная ширина блока с описанием */
+    margin: 0 auto; /* Центрирование блока с описанием */
+}
+.description-content p{
+    font-size: 22px;
+    text-align: center;
+    padding: 24px 60px;
+    line-height: 28px;
+}
+
+/*Карусель изображений*/
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    background: #761257; /* Цвет фона карусели */
+}
+
+.carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    margin: 0 -5px; /* Добавляем небольшой отрицательный отступ для четких линий */
+}
+
+.slide {
+    flex: 0 0 33.33%;
+    box-sizing: border-box;
+    margin: 0 5px; /* Добавляем небольшой положительный отступ для четких линий */
+}
+
+.slide img {
+    width: 126%;
+    height: 100%; /* Добавляем 100% высоту, чтобы сохранить соотношение сторон */
+    object-fit: cover; /* Обеспечиваем, чтобы изображение полностью заполняло контейнер */
+    clip-path: polygon(20% 0, 100% 0, 80% 100%, 0 100%); /* Обрезаем изображение в форме параллелограмма */
+    border-right: 1px solid #ff0000; /* Добавляем белую границу справа для разделения изображений */
+    z-index: 1; /* Помещаем изображение под тенью */
+}
+.carousel:first-child {
+    transform: translateX(-160px); /* Применяем отрицательный сдвиг для первого изображения */
+}
+
+.slide:last-child img {
+    border-right: none; /* Убираем границу справа для последнего изображения */
+}
+.slide::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 3; /* Поднимаем над изображением */
+    box-shadow: 0 0 0 10px #ff0000; /* Тень, имитирующая границу */
+    clip-path: polygon(20% 0, 100% 0, 80% 100%, 0 100%);
+}
+
+.prev-button,
+.next-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: white;
+    outline: none;
+}
+
+.prev-button {
+    left: 0;
+}
+
+.next-button {
+    right: 0;
+}
+
+/*Подробное описание*/
+.tour-description-detailed{
+    background-color: #fff; /* Цвет фона блока с описанием */
+    margin: 16px 0; /* Расстояние от блока с описанием до соседних элементов */
+    padding: 24px; /* Внутренний отступ блока с описанием */
+    text-align: center;
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+}
+.description-detailed-content{
+    max-width: 60%; /* Максимальная ширина блока с описанием */
+    margin: 0 auto; /* Центрирование блока с описанием */
+}
+.description-detailed-content p{
+    font-size: 22px;
+    color: #929292;
+    text-align: left;
+    padding: 12px 60px;
+    line-height: 24px;
+}
+.description-detailed-content pre{
+    white-space: pre-wrap;
+    width: 100%; /* Задайте необходимую ширину */
+}
+
+/*Блок для оформления заказа*/
+.tour-order {
+    background-color: #fff; /* Цвет фона блока заказа */
+    margin: 16px 0;
+    padding: 24px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25); /* Тень для подчеркивания блока */
+}
+
+.order-container {
+    display: flex;
+    align-items: center;
+    max-width: 60%;
     margin: 0 auto;
 }
-.wrapper{
-    display: grid;
-    grid-template-columns: 600px 640px;
-    grid-gap: 40px;
-    padding-top: 24px;
-    padding-bottom: 24px
+
+.order-image {
+    flex: 0 0 30%; /* Ширина блока с изображением */
 }
 
-.tour-top{
-    display: flex;
-    margin-top: 16px;
-    -webkit-box-align: start;
-    -ms-flex-align: start;
-    align-items: flex-start;
-    position: relative;
-    border-radius: 4px;
-    margin-bottom: 48px;
-    flex-wrap: wrap;
-    border:#E94057 2px solid;
-}
-
-.tour-galery{
-    height: 120px;
-    max-height: 120px;
-    padding: 12px;
-}
-// .tour-galery-slider{
-
-// }
-.slide{
-    display: block;
+.order-image img {
     width: 100%;
-    height: 100%;
-    -o-object-fit: cover;
-    object-fit: cover;
-    color: #fff;
-    padding: 12px;
+    height: auto;
 }
 
-.tour-details{
-    padding: 8px;
+.order-info {
+    flex: 0 0 60%; /* Ширина блока с информацией */
+    padding-left: 20px; /* Добавляем отступ между изображением и текстом */
 }
 
-.tour-details-description{
-    padding-top: 8px;
-    width: 520px;
-    height: 68px;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical
+.tour-title {
+    font-size: 24px;
+    margin-bottom: 8px;
 }
-.tour-details h2{
-    width: 400px;
-    font-size:x-large;
-    font-family: 'Tenor Sans', sans-serif;
-    letter-spacing: 1px;
 
-}
-.tour-details span{
-    color:rgb(142, 135, 136);
+.tour-location {
+    font-size: 18px;
+    color: #666;
 }

@@ -1,27 +1,75 @@
+
+
 <div class="container">
-    <section class="tour-top">
-        <div class="wrapper">
-            <div class="wrapper-col-1">
-                <div class="tour-gallery">
-                    <div class="tour-gallery-slider">
-                        <img class="slide" alt="image" src="https://static.irk.ru/media/img/site/gallery/30634/1a26a6e5-54c7-49e5-afa6-5e3f1f650416_jpg_730x1000_x-False_q85.jpg"/>
-                    </div>
-                </div>
+    <div class="tour-top" [style.backgroundImage]="'url(' + tourImageUrl + ')'" [ngStyle]="{'background-color': overlayColor}">
+        <div class="content">
+            <h1 class="tour-title">{{ tourTitle | uppercase }}</h1>
+            <span class="tour-info"><i class="fa-solid fa-location-dot"></i> Турция, Назарово</span>
+        </div>
+    </div>
+    <div class="tour-description-main">
+        <div class="description-content">
+            <hr>
+                <p>Labranda Club Makadi находится в районе Макади Бэй, входит в сеть отелей Labranda. Отель имеет 339 номеров, состоит из 2-этажного здания и 3-этажных 8 зданий. Отель построен в 2000 году, последняя реновация в 2016 году. Общая площадь: 80 000 кв.м. До центра района Макади - 1,4 км, до центра города Хургада – 39,4 км. До Международного аэропорта Хургада (Hurghada International Airport) - 33 км.
+                </p>
+            <hr>
+        </div>
+    </div>
+    <div class="tour-carousel">
+        <div class="carousel-container">
+            <div class="carousel">
+              <div class="slide" *ngFor="let image of images">
+                <img [src]="image" alt="Tour Image">
+              </div>
             </div>
-            <div class="wrapper-col-2">
-                <div class="tour-details">
-                    <!-- Связать с полем Name -->
-                    <h2>Жемчужина by the Sea бутик-отель</h2>
-                    <!-- Связать с полем Country и Region(Регион это получается город будет, на бэке перепишу) -->
-                    <div>
-                        <span><i class="fa-solid fa-location-dot"></i> Турция, Назарово</span>
-                    </div>
-                    <!-- Связать с полем Description -->
-                    <div class="tour-details-description">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Praesentium delectus sunt commodi deserunt tempore dolorum necessitatibus molestias? Architecto impedit est veritatis illum voluptate hic labore inventore nisi animi, temporibus a, ad doloremque natus quas nulla iste, alias in tempora sequi maiores corrupti! Magnam, id consectetur ex rem saepe excepturi magni.
-                    </div>
+            <button class="prev-button" (click)="prevSlide()" [disabled]="currentIndex === 0">❮</button>
+            <button class="next-button" (click)="nextSlide()" [disabled]="currentIndex === totalImages - 1">❯</button>
+        </div> 
+    </div>
+    <div class="tour-order">
+        <div class="tour-order-content">
+            <div class="order-container">
+                <div class="order-image">
+                    <img [src]="tourImageUrl" alt="Tour Image">
+                </div>
+                <div class="order-info">
+                    <h2 class="tour-title">{{ tourTitle | uppercase }}</h2>
+                    <p class="tour-location"><i class="fa-solid fa-location-dot"></i> Турция, Назарово</p>
+                    <!-- Добавьте другие детали тура, такие как цена и оставшееся количество -->
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+    
+    <div class="tour-description-detailed">
+        <div class="description-detailed-content">
+            <hr>
+                <pre><p>Отель находится на первой береговой линии, в 100 м расположен собственный, песчаный пляж (длина 182 метра). Зонтики, шезлонги, матрасы и пляжные полотенца – бесплатно. Бар на пляже работает с 11:00-02:00, за дополнительную плату.
+
+На территории отеля работают рестораны:
+- Главный ресторан Otantik (07:00-10:30, 12:30-15:00, 18:30-21:30).
+- Ресторан на пляже Blue Sky (06:30-10:00, 12:00-14:30, 18:30-21:30).
+- Аля карт ресторан арабской кухни Tagine 19:00-21:30.
+- Аля карт ресторан азиатской кухни Red Dragon 19:00-21:30.
+- Аля карт ресторан греческой кухни Taverna Syrtaki 19:00-21:30.
+- Аля карт ресторан итальянской кухни La Mama 19:00-21:30.
+- Аля карт ресторан индийской кухни Taj Mahal 19:00-21:30.
+- Аля карт ресторан Sea Treasure (морепродукты), 18:00-21:30, платно.
+- Аля карт ресторан восточной кухни Cafe Cairo 19:00-23:00.
+- Аля карт ресторан Shawerma World (шаверма) 19:00-21:30.
+Расписание работы ресторанов:
+Завтрак и обед "шведский стол" в ресторане на пляже Blue Sky 07:00-10:00 и 12:30-15:00, ужин "шведский стол" в ресторане Otanik 19:00-21:30.
+Кафе Gelateria (мороженое), 15:00-23:00, платно.
+Бар:
+Лобби бар 10:00-00:00.
+Бар у бассейна Coco 10:00 до заката солнца.
+Бар Texas Burger (гамбургеры) 19:00-21:30.
+Суши-бар Banzai, 19:00-21:30.
+Лаундж и бар Coral Beach 18:00-21:30, платно.
+Пляжный клуб Coco Loco 10:00-02:00, платно.
+Снэк-бар Eat & Go.
+Посещение ресторанов a`la carte бесплатно 2 раза (при пребывании 7-10 ночей), 3 раза (при пребывании 14 ночей).</p></pre>
+            <hr>
+        </div>
+    </div>            
 </div>
