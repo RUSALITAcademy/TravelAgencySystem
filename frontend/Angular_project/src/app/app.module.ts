@@ -23,6 +23,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 
+import { TourMainComponent } from './Components/Tour-page-components/tour-main/tour-main.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { MatButtonModule } from '@angular/material/button';
     TourPageComponent,
     NavbarComponent,
     ToursTableComponent,
+    TourMainComponent,
     //Страницы
 
 
