@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { map, distinct } from 'rxjs/operators';
+import { FormBuilder } from '@angular/forms';
 import { ITour } from 'src/app/Models/tour.model';
+import { TourService } from 'src/app/Services/tour.service';
 
 @Component({
   selector: 'app-tours-table',
@@ -12,7 +12,7 @@ import { ITour } from 'src/app/Models/tour.model';
 export class ToursTableComponent implements OnInit {
   //сделать контролы и отслеживание на изминение
   departureLocation = this.fb.control<string>('');
-  destinationLocation= this.fb.control<string>('');
+  destinationLocation = this.fb.control<string>('');
   departureDate: Date | null = null;
   returnDate: Date | null = null;
   showReturnDate: boolean = true;
@@ -20,45 +20,46 @@ export class ToursTableComponent implements OnInit {
   passengerCount: number = 0;
 
   tours: ITour[] = [];
-  imageUrl = 'https://thailand-good.ru/wp-content/uploads/a/f/e/afe71d653e8f8bd0f4eb10082eacc797.jpeg';
 
 
   departureLocations: string[] = ['Москва', 'Сочи', 'Красноярск', 'Санкт-Петербург', 'Новосибирск',];
-  destinationLocations : string[] = ['Осло', 'Мадрид', 'Лондон', 'Париж', 'Маями',];
+  destinationLocations: string[] = ['Осло', 'Мадрид', 'Лондон', 'Париж', 'Маями',];
 
 
-  
+
   search() {
     this.toursIsVisiable = true;
     // Реализация поиска с использованием выбранных значений фильтров
+
+    this.tourService.GetAllTours().subscribe((tours: any) => {
+      this.tours = tours['tours'];
+      this.tours = this.tours.filter((tour: any) => {
+
+        const tourStartDate = this.departureDate ? formatDate(this.departureDate) : null;
+        const tourEndDate = this.returnDate ? formatDate(this.returnDate) : null;
+        // Фильтрация по startDate и endDate и destinationLocation
+        const filtered =
+          (!tourStartDate || (formatDate(new Date(tour.startDate)) >= tourStartDate)) &&
+          (!tourEndDate || (formatDate(new Date(tour.endDate)) <= tourEndDate)) &&
+          (!this.destinationLocation.value || (tour.region == this.destinationLocation.value));
+
+        return filtered;
+      });
+    });
   }
 
   constructor(private http: HttpClient,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private tourService: TourService) { }
 
   ngOnInit() {
-
-    //! тест
-    const newTour: ITour = {
-      id: "id",
-      name : "Париж",
-      description: "Прекрасный тур в самую романтическую страну на свете, отведайте вкуснейших багетов и круасанов",
-      country: "Франция",
-      region: "Центр Парижа",
-      startDate: new Date("2023-12-30"),
-      endDate: new Date("2024-01-03"),
-      price: 500000,
-      quantity: 10,
-      ImgUrl: this.imageUrl,
-  };
-    this.tours.push(newTour);
 
     this.toursIsVisiable = false;
 
     this.departureLocation.valueChanges.subscribe(() => {
       console.log(this.departureLocation.value)
       if (this.departureLocation.value !== null) {
-        
+
         this.getCities({ name: this.departureLocation.value.toLocaleLowerCase() })
           .subscribe((response) => {
             this.departureLocations = [];
@@ -66,7 +67,7 @@ export class ToursTableComponent implements OnInit {
             this.departureLocations = response.geonames.filter((city: City, index: number, self: Array<City>) =>
               index === self.findIndex((c) => c.name === city.name)
             )
-            .map((city: City) => city.name);
+              .map((city: City) => city.name);
           });
       }
     });
@@ -74,7 +75,7 @@ export class ToursTableComponent implements OnInit {
     this.destinationLocation.valueChanges.subscribe(() => {
       console.log(this.destinationLocation.value)
       if (this.destinationLocation.value !== null) {
-        
+
         this.getCities({ name: this.destinationLocation.value.toLocaleLowerCase() })
           .subscribe((response) => {
             this.destinationLocations = [];
@@ -82,13 +83,13 @@ export class ToursTableComponent implements OnInit {
             this.destinationLocations = response.geonames.filter((city: City, index: number, self: Array<City>) =>
               index === self.findIndex((c) => c.name === city.name)
             )
-            .map((city: City) => city.name);
+              .map((city: City) => city.name);
           });
       }
     });
   }
 
-  
+
 
   getCities(options: { name: string }) {
     const apiUrl = `http://api.geonames.org/searchJSON?username=itproject&featureClass=P&maxRows=5&lang=ru&style=short&name_startsWith=${options.name}`;
@@ -96,6 +97,18 @@ export class ToursTableComponent implements OnInit {
   }
 
 
+
+}
+function formatDate(date: Date | null): string {
+  if (date instanceof Date) {
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+
+    return `${day}.${month}.${year}`;
+  }
+
+  return ''; // или какое-то другое значение по умолчанию, в зависимости от ваших требований
 }
 
 interface City {
