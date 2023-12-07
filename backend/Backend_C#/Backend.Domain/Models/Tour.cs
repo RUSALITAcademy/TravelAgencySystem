@@ -17,7 +17,8 @@ namespace Backend.Domain.Models
         public DateTime EndDate { get; set; }
         public double Price { get; set; }
         public int Quantity { get; set; }
-        public string ImgUrl { get; set; }
+        //public string ImgUrl { get; set; }
+        public string[] ImgUrl { get; set; }
         
         public List<Order>? Orders { get; set; }
     }
