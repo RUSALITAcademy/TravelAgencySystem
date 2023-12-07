@@ -14,6 +14,7 @@ import { AuthPageComponent } from './Pages/Auth-page/auth-page.component';
 import { PaymentPageComponent } from './Pages/Payment-page/payment-page.component';
 import { UserAccountPageComponent } from './Pages/User-account-page/user-account-page.component';
 import { TourPageComponent } from './Pages/Tour-page/tour-page.component';
+<<<<<<< HEAD
 import { ToursTableComponent } from './Components/Main-page-components/tours-table/tours-table.component';
 
 import { MatInputModule } from '@angular/material/input';
@@ -23,6 +24,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 
+=======
+import { TourMainComponent } from './Components/Tour-page-components/tour-main/tour-main.component';
+>>>>>>> front_nikita
 
 @NgModule({
   declarations: [
@@ -35,7 +39,11 @@ import { MatButtonModule } from '@angular/material/button';
     UserAccountPageComponent,
     TourPageComponent,
     NavbarComponent,
+<<<<<<< HEAD
     ToursTableComponent,
+=======
+    TourMainComponent,
+>>>>>>> front_nikita
     //Страницы
 
 
