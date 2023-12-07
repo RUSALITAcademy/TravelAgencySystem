@@ -1,13 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-tour-main',
   templateUrl: './tour-main.component.html',
   styleUrls: ['./tour-main.component.scss']
+  
 })
-export class TourMainComponent {
+export class TourMainComponent implements OnInit {
+  tourId: string = "";
   tourImageUrl: string = 'https://anapacity.com/content/images/kavkazskie-gory-05.jpg';
   tourTitle: string = 'Grand Waterworld Makadi';
+  tourStartDate: string = '01.01.2024';
+  tourEndDate: string = '10.01.2024';
+  tourPrice: number = 150000;
+  quantity: number = 123;
   overlayColor: string = 'rgba(0, 0, 0, 0.5)'; // Прозрачность затемнения
   images: string[] = ['https://www.ladya-kmv.ru/upload/medialibrary/5b6/5b641bfdaf9a9ce326272bc2655d2580.jpg',
   'https://edge.travelatacdn.ru/thumbs/940x705/upload/2021_22/content_hotel_60b8cb13a98796.36051676.jpeg',
@@ -25,8 +32,11 @@ export class TourMainComponent {
   currentIndex: number = 0;
   totalImages: number;
 
-  constructor() {
+  constructor(private route: ActivatedRoute,) {
     this.totalImages = this.images.length;
+  }
+  ngOnInit(): void {
+    this.route.params.subscribe(params => this.tourId = String(params['id']))
   }
 
   prevSlide() {

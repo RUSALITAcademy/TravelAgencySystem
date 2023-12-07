@@ -2,7 +2,8 @@
 
 hr{
     border: none; /* Убираем границу */
-    background-color: red; /* Цвет линии */
+    background: -webkit-linear-gradient(to right, #8A2387, #E94057, #F27121);
+    background: linear-gradient(to right, #8A2387, #E94057, #F27121);
     color: red; /* Цвет линии для IE6-7 */
     height: 3px; /* Толщина линии */
 }
@@ -73,7 +74,8 @@ hr{
     position: relative;
     overflow: hidden;
     width: 100%;
-    background: #761257; /* Цвет фона карусели */
+    background: -webkit-linear-gradient(to right, #8A2387, #E94057, #F27121);
+    background: linear-gradient(to right, #8A2387, #E94057, #F27121);
 }
 
 .carousel {
@@ -164,39 +166,91 @@ hr{
 
 /*Блок для оформления заказа*/
 .tour-order {
-    background-color: #fff; /* Цвет фона блока заказа */
-    margin: 16px 0;
+    background: -webkit-linear-gradient(to right, #8A2387, #E94057, #F27121);
+    background: linear-gradient(to right, #8A2387, #E94057, #F27121);
+    color: #fff; /* Белый цвет текста для контраста с фоном */
+    margin-top: 24px;
     padding: 24px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.25); /* Тень для подчеркивания блока */
-}
-
-.order-container {
-    display: flex;
     align-items: center;
-    max-width: 60%;
-    margin: 0 auto;
+    width: 97.21%;
 }
 
-.order-image {
-    flex: 0 0 30%; /* Ширина блока с изображением */
-}
-
-.order-image img {
-    width: 100%;
-    height: auto;
+.tour-order-content {
+    max-width: 70%; /* Adjust the maximum width as needed */
+    margin: 0 auto; /* Center the content */
+    display: flex;
+    justify-content: space-between; /* Distribute space between the left and right containers */
 }
 
 .order-info {
-    flex: 0 0 60%; /* Ширина блока с информацией */
-    padding-left: 20px; /* Добавляем отступ между изображением и текстом */
+    flex: 1;
+    display: flex;
 }
 
-.tour-title {
+.left-info {
+    max-width: 82%;
+    flex: 1;
+    margin: 0;
+}
+
+.right-info {
+    max-width: 18%; /* Adjust the width of the right container as needed */
+}
+
+.additional-info {
+    text-align: right; /* Выравниваем текст справа */
+}
+
+.order-title {
+    text-transform: uppercase; /* Преобразование текста в верхний регистр */
+    font-size: 32px; /* Измените размер шрифта по своему усмотрению */
+    margin-bottom: 8px; /* Установите желаемый отступ между order-title и tour-location--smile */
+}
+
+.tour-location--smile {
+    font-size: 16px;
+    margin-top: 0; /* Сброс верхнего отступа для более компактного отображения */
+}
+
+.tour-price-button {
+    background-color: #fff;
+    color: #F27121;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    padding: 10px 20px;
     font-size: 24px;
-    margin-bottom: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    margin-left: 10px; /* Add some margin to separate the button from the title */
 }
 
-.tour-location {
+.tour-price-button:hover {
+    background-color: #da348c;
+    color: #fff;
+}
+.title-button{
+    font-size: 36px;
+}
+
+.additional-info-container {
+    display: flex;
+    justify-content: flex-end; /* Align items to the right */
+    text-align: right;
+    flex-wrap: wrap;
+}
+.order-container{
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.tour-quantity{
     font-size: 18px;
-    color: #666;
+}
+
+.tour-start{
+    font-size: 18px;
+}
+.tour-end{
+    font-size: 18px;
 }
