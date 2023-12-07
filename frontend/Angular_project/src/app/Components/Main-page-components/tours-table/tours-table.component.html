@@ -9,12 +9,9 @@
 
         <mat-form-field>
             <mat-label>Откуда</mat-label>
-            <input matInput
-                   [formControl]="departureLocation"
-                   [matAutocomplete]="autodeparture">
+            <input matInput [formControl]="departureLocation" [matAutocomplete]="autodeparture">
             <mat-autocomplete #autodeparture="matAutocomplete">
-                <mat-option *ngFor="let location of departureLocations"
-                            [value]="location">
+                <mat-option *ngFor="let location of departureLocations" [value]="location">
                     {{ location }}
                 </mat-option>
             </mat-autocomplete>
@@ -22,12 +19,9 @@
 
         <mat-form-field>
             <mat-label>Куда</mat-label>
-            <input matInput
-                   [formControl]="destinationLocation"
-                   [matAutocomplete]="autodestination">
+            <input matInput [formControl]="destinationLocation" [matAutocomplete]="autodestination">
             <mat-autocomplete #autodestination="matAutocomplete">
-                <mat-option *ngFor="let location of destinationLocations"
-                            [value]="location">
+                <mat-option *ngFor="let location of destinationLocations" [value]="location">
                     {{ location }}
                 </mat-option>
             </mat-autocomplete>
@@ -35,83 +29,46 @@
 
         <mat-form-field>
             <mat-label>Когда</mat-label>
-            <input matInput
-                   readonly=""
-                   [matDatepicker]="picker"
-                   [(ngModel)]="departureDate">
-            <mat-datepicker-toggle matSuffix
-                                   [for]="picker"></mat-datepicker-toggle>
+            <input matInput readonly="" [matDatepicker]="picker" [(ngModel)]="departureDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field *ngIf="departureDate">
             <mat-label>Обратно</mat-label>
-            <input matInput
-                   readonly=""
-                   [matDatepicker]="returnPicker"
-                   [(ngModel)]="returnDate">
-            <mat-datepicker-toggle matSuffix
-                                   [for]="returnPicker"></mat-datepicker-toggle>
+            <input matInput readonly="" [matDatepicker]="returnPicker" [(ngModel)]="returnDate">
+            <mat-datepicker-toggle matSuffix [for]="returnPicker"></mat-datepicker-toggle>
             <mat-datepicker #returnPicker></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field>
             <mat-label>Количество пассажиров</mat-label>
-            <input matInput
-                   type="number"
-                   [(ngModel)]="passengerCount">
+            <input matInput type="number" [(ngModel)]="passengerCount">
         </mat-form-field>
 
-        <button mat-raised-button
-                class="search-button"
-                color="primary"
-                (click)="search()">Поиск</button>
+        <button mat-raised-button class="search-button" color="primary" (click)="search()">Поиск</button>
 
     </span>
 </div>
 
-<div class="tours"
-     *ngIf="toursIsVisiable">
+<div class="tours" *ngIf="toursIsVisiable">
 
     <div *ngFor="let tour of tours">
         <div class="tour-card">
-            <img [src]="tour.ImgUrl"
-                 alt="{{ tour.name }}"
-                 class="tour-image">
+            <img [src]="tour.imgUrl" alt="{{ tour.name }}" class="tour-image">
             <div class="tour-details">
                 <h2>{{ tour.name }}</h2>
                 <p>{{ tour.description }}</p>
                 <p><strong>Страна:</strong> {{ tour.country }}</p>
-                <p *ngIf="tour.region"><strong>Регион:</strong> {{ tour.region }}</p>
+                <p *ngIf="tour.region"><strong>Город:</strong> {{ tour.region }}</p>
                 <p><strong>Дата:</strong> {{ tour.startDate | date }} - {{ tour.endDate | date }}</p>
                 <p><strong>Цена:</strong> {{ tour.price | currency:' ':'symbol':'1.0' }}₽</p>
-                <p><strong>Качество мест: </strong> {{ tour.quantity }}</p>
-                <button mat-raised-button
-                        class="tour-button"
-                        color="link"
-                        (click)="search()">Посмотреть тур</button>
+                <p><strong>Оставшиеся места: </strong> {{ tour.quantity }}</p>
+                <button mat-raised-button class="tour-button" color="link" routerLink="/tour/{{ tour.tourId }}"
+                    queryParamsHandling="merge">Посмотреть
+                    тур</button>
                 <!-- Реализовать качество поездки в следующем симестре -->
             </div>
         </div>
     </div>
-
-    <div class="tour-card">
-        <img [src]="imageUrl"
-             alt="Картинка"
-             class="tour-image">
-        <div class="tour-details">
-            <h2> Гаваи</h2>
-            <p> Прекрасный тур на гаваи, отель всё включено, перелёт еда и ещё куча всего</p>
-            <p><strong>Страна:</strong> Россия</p>
-            <p><strong>Регион:</strong> Красноярский край</p>
-            <p><strong>Дата:</strong> {{ departureDate | date:'dd.MM.yyyy' }} - {{ returnDate | date:'dd.MM.yyyy' }}</p>
-            <p><strong>Цена:</strong> {{ 100000 | currency:' ':'symbol':'1.0' }}₽</p>
-            <p><strong>Качество:</strong> Премиум</p>
-            <button mat-raised-button
-                    class="tour-button"
-                    color="link"
-                    (click)="search()">Посмотреть тур</button>
-        </div>
-    </div>
-
 </div>

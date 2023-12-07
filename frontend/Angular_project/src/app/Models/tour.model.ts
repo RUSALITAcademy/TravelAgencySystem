@@ -1,5 +1,5 @@
 export interface ITour {
-    id: string;
+    tourId: string;
     name: string;
     description: string;
     country: string;
@@ -8,5 +8,5 @@ export interface ITour {
     endDate: Date;
     price: number;
     quantity: number;
-    ImgUrl: string;
+    imgUrl: string;
 }

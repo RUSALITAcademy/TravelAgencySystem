@@ -37,7 +37,7 @@ export class TourService {
 
   ////
   UpdateTour(tour: ITour): Observable<ITour> {
-    const url = `${this.apiUrl}/UpdateTour/${tour.id}`;
+    const url = `${this.apiUrl}/UpdateTour/${tour.tourId}`;
     return this.http.put<ITour>(url, tour);
   }
   ////

@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: "auth", component: AuthPageComponent },
   { path: "account", component: UserAccountPageComponent },
   { path: "main", component: MainPageComponent },
-  { path: "tour", component: TourPageComponent },
+  { path: "tour/:id", component: TourPageComponent },
   { path: "payment", component: PaymentPageComponent },
   { path: "**", redirectTo: 'auth', pathMatch: 'full' },
 ];
