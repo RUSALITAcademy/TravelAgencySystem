@@ -24,40 +24,39 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 
 import { TourMainComponent } from './Components/Tour-page-components/tour-main/tour-main.component';
+import { OrderStepperComponent } from "./Components/Order/order-stepper/order-stepper.component";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AuthPanelComponent,
-    //Страницы
-    MainPageComponent,
-    AuthPageComponent,
-    PaymentPageComponent,
-    UserAccountPageComponent,
-    TourPageComponent,
-    NavbarComponent,
-    ToursTableComponent,
-    TourMainComponent,
-    //Страницы
-
-
-  ],
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    MatInputModule,
-    MatAutocompleteModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        AuthPanelComponent,
+        //Страницы
+        MainPageComponent,
+        AuthPageComponent,
+        PaymentPageComponent,
+        UserAccountPageComponent,
+        TourPageComponent,
+        NavbarComponent,
+        ToursTableComponent,
+        TourMainComponent,
+        //Страницы
+    ],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        MatInputModule,
+        MatAutocompleteModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatFormFieldModule,
+        MatButtonModule,
+        OrderStepperComponent
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

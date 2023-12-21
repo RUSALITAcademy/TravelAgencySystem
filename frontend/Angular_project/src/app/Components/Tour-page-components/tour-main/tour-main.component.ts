@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tour-main',
@@ -32,7 +33,7 @@ export class TourMainComponent implements OnInit {
   currentIndex: number = 0;
   totalImages: number;
 
-  constructor(private route: ActivatedRoute,) {
+  constructor(private route: ActivatedRoute, private router: Router) {
     this.totalImages = this.images.length;
   }
   ngOnInit(): void {
@@ -64,5 +65,8 @@ export class TourMainComponent implements OnInit {
       prevButton.disabled = this.currentIndex === 0;
       nextButton.disabled = this.currentIndex === maxIndex - 2;
     }
+  }
+  redirectToOrderStepper() {
+    this.router.navigate(['payment']);
   }
 }

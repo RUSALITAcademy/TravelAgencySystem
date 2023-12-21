@@ -1,0 +1,53 @@
+.order {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+  
+.container {
+    width: 50%; /* Измените ширину по вашему усмотрению */
+}
+  
+.order_content {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.55); /* Тень для подчеркивания блока */
+}
+.form-row {
+    margin-bottom: 16px;
+}
+  
+.full-width {
+    width: 100%;
+}
+::ng-deep .mat-step-header{
+    background: -webkit-linear-gradient(to right, #8A2387, #E94057, #F27121);
+    background: linear-gradient(to right, #8A2387, #E94057, #F27121);
+}
+::ng-deep .mat-step-icon-state-edit{
+    background-color: #F27121 !important;
+}
+::ng-deep .mat-step-icon-selected {
+    background-color: #F27121 !important;
+    color: white !important;
+}
+::ng-deep .mat-step-icon{
+    background-color: #F27121 !important;
+    color: white !important;
+}
+::ng-deep .mat-stepper-vertical-line::before{
+    border-left-width: 2.5px !important;
+    border-left-color: rgba(0, 0, 0, 0.2) !important;
+}
+::ng-deep .mat-step-label.mat-step-label-active{
+    color: white !important;
+}
+::ng-deep .mat-step-label{
+    color: rgb(255 255 255 / 54%) !important;
+}
+.mat-stepper-vertical {
+    margin-top: 8px;
+  }
+  
+  .mat-mdc-form-field {
+    margin-top: 16px;
+  }
