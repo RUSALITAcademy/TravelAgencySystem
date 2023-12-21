@@ -13,29 +13,29 @@ import { PaymentPageComponent } from './Pages/Payment-page/payment-page.componen
 import { UserAccountPageComponent } from './Pages/User-account-page/user-account-page.component';
 import { TourPageComponent } from './Pages/Tour-page/tour-page.component';
 import { TourMainComponent } from './Components/Tour-page-components/tour-main/tour-main.component';
+import { OrderStepperComponent } from "./Components/Order/order-stepper/order-stepper.component";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AuthPanelComponent,
-    //Страницы
-    MainPageComponent,
-    AuthPageComponent,
-    PaymentPageComponent,
-    UserAccountPageComponent,
-    TourPageComponent,
-    NavbarComponent,
-    TourMainComponent,
-    //Страницы
-
-
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        AuthPanelComponent,
+        //Страницы
+        MainPageComponent,
+        AuthPageComponent,
+        PaymentPageComponent,
+        UserAccountPageComponent,
+        TourPageComponent,
+        NavbarComponent,
+        TourMainComponent,
+        //Страницы
+    ],
+    providers: [],
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        OrderStepperComponent
+    ]
 })
 export class AppModule { }
