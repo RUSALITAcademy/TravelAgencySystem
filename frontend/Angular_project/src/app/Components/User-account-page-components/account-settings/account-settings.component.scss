@@ -1,0 +1,43 @@
+.container {
+    margin-left: 5%;
+    width: 80%;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    background: linear-gradient(to right, rgba(233, 64, 87, 0.3), rgba(138, 35, 135, 0.3));
+}
+
+.header {
+    font-size: 48px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding-bottom: 2px;
+    border-bottom: 2px solid black;
+}
+
+
+.fields__info {
+    padding: 22px 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+    border-bottom: 2px solid black;
+}
+
+.fields__password {
+    padding: 22px 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+    border-bottom: 2px solid black;
+}
+
+mat-form-field {
+    background: linear-gradient(to right, rgba(233, 64, 87, 0.1), rgba(138, 35, 135, 0.1));
+    border-radius: 5px;
+}
+
+.cancel-button {
+    background: linear-gradient(to right, rgba(233, 64, 87, 0.7), rgba(138, 35, 135, 0.7)) !important;
+}

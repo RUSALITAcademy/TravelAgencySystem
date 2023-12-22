@@ -1,0 +1,105 @@
+<div class="container">
+    <div class="header">
+        Паспорт
+    </div>
+    <div>
+
+        <div class="fields__pasport" [formGroup]="pasportForm">
+            <div class="fields__pasport__fio fields">
+
+                <mat-form-field appearance="outline" subscriptSizing="dynamic">
+                    <mat-label>Имя</mat-label>
+                    <input matInput name="passport_name" formControlName="passport_name">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" subscriptSizing="dynamic" color="warn">
+                    <mat-label>Фамилия</mat-label>
+                    <input matInput name="passport_surname" formControlName="passport_surname">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" subscriptSizing="dynamic" color="warn">
+                    <mat-label>Отчество</mat-label>
+                    <input matInput name="passport_patronymic" formControlName="passport_patronymic">
+                </mat-form-field>
+
+            </div>
+
+
+            <div class="fields__pasport__number fields">
+                <mat-form-field appearance="outline" subscriptSizing="dynamic" color="warn" floatLabel="auto">
+                    <mat-label>Серия</mat-label>
+                    <input matInput name="passport_series" formControlName="passport_series">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" subscriptSizing="dynamic" color="warn">
+                    <mat-label>Номер</mat-label>
+                    <input matInput name="passport_number" formControlName="passport_number">
+                </mat-form-field>
+
+                <mat-form-field style="opacity: 0;">
+                    <mat-label>затычка</mat-label>
+                    <input matInput>
+                </mat-form-field>
+
+            </div>
+
+            <div class="button-container">
+                <button mat-raised-button class="cancel-button" color="link">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container">
+    <div class="header">
+        Загранпаспорт
+    </div>
+    <div>
+
+        <div class="fields__international-pasport" [formGroup]="internationalPasportForm">
+            <div class="fields__international-pasport__number fields">
+                <mat-form-field appearance="outline" subscriptSizing="dynamic">
+                    <mat-label>Имя</mat-label>
+                    <input matInput name="international_pasport_name" formControlName="international_pasport_name">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" subscriptSizing="dynamic" color="warn">
+                    <mat-label>Фамилия</mat-label>
+                    <input matInput name="international_pasport_surname"
+                        formControlName="international_pasport_surname">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" subscriptSizing="dynamic" color="warn">
+                    <mat-label>Отчество</mat-label>
+                    <input matInput name="international_pasport_patronymic"
+                        formControlName="international_pasport_patronymic">
+                </mat-form-field>
+            </div>
+
+
+            <div class="fields__international-pasport__fio fields">
+
+                <mat-form-field appearance="outline" subscriptSizing="dynamic" color="warn" floatLabel="auto">
+                    <mat-label>Серия</mat-label>
+                    <input matInput name="international_pasport_series" formControlName="international_pasport_series">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" subscriptSizing="dynamic" color="warn">
+                    <mat-label>Номер</mat-label>
+                    <input matInput name="international_pasport_number" formControlName="international_pasport_number">
+                </mat-form-field>
+
+                <mat-form-field style="opacity: 0;">
+                    <mat-label>затычка</mat-label>
+                    <input matInput>
+                </mat-form-field>
+            </div>
+
+            <div class="button-container">
+                <button mat-raised-button class="cancel-button" color="link">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</div>
