@@ -33,8 +33,8 @@
                         <h2 class="order-title">{{ tourTitle }}</h2>
                         <p class="tour-location--smile"><i class="fa-solid fa-location-dot"></i> {{ tourCity }}, {{ tourCountry }}</p>
                         <p class="tour-quantity"><strong>Осталось мест:</strong> {{ quantity }}</p>
-                        <p class="tour-start"><strong>Начало тура:</strong> {{ tourStartDate }}</p>
-                        <p class="tour-end"><strong>Окончание тура:</strong> {{ tourEndDate }}</p>
+                        <p class="tour-start"><strong>Начало тура:</strong> {{ tourStartDate | date:'dd.MM.yyyy' }}</p>
+                        <p class="tour-end"><strong>Окончание тура:</strong> {{ tourEndDate | date:'dd.MM.yyyy' }}</p>
                     </div>
                     <div class="right-info">
                         <div class="additional-info">

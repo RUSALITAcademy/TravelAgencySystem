@@ -57,13 +57,13 @@
         <div class="tour-card">
             <img [src]="tour.imgUrl[0]" alt="{{ tour.name }}" class="tour-image">
             <div class="tour-details">
-                <h2>{{ tour.name }}</h2>
-                <p>{{ tour.description }}</p>
-                <p><strong>Страна:</strong> {{ tour.country }}</p>
-                <p *ngIf="tour.region"><strong>Город:</strong> {{ tour.region }}</p>
-                <p><strong>Дата:</strong> {{ tour.startDate | date }} - {{ tour.endDate | date }}</p>
-                <p><strong>Цена:</strong> {{ tour.price | currency:' ':'symbol':'1.0' }}₽</p>
-                <p><strong>Оставшиеся места: </strong> {{ tour.quantity }}</p>
+                <h2 class="tour-name">{{ tour.name }}</h2>
+                <p class="tour-detail-main-info"><strong>Страна:</strong> {{ tour.country }}</p>
+                <p class="tour-detail-main-info" *ngIf="tour.region"><strong>Город:</strong> {{ tour.region }}</p>
+                <p class="tour-detail-main-info"><strong>Дата:</strong> {{ tour.startDate | date }} - {{ tour.endDate | date }}</p>
+                <p class="tour-detail-main-info"><strong>Цена:</strong> {{ tour.price | currency:' ':'symbol':'1.0' }}₽</p>
+                <p class="tour-detail-main-info"><strong>Оставшиеся места: </strong> {{ tour.quantity }}</p>
+                <p class="tour-details-description">{{ tour.description }}</p>
                 <button mat-raised-button class="tour-button" color="link" routerLink="/tour/{{ tour.tourId }}"
                     queryParamsHandling="merge">Посмотреть
                     тур</button>

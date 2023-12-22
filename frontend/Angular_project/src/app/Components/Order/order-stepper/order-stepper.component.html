@@ -10,6 +10,9 @@
             <!-- Информация о туре -->
             <h2 class="tour-info-name">{{ tour.name }}</h2>
             <span class="tour-info-location"><i class="fa-solid fa-location-dot"></i> {{tour.country}}, {{tour.region}}</span>
+            <p class="tour-quantity"><strong>Осталось мест:</strong> {{ tour.quantity }}</p>
+            <p class="tour-start"><strong>Начало тура:</strong> {{ tour.startDate| date:'dd.MM.yyyy' }}</p>
+            <p class="tour-end"><strong>Окончание тура:</strong> {{ tour.endDate | date:'dd.MM.yyyy' }}</p>
             <p class="tour-info-desc">{{ tour.description }}</p>
           </div>
         </div>
@@ -45,7 +48,7 @@
                     </mat-form-field>
                 </div>
               <div>
-                <button mat-button matStepperNext [disabled]="firstFormGroup.invalid">Продолжить</button>
+                <button class="order-button" mat-button matStepperNext [disabled]="firstFormGroup.invalid">Продолжить</button>
               </div>
             </form>
           </mat-step>
@@ -79,8 +82,8 @@
                 </mat-form-field>
               </div>
               <div>
-                <button mat-button matStepperPrevious>Вернуться</button>
-                <button mat-button matStepperNext [disabled]="secondFormGroup.invalid">Продолжить</button>
+                <button class="order-button" mat-button matStepperPrevious>Вернуться</button>
+                <button class="order-button" mat-button matStepperNext [disabled]="secondFormGroup.invalid">Продолжить</button>
               </div>
             </form>
           </mat-step>
@@ -91,8 +94,9 @@
             
             <div class="step3">
               <h2><i class="fa-solid fa-triangle-exclamation" style="color: #8A2387;"></i> При продолжении вас перенаправит на страницу платежа!</h2>
-              <button mat-button matStepperPrevious>Вернуться</button>
-              <button mat-button (click)="stepper.reset()">Оплатить</button>
+              <h3 class="info-price"><strong>Стоимость:</strong><span> {{tour.price}} ₽</span></h3>
+              <button class="order-button" mat-button matStepperPrevious>Вернуться</button>
+              <button class="order-button" mat-button (click)="stepper.reset()">Оплатить</button>
             </div>
           </mat-step>
         </mat-stepper>

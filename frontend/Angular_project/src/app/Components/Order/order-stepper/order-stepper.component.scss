@@ -2,8 +2,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    //margin-top: 59px;
+    //height: 100%;
+    margin-top: 20px;
     background-image: url('https://assets-global.website-files.com/61a075b1726f578610d0b991/621d0db10f6900254002913c_WorldMap_Labels_Updated_Cities.svg');
     background-size: cover;
     background-position: center;
@@ -39,15 +39,26 @@
         font-size: 24px;
     }
     .tour-info-location{
-        font-size: 12px;
+        font-size: 16px;
+    }
+    .tour-quantity{
+        margin-top: 8px;
+        font-size: 16px;
+    }
+    .tour-start{
+        font-size: 16px;
+    }
+    .tour-end{
+        font-size: 16px;
     }
     .tour-info-desc{
+        margin-top: 8px;
         display: -webkit-box;
         -webkit-box-orient: vertical;
         white-space: normal;
         overflow: hidden;
         text-overflow: ellipsis;
-        -webkit-line-clamp: 8;
+        -webkit-line-clamp: 6;
     }
 }
 
@@ -112,4 +123,14 @@
     i{
         font-size: 28px;
     }
+}
+.info-price{
+    text-transform:inherit;
+    font-size: 18px;
+}
+.order-button{
+    width: 140px !important;
+    background: linear-gradient(to right, rgba(138, 35, 135, 0.85), rgba(233, 64, 87, 0.85)) !important;
+    color: #fff !important;
+    margin-left: 8px;
 }
