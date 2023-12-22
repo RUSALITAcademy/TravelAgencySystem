@@ -40,7 +40,7 @@
                         <div class="additional-info">
                             <div class="additional-info-container">
                                 <h3 class="title-button">Забронировать</h3>
-                                <button class="tour-price-button" (click)="redirectToOrderStepper()">{{ price }} ₽</button>
+                                <button class="tour-price-button" routerLink="/payment/{{ tourId }}">{{ price }} ₽</button>
                             </div>
                         </div>
                     </div>

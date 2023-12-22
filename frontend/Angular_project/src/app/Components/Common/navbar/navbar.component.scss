@@ -37,8 +37,7 @@ nav {
 }
 
 .profile__menu {
-
-    background-color: #E94057;
+    background-color: #F27121;
     box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     display: flex;
@@ -82,12 +81,12 @@ nav {
     display: flex;
     justify-content: center;
     color: #fff;
-    background-color: #ce142dae !important;
+    background-color: #e66d22 !important;
     border-radius: 5px;
     padding: 5px;
     margin-top: 15px;
 
     &:hover {
-        background-color: #ce142d !important;
+        background-color: #cc611e !important;
     }
 }

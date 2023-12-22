@@ -4,13 +4,13 @@
         <div class="tour_info_card">
           <div class="image_container">
             <!-- Изображение тура -->
-            <img src="https://s01.cdn-pegast.net/get/c9/d2/46/a9fff642622325fec2aa210fc73c4413fed0f01f0e63935cc58136c809/61c715f815838.jpg" alt="Tour Image">
+            <img [src]="tour.imgUrl[0]" alt="Tour Image">
           </div>
           <div class="info_container">
             <!-- Информация о туре -->
-            <h2 class="tour-info-name">Name name name name name name name</h2>
-            <span class="tour-info-location"><i class="fa-solid fa-location-dot"></i> Турция, Назарово</span>
-            <p class="tour-info-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea quae, recusandae quo quis voluptas soluta ipsam sapiente explicabo cumque, praesentium adipisci dolor? Ea culpa provident quae delectus excepturi quas similique ipsum, fugit debitis, nulla voluptatem nostrum amet? Ducimus nisi illum aliquam velit nobis molestiae, aut voluptatum consequatur iste ea in earum tenetur quia ad sed numquam, repudiandae a laboriosam suscipit deserunt nam. Nemo temporibus laboriosam similique facere eius maiores sapiente eveniet aut corrupti? Ut necessitatibus dignissimos illo doloribus blanditiis nisi, sed quibusdam laudantium libero suscipit saepe assumenda ipsa at distinctio cumque unde placeat quia? Sapiente nulla in accusamus ipsum sequi.</p>
+            <h2 class="tour-info-name">{{ tour.name }}</h2>
+            <span class="tour-info-location"><i class="fa-solid fa-location-dot"></i> {{tour.country}}, {{tour.region}}</span>
+            <p class="tour-info-desc">{{ tour.description }}</p>
           </div>
         </div>
       </div>
@@ -92,7 +92,7 @@
             <div class="step3">
               <h2><i class="fa-solid fa-triangle-exclamation" style="color: #8A2387;"></i> При продолжении вас перенаправит на страницу платежа!</h2>
               <button mat-button matStepperPrevious>Вернуться</button>
-              <button mat-button (click)="stepper.reset()">Продолжить</button>
+              <button mat-button (click)="stepper.reset()">Оплатить</button>
             </div>
           </mat-step>
         </mat-stepper>

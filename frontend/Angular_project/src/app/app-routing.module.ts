@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: "account", component: UserAccountPageComponent },
   { path: "main", component: MainPageComponent },
   { path: "tour/:id", component: TourPageComponent },
-  { path: "payment", component: PaymentPageComponent },
+  { path: "payment/:id", component: PaymentPageComponent },
   { path: "**", redirectTo: 'auth', pathMatch: 'full' },
 ];
 

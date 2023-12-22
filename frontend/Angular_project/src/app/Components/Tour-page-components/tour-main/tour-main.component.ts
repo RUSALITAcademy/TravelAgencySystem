@@ -21,7 +21,7 @@ export class TourMainComponent implements OnInit {
   tourEndDate: string = '';
   price!: number;
   quantity!: number;
-  overlayColor: string = 'rgba(0, 0, 0, 0.5)'; // Прозрачность затемнения
+  overlayColor: string = 'rgba(11, 8, 11, 0.681);'; // Прозрачность затемнения
   images!: string[];
 
   currentIndex: number = 0;
@@ -82,9 +82,9 @@ export class TourMainComponent implements OnInit {
       nextButton.disabled = this.currentIndex === maxIndex - 2;
     }
   }
-  redirectToOrderStepper() {
-    this.router.navigate(['payment']);
-  }
+  // redirectToOrderStepper() {
+  //   this.router.navigate(['payment/']);
+  // }
   splitIntoSentences(text: string): string[] {
     return text.split(/(?<=[.!?])\s+/);
   }

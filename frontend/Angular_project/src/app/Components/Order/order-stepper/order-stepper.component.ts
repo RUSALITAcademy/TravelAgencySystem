@@ -5,6 +5,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TourService } from 'src/app/Services/tour.service';
+import { ActivatedRoute } from '@angular/router';
+import { ITour } from 'src/app/Models/tour.model';
 
 
 
@@ -24,6 +27,8 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
   ],
 })
 export class OrderStepperComponent implements OnInit  { 
+  tourId!:string;
+  tour: ITour = {} as ITour;
   // FormGroup для первого шага (паспорт)
   firstFormGroup!: FormGroup;
 
@@ -31,8 +36,14 @@ export class OrderStepperComponent implements OnInit  {
   secondFormGroup!: FormGroup;
   isLinear = true;
 
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private _formBuilder: FormBuilder, private route: ActivatedRoute, private tourService: TourService) {}
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.tourId = String(params['id']);
+    });
+    this.tourService.GetTourById(this.tourId).subscribe((tourData) => {
+      this.tour = tourData || {} as ITour
+    });
     // Инициализация FormGroup для первого шага
     this.firstFormGroup = this._formBuilder.group({
       series: ['', Validators.required],
