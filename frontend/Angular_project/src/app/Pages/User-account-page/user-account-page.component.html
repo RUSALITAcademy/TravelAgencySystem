@@ -1,2 +1,42 @@
-<app-navbar></app-navbar>
-<p>user-account-page works!</p>
+<div>
+    <app-navbar></app-navbar>
+    <div class="container">
+        <div class="buttons">
+            <div class="account_link_menu">
+                <ul>
+
+                    <li>
+                        <button class="nav-menu-button" routerLink="/account/settings">
+                            <i class="fas fa-cog"></i>
+                            <div class="navbar__item__text">
+                                Настройки
+                            </div>
+                        </button>
+                    </li>
+
+                    <li>
+                        <button class="nav-menu-button" routerLink="/account/documents">
+                            <i class="fas fa-file"></i>
+                            <div class="navbar__item__text">
+                                Документы
+                            </div>
+                        </button>
+                    </li>
+
+                    <li>
+                        <button class="nav-menu-button" routerLink="/account/history">
+                            <i class="fas fa-history"></i>
+                            <div class="navbar__item__text">
+                                История поездок
+                            </div>
+                        </button>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="page">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

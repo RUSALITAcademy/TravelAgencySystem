@@ -1,11 +1,15 @@
 nav {
+    width: 100%;
+    height: 5%;
     background: -webkit-linear-gradient(to right, #8A2387, #E94057, #F27121);
     background: linear-gradient(to right, #8A2387, #E94057, #F27121);
-    padding: 15px;
+    padding: 1% 0;
+    position: sticky;
+    z-index: 100;
+    top: 0;
 }
 
 .navbar {
-    position: sticky;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -39,25 +43,28 @@ nav {
 .profile__menu {
     background-color: #F27121;
     box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
+    border-radius: 5% 0 0 5%;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: fixed;
-    top: 50px;
+    top: 7%;
     right: -300px;
-    height: 25%;
-    width: 12%;
+    height: 30%;
+    width: 15%;
     transition: right 0.75s ease-in-out;
 
     ul {
+        width: 90%;
         list-style: none;
         padding: 0;
 
         li {
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            //Поиграйся со скоростью, мне зашло как 0.5 так и без анимации
+            margin-bottom: 5%;
             transition: transform 0.5s ease;
+
+            width: 100%;
 
             &:hover {
                 transform: scale(1.05);
@@ -72,7 +79,7 @@ nav {
     align-items: center;
     color: #fff;
     background-color: #E94057;
-    border-radius: 5px;
+    border-radius: 5%;
     padding: 5px;
 }
 
