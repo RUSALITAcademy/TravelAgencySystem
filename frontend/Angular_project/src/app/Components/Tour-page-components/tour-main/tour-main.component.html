@@ -1,17 +1,16 @@
 
 
 <div class="container">
-    <div class="tour-top" [style.backgroundImage]="'url(' + tourImageUrl + ')'" [ngStyle]="{'background-color': overlayColor}">
+    <div class="tour-top" [style.backgroundImage]="'url(' + images[0] + ')'" [ngStyle]="{'background-color': overlayColor}">
         <div class="content">
             <h1 class="tour-title">{{ tourTitle | uppercase }}</h1>
-            <span class="tour-info"><i class="fa-solid fa-location-dot"></i> Турция, Назарово</span>
+            <span class="tour-info"><i class="fa-solid fa-location-dot"></i> {{ tourCountry }}, {{ tourCity }}</span>
         </div>
     </div>
     <div class="tour-description-main">
         <div class="description-content">
             <hr>
-                <p>Labranda Club Makadi находится в районе Макади Бэй, входит в сеть отелей Labranda. Отель имеет 339 номеров, состоит из 2-этажного здания и 3-этажных 8 зданий. Отель построен в 2000 году, последняя реновация в 2016 году. Общая площадь: 80 000 кв.м. До центра района Макади - 1,4 км, до центра города Хургада – 39,4 км. До Международного аэропорта Хургада (Hurghada International Airport) - 33 км.
-                </p>
+                <p>{{ smallDescription }}</p>
             <hr>
         </div>
     </div>
@@ -32,7 +31,7 @@
                 <div class="order-info">
                     <div class="left-info">
                         <h2 class="order-title">{{ tourTitle }}</h2>
-                        <p class="tour-location--smile"><i class="fa-solid fa-location-dot"></i> Турция, Назарово</p>
+                        <p class="tour-location--smile"><i class="fa-solid fa-location-dot"></i> {{ tourCity }}, {{ tourCountry }}</p>
                         <p class="tour-quantity"><strong>Осталось мест:</strong> {{ quantity }}</p>
                         <p class="tour-start"><strong>Начало тура:</strong> {{ tourStartDate }}</p>
                         <p class="tour-end"><strong>Окончание тура:</strong> {{ tourEndDate }}</p>
@@ -41,7 +40,7 @@
                         <div class="additional-info">
                             <div class="additional-info-container">
                                 <h3 class="title-button">Забронировать</h3>
-                                <button class="tour-price-button">{{ tourPrice }} ₽</button>
+                                <button class="tour-price-button" routerLink="/payment/{{ tourId }}">{{ price }} ₽</button>
                             </div>
                         </div>
                     </div>
@@ -54,31 +53,7 @@
     <div class="tour-description-detailed">
         <div class="description-detailed-content">
             <hr>
-                <pre><p>Отель находится на первой береговой линии, в 100 м расположен собственный, песчаный пляж (длина 182 метра). Зонтики, шезлонги, матрасы и пляжные полотенца – бесплатно. Бар на пляже работает с 11:00-02:00, за дополнительную плату.
-
-На территории отеля работают рестораны:
-- Главный ресторан Otantik (07:00-10:30, 12:30-15:00, 18:30-21:30).
-- Ресторан на пляже Blue Sky (06:30-10:00, 12:00-14:30, 18:30-21:30).
-- Аля карт ресторан арабской кухни Tagine 19:00-21:30.
-- Аля карт ресторан азиатской кухни Red Dragon 19:00-21:30.
-- Аля карт ресторан греческой кухни Taverna Syrtaki 19:00-21:30.
-- Аля карт ресторан итальянской кухни La Mama 19:00-21:30.
-- Аля карт ресторан индийской кухни Taj Mahal 19:00-21:30.
-- Аля карт ресторан Sea Treasure (морепродукты), 18:00-21:30, платно.
-- Аля карт ресторан восточной кухни Cafe Cairo 19:00-23:00.
-- Аля карт ресторан Shawerma World (шаверма) 19:00-21:30.
-Расписание работы ресторанов:
-Завтрак и обед "шведский стол" в ресторане на пляже Blue Sky 07:00-10:00 и 12:30-15:00, ужин "шведский стол" в ресторане Otanik 19:00-21:30.
-Кафе Gelateria (мороженое), 15:00-23:00, платно.
-Бар:
-Лобби бар 10:00-00:00.
-Бар у бассейна Coco 10:00 до заката солнца.
-Бар Texas Burger (гамбургеры) 19:00-21:30.
-Суши-бар Banzai, 19:00-21:30.
-Лаундж и бар Coral Beach 18:00-21:30, платно.
-Пляжный клуб Coco Loco 10:00-02:00, платно.
-Снэк-бар Eat & Go.
-Посещение ресторанов a`la carte бесплатно 2 раза (при пребывании 7-10 ночей), 3 раза (при пребывании 14 ночей).</p></pre>
+                <pre><p>{{ tourDescription }}</p></pre>
             <hr>
         </div>
     </div>            

@@ -8,5 +8,5 @@ export interface ITour {
     endDate: Date;
     price: number;
     quantity: number;
-    imgUrl: string;
+    imgUrl: string[];
 }

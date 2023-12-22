@@ -1,5 +1,8 @@
+import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { TourService } from 'src/app/Services/tour.service';
 
 @Component({
   selector: 'app-tour-main',
@@ -9,34 +12,48 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TourMainComponent implements OnInit {
   tourId: string = "";
-  tourImageUrl: string = 'https://anapacity.com/content/images/kavkazskie-gory-05.jpg';
-  tourTitle: string = 'Grand Waterworld Makadi';
-  tourStartDate: string = '01.01.2024';
-  tourEndDate: string = '10.01.2024';
-  tourPrice: number = 150000;
-  quantity: number = 123;
-  overlayColor: string = 'rgba(0, 0, 0, 0.5)'; // Прозрачность затемнения
-  images: string[] = ['https://www.ladya-kmv.ru/upload/medialibrary/5b6/5b641bfdaf9a9ce326272bc2655d2580.jpg',
-  'https://edge.travelatacdn.ru/thumbs/940x705/upload/2021_22/content_hotel_60b8cb13a98796.36051676.jpeg',
-  'https://edge.travelatacdn.ru/thumbs/940x705/upload/2023_43/content_hotel_65390de717db31.14000303.jpeg',
-  'https://edge.travelatacdn.ru/thumbs/940x705/upload/2023_43/content_hotel_65390de74077f0.63113325.jpeg',
-  'https://edge.travelatacdn.ru/thumbs/940x705/upload/2023_43/content_hotel_65390de73d1d98.08373928.jpeg',
-  'https://edge.travelatacdn.ru/thumbs/940x705/upload/2023_43/content_hotel_65390de7553166.79085069.jpeg',
-  'https://edge.travelatacdn.ru/thumbs/940x705/upload/2023_43/content_hotel_65390de4e68293.28268951.jpeg',
-  'https://edge.travelatacdn.ru/thumbs/940x705/upload/2023_43/content_hotel_65390de4ef5208.22811444.jpeg',
-  'https://edge.travelatacdn.ru/thumbs/940x705/upload/2023_43/content_hotel_65390de51bac13.46719336.jpeg',
-  'https://edge.travelatacdn.ru/thumbs/940x705/upload/2023_43/content_hotel_65390de4ed63d3.80746049.jpeg',
-  'https://edge.travelatacdn.ru/thumbs/940x705/upload/2023_43/content_hotel_65390de4ed0e67.57846335.jpeg',
-  'https://www.ladya-kmv.ru/upload/medialibrary/5b6/5b641bfdaf9a9ce326272bc2655d2580.jpg',];
+  tourTitle: string = '';
+  tourDescription: string = '';
+  smallDescription: string = '';
+  tourCountry: string = '';
+  tourCity: string = '';
+  tourStartDate: string = '';
+  tourEndDate: string = '';
+  price!: number;
+  quantity!: number;
+  overlayColor: string = 'rgba(11, 8, 11, 0.681);'; // Прозрачность затемнения
+  images!: string[];
 
   currentIndex: number = 0;
-  totalImages: number;
+  totalImages!: number;
 
-  constructor(private route: ActivatedRoute,) {
-    this.totalImages = this.images.length;
+  constructor(private route: ActivatedRoute, private router: Router, private tourService: TourService) {
   }
   ngOnInit(): void {
-    this.route.params.subscribe(params => this.tourId = String(params['id']))
+    this.route.params.subscribe(params => {
+      this.tourId = String(params['id']);
+      this.tourService.GetTourById(this.tourId).subscribe((tourData) => {
+        if (tourData) {
+          // Обновите поля данными из ответа сервиса
+          
+          this.tourTitle = tourData.name || this.tourTitle;
+          this.tourDescription = tourData.description || this.tourDescription;
+          this.tourCountry = tourData.country || this.tourCountry;
+          this.tourCity = tourData.region || this.tourCity;
+          this.tourStartDate = tourData.startDate?.toString() || this.tourStartDate;
+          this.tourEndDate = tourData.endDate?.toString() || this.tourEndDate;
+          this.price = tourData.price || this.price;
+          this.quantity = tourData.quantity || this.quantity;
+          this.images = tourData.imgUrl || this.images;
+          // Добавьте любые дополнительные поля, которые нужно обновить
+          this.totalImages = this.images.length;
+          
+          const sentences = this.splitIntoSentences(this.tourDescription);
+          const firstFourSentences = sentences.slice(0, 4);
+          this.smallDescription = firstFourSentences.join(' ');
+        }
+      });
+    });
   }
 
   prevSlide() {
@@ -64,5 +81,11 @@ export class TourMainComponent implements OnInit {
       prevButton.disabled = this.currentIndex === 0;
       nextButton.disabled = this.currentIndex === maxIndex - 2;
     }
+  }
+  // redirectToOrderStepper() {
+  //   this.router.navigate(['payment/']);
+  // }
+  splitIntoSentences(text: string): string[] {
+    return text.split(/(?<=[.!?])\s+/);
   }
 }
