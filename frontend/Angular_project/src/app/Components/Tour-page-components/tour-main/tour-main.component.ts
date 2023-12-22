@@ -1,7 +1,7 @@
 import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd  } from '@angular/router';
 import { TourService } from 'src/app/Services/tour.service';
 
 @Component({
@@ -30,6 +30,12 @@ export class TourMainComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private tourService: TourService) {
   }
   ngOnInit(): void {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        // Прокрутка страницы вверх при каждом завершении навигации
+        window.scrollTo(0, 0);
+      }
+    });
     this.route.params.subscribe(params => {
       this.tourId = String(params['id']);
       this.tourService.GetTourById(this.tourId).subscribe((tourData) => {

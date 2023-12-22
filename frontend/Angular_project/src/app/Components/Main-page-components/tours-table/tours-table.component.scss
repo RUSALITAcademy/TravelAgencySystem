@@ -85,3 +85,18 @@ p {
 strong {
   font-weight: bold;
 }
+
+.tour-name{
+  font-size: 24px;
+}
+.tour-details-description{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 7;
+}
+.tour-detail-main-info{
+  font-size: 18px;
+}
