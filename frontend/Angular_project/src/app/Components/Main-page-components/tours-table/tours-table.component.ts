@@ -17,7 +17,7 @@ export class ToursTableComponent implements OnInit {
   returnDate: Date | null = null;
   showReturnDate: boolean = true;
   toursIsVisiable: boolean = false;
-  passengerCount: number = 0;
+  passengerCount: number = 1;
 
   tours: ITour[] = [];
 
