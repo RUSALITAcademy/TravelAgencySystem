@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Persistence.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20231206164301_InitialCreate")]
+    [Migration("20240217090557_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -24,43 +24,6 @@ namespace Backend.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("Backend.Domain.Models.InternationalPassport", b =>
-                {
-                    b.Property<Guid>("InternationalPassportId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Number")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Patronymic")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Series")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("InternationalPassportId");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("InternationalPassport");
-                });
 
             modelBuilder.Entity("Backend.Domain.Models.Order", b =>
                 {
@@ -88,43 +51,6 @@ namespace Backend.Persistence.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Order");
-                });
-
-            modelBuilder.Entity("Backend.Domain.Models.Passport", b =>
-                {
-                    b.Property<Guid>("PassportId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Number")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Patronymic")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Series")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("PassportId");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("Passport");
                 });
 
             modelBuilder.Entity("Backend.Domain.Models.Tour", b =>
@@ -195,17 +121,6 @@ namespace Backend.Persistence.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("Backend.Domain.Models.InternationalPassport", b =>
-                {
-                    b.HasOne("Backend.Domain.Models.User", "User")
-                        .WithOne("InternationalPassport")
-                        .HasForeignKey("Backend.Domain.Models.InternationalPassport", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Backend.Domain.Models.Order", b =>
                 {
                     b.HasOne("Backend.Domain.Models.Tour", "Tour")
@@ -225,17 +140,6 @@ namespace Backend.Persistence.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Backend.Domain.Models.Passport", b =>
-                {
-                    b.HasOne("Backend.Domain.Models.User", "User")
-                        .WithOne("Passport")
-                        .HasForeignKey("Backend.Domain.Models.Passport", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Backend.Domain.Models.Tour", b =>
                 {
                     b.Navigation("Orders");
@@ -243,13 +147,7 @@ namespace Backend.Persistence.Migrations
 
             modelBuilder.Entity("Backend.Domain.Models.User", b =>
                 {
-                    b.Navigation("InternationalPassport")
-                        .IsRequired();
-
                     b.Navigation("Orders");
-
-                    b.Navigation("Passport")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

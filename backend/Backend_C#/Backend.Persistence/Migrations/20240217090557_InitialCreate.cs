@@ -47,29 +47,6 @@ namespace Backend.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "InternationalPassport",
-                columns: table => new
-                {
-                    InternationalPassportId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Series = table.Column<string>(type: "text", nullable: false),
-                    Number = table.Column<string>(type: "text", nullable: false),
-                    FirstName = table.Column<string>(type: "text", nullable: false),
-                    LastName = table.Column<string>(type: "text", nullable: false),
-                    Patronymic = table.Column<string>(type: "text", nullable: false),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_InternationalPassport", x => x.InternationalPassportId);
-                    table.ForeignKey(
-                        name: "FK_InternationalPassport_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Order",
                 columns: table => new
                 {
@@ -96,35 +73,6 @@ namespace Backend.Persistence.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Passport",
-                columns: table => new
-                {
-                    PassportId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Series = table.Column<string>(type: "text", nullable: false),
-                    Number = table.Column<string>(type: "text", nullable: false),
-                    FirstName = table.Column<string>(type: "text", nullable: false),
-                    LastName = table.Column<string>(type: "text", nullable: false),
-                    Patronymic = table.Column<string>(type: "text", nullable: false),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Passport", x => x.PassportId);
-                    table.ForeignKey(
-                        name: "FK_Passport_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_InternationalPassport_UserId",
-                table: "InternationalPassport",
-                column: "UserId",
-                unique: true);
-
             migrationBuilder.CreateIndex(
                 name: "IX_Order_TourId",
                 table: "Order",
@@ -134,12 +82,6 @@ namespace Backend.Persistence.Migrations
                 name: "IX_Order_UserId",
                 table: "Order",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Passport_UserId",
-                table: "Passport",
-                column: "UserId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_User_UserId",
@@ -152,13 +94,7 @@ namespace Backend.Persistence.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "InternationalPassport");
-
-            migrationBuilder.DropTable(
                 name: "Order");
-
-            migrationBuilder.DropTable(
-                name: "Passport");
 
             migrationBuilder.DropTable(
                 name: "Tour");

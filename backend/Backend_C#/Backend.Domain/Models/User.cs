@@ -8,9 +8,6 @@
         public string? Password { get; set; }
         public string? ImgUrl { get; set; }
 
-        public Passport Passport { get; set; }
-        public InternationalPassport InternationalPassport { get; set; }
-
         public List<Order>? Orders { get; set; } // Связь с Order, один ко многим
     }
 }
