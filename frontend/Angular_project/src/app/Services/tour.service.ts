@@ -3,14 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ITour } from '../Models/tour.model';
 
+import { environment } from 'src/environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class TourService {
 
-  private apiUrl = "https://localhost:7271/api/Tour";  // Адрес API
+  private apiUrl // Адрес API
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { this.apiUrl = environment.apiUrl + "/Tour" }
 
 
   ////

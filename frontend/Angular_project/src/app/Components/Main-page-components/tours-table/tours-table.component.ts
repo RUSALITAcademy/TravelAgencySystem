@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
 import { ITour } from 'src/app/Models/tour.model';
 import { TourService } from 'src/app/Services/tour.service';
+import { GeonamesService } from 'src/app/Services/geonames.service';
 
 @Component({
   selector: 'app-tours-table',
@@ -10,9 +10,16 @@ import { TourService } from 'src/app/Services/tour.service';
   styleUrls: ['./tours-table.component.scss']
 })
 export class ToursTableComponent implements OnInit {
+
+  constructor(
+    private fb: FormBuilder,
+    private tourService: TourService,
+    private geonamesService: GeonamesService,) { }
+
   //сделать контролы и отслеживание на изминение
   departureLocation = this.fb.control<string>('');
   destinationLocation = this.fb.control<string>('');
+
   departureDate: Date | null = null;
   returnDate: Date | null = null;
   showReturnDate: boolean = true;
@@ -25,7 +32,26 @@ export class ToursTableComponent implements OnInit {
   departureLocations: string[] = ['Москва', 'Сочи', 'Красноярск', 'Санкт-Петербург', 'Новосибирск',];
   destinationLocations: string[] = ['Осло', 'Мадрид', 'Лондон', 'Париж', 'Маями',];
 
+  ngOnInit() {
 
+    this.toursIsVisiable = false;
+
+    this.departureLocation.valueChanges.subscribe(() => {
+
+      if (this.departureLocation.value !== null) {
+
+        this.getFiltredCities(this.departureLocation.value, this.departureLocations)
+      }
+    });
+
+    this.destinationLocation.valueChanges.subscribe(() => {
+
+      if (this.destinationLocation.value !== null) {
+
+        this.getFiltredCities(this.destinationLocation.value, this.destinationLocations)
+      }
+    });
+  }
 
   search() {
     this.toursIsVisiable = true;
@@ -33,7 +59,7 @@ export class ToursTableComponent implements OnInit {
 
     this.tourService.GetAllTours().subscribe((tours: any) => {
       this.tours = tours['tours'];
-      this.tours = this.tours.filter((tour: any) => {
+      this.tours = this.tours.filter((tour: ITour) => {
 
         const tourStartDate = this.departureDate ? formatDate(this.departureDate) : null;
         const tourEndDate = this.returnDate ? formatDate(this.returnDate) : null;
@@ -48,57 +74,18 @@ export class ToursTableComponent implements OnInit {
     });
   }
 
-  constructor(private http: HttpClient,
-    private fb: FormBuilder,
-    private tourService: TourService) { }
+  getFiltredCities(cityName: String, locations: Array<string>) {
 
-  ngOnInit() {
+    this.geonamesService.getCities({ name: cityName.toLocaleLowerCase() }).subscribe((response) => {
 
-    this.toursIsVisiable = false;
-
-    this.departureLocation.valueChanges.subscribe(() => {
-      console.log(this.departureLocation.value)
-      if (this.departureLocation.value !== null) {
-
-        this.getCities({ name: this.departureLocation.value.toLocaleLowerCase() })
-          .subscribe((response) => {
-            this.departureLocations = [];
-            console.log(response);
-            this.departureLocations = response.geonames.filter((city: City, index: number, self: Array<City>) =>
-              index === self.findIndex((c) => c.name === city.name)
-            )
-              .map((city: City) => city.name);
-          });
-      }
-    });
-
-    this.destinationLocation.valueChanges.subscribe(() => {
-      console.log(this.destinationLocation.value)
-      if (this.destinationLocation.value !== null) {
-
-        this.getCities({ name: this.destinationLocation.value.toLocaleLowerCase() })
-          .subscribe((response) => {
-            this.destinationLocations = [];
-            console.log(response);
-            this.destinationLocations = response.geonames.filter((city: City, index: number, self: Array<City>) =>
-              index === self.findIndex((c) => c.name === city.name)
-            )
-              .map((city: City) => city.name);
-          });
-      }
+      locations = [];
+      locations = response.geonames.filter((city: City, index: number, self: Array<City>) =>
+        index === self.findIndex((c) => c.name === city.name)
+      ).map((city: City) => city.name);
     });
   }
-
-
-
-  getCities(options: { name: string }) {
-    const apiUrl = `http://api.geonames.org/searchJSON?username=itproject&featureClass=P&maxRows=5&lang=ru&style=short&name_startsWith=${options.name}`;
-    return this.http.get<any>(apiUrl)
-  }
-
-
-
 }
+
 function formatDate(date: Date | null): string {
   if (date instanceof Date) {
     const day = date.getDate().toString().padStart(2, '0');

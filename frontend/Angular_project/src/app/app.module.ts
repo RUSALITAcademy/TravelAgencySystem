@@ -26,43 +26,41 @@ import { MatButtonModule } from '@angular/material/button';
 import { TourMainComponent } from './Components/Tour-page-components/tour-main/tour-main.component';
 import { OrderStepperComponent } from "./Components/Order/order-stepper/order-stepper.component";
 import { AccountSettingsComponent } from './Components/User-account-page-components/account-settings/account-settings.component';
-import { AccountDocumentsComponent } from './Components/User-account-page-components/account-documents/account-documents.component';
 import { AccountTravelHistoryComponent } from './Components/User-account-page-components/account-travel-history/account-travel-history.component';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        AuthPanelComponent,
-        //Страницы
-        MainPageComponent,
-        AuthPageComponent,
-        PaymentPageComponent,
-        UserAccountPageComponent,
-        TourPageComponent,
-        NavbarComponent,
-        ToursTableComponent,
-        TourMainComponent,
-        AccountSettingsComponent,
-        AccountDocumentsComponent,
-        AccountTravelHistoryComponent,
-        //Страницы
-    ],
-    imports: [
-        FormsModule,
-        ReactiveFormsModule,
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        MatInputModule,
-        MatAutocompleteModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatFormFieldModule,
-        MatButtonModule,
-        OrderStepperComponent
-    ],
-    providers: [],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    AuthPanelComponent,
+    //Страницы
+    MainPageComponent,
+    AuthPageComponent,
+    PaymentPageComponent,
+    UserAccountPageComponent,
+    TourPageComponent,
+    NavbarComponent,
+    ToursTableComponent,
+    TourMainComponent,
+    AccountSettingsComponent,
+    AccountTravelHistoryComponent,
+    //Страницы
+  ],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    OrderStepperComponent
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

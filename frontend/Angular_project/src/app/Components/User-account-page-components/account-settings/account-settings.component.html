@@ -1,36 +1,81 @@
 <div class="container">
-    <div class="header">
-        Основное
+
+  <div class="header">
+    Основное
+  </div>
+
+  <div class="fields">
+
+    <div class="fields__info"
+         [formGroup]="infoForm">
+
+      <mat-form-field appearance="outline"
+                      subscriptSizing="dynamic"
+                      color="warn"
+                      floatLabel="auto">
+
+        <mat-label>
+          Имя
+        </mat-label>
+
+        <input matInput
+               name="person_name"
+               formControlName="person_name">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline"
+                      subscriptSizing="dynamic"
+                      color="warn">
+
+        <mat-label>
+          E-mail
+        </mat-label>
+
+        <input matInput
+               name="person_email"
+               formControlName="person_email">
+      </mat-form-field>
+
+      <button mat-raised-button
+              class="cancel-button"
+              color="link">
+        Сохранить
+      </button>
     </div>
-    <div class="fields">
 
-        <div class="fields__info" [formGroup]="infoForm">
-            <mat-form-field appearance="outline" subscriptSizing="dynamic" color="warn" floatLabel="auto">
-                <mat-label>Имя</mat-label>
-                <input matInput name="person_name" formControlName="person_name">
-            </mat-form-field>
+    <div class="fields__password"
+         [formGroup]="passwordForm">
 
-            <mat-form-field appearance="outline" subscriptSizing="dynamic" color="warn">
-                <mat-label>E-mail</mat-label>
-                <input matInput name="person_email" formControlName="person_email">
-            </mat-form-field>
+      <mat-form-field appearance="outline"
+                      subscriptSizing="dynamic">
 
-            <button mat-raised-button class="cancel-button" color="link">Сохранить</button>
-        </div>
+        <mat-label>
+          Новый пароль
+        </mat-label>
 
+        <input matInput
+               name="person_new_password"
+               formControlName="person_new_password">
+      </mat-form-field>
 
-        <div class="fields__password" [formGroup]="passwordForm">
-            <mat-form-field appearance="outline" subscriptSizing="dynamic">
-                <mat-label>Новый пароль</mat-label>
-                <input matInput name="person_new_password" formControlName="person_new_password">
-            </mat-form-field>
+      <mat-form-field appearance="outline"
+                      subscriptSizing="dynamic"
+                      color="warn">
 
-            <mat-form-field appearance="outline" subscriptSizing="dynamic" color="warn">
-                <mat-label>Старый пароль</mat-label>
-                <input matInput name="person_old_password" formControlName="person_old_password">
-            </mat-form-field>
+        <mat-label>
+          Старый пароль
+        </mat-label>
 
-            <button mat-raised-button class="cancel-button" color="link">Сохранить</button>
-        </div>
+        <input matInput
+               name="person_old_password"
+               formControlName="person_old_password">
+      </mat-form-field>
+
+      <button mat-raised-button
+              class="cancel-button"
+              color="link">
+        Сохранить
+      </button>
     </div>
+  </div>
 </div>

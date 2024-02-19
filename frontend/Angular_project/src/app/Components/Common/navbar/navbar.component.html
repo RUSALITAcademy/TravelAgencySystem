@@ -1,78 +1,82 @@
 <nav>
-    <div class="navbar">
-        <div class="navbar__item">
-            <div class="navbar__item__text">
-                VivoVoyage
-            </div>
-        </div>
-        <div class="navbar__item">
-            <button (click)="toggleProfileMenu()">
-                <div class="navbar__item__svg">
 
-                    <svg width="24"
-                         height="24"
-                         viewBox="0 0 16 16"
-                         fill="currentColor"
-                         xmlns="http://www.w3.org/2000/svg"
-                         aria-hidden="true"
-                         data-test-id="icon"
-                         style="display:inline-block">
-                        <path
-                              d="M8 7.832c1.57 0 2.88-1.295 2.88-2.953A2.883 2.883 0 0 0 8 2C6.443 2 5.12 3.282 5.127 4.887 5.127 6.537 6.43 7.832 8 7.832ZM3.62 14h8.76c1.21 0 1.62-.363 1.62-.99 0-1.691-2.335-4.016-6-4.016-3.672 0-6 2.325-6 4.015 0 .628.41.99 1.62.99Z">
-                        </path>
-                    </svg>
+  <div class="navbar">
 
-                </div>
-                <div class="navbar__item__text">
-                    Профиль
-                </div>
+    <div class="navbar__item">
 
-                <div class="profile__menu"
-                     [style.right]="isProfileMenuOpen ? '0' : '-300px'">
-                    <ul>
-
-                        <li>
-                            <button class="nav-menu-button"
-                                    routerLink="/account/settings">
-                                <i class="fas fa-cog"></i>
-                                <div class="navbar__item__text">
-                                    Настройки
-                                </div>
-                            </button>
-                        </li>
-
-                        <li>
-                            <button class="nav-menu-button"
-                                    routerLink="/account/documents">
-                                <i class="fas fa-file"></i>
-                                <div class="navbar__item__text">
-                                    Документы
-                                </div>
-                            </button>
-                        </li>
-
-                        <li>
-                            <button class="nav-menu-button"
-                                    routerLink="/account/history">
-                                <i class="fas fa-history"></i>
-                                <div class="navbar__item__text">
-                                    История поездок
-                                </div>
-                            </button>
-                        </li>
-
-                    </ul>
-
-                    <button class="nav-login-button"
-                            routerLink="/auth/">
-                        <i class="fas fa-sign-in-alt"></i>
-                        <div class="navbar__item__text">
-                            Войти
-                        </div>
-                    </button>
-                </div>
-
-            </button>
-        </div>
+      <div class="navbar__item__text">
+        VivoVoyage
+      </div>
     </div>
+
+    <div class="navbar__item">
+
+      <button (click)="toggleProfileMenu()">
+
+        <div class="navbar__item__svg">
+
+          <svg width="24"
+               height="24"
+               viewBox="0 0 16 16"
+               fill="currentColor"
+               xmlns="http://www.w3.org/2000/svg"
+               aria-hidden="true"
+               data-test-id="icon"
+               style="display:inline-block">
+            <path
+                  d="M8 7.832c1.57 0 2.88-1.295 2.88-2.953A2.883 2.883 0 0 0 8 2C6.443 2 5.12 3.282 5.127 4.887 5.127 6.537 6.43 7.832 8 7.832ZM3.62 14h8.76c1.21 0 1.62-.363 1.62-.99 0-1.691-2.335-4.016-6-4.016-3.672 0-6 2.325-6 4.015 0 .628.41.99 1.62.99Z">
+            </path>
+          </svg>
+
+        </div>
+
+        <div class="navbar__item__text">
+          Профиль
+        </div>
+
+        <div class="profile__menu"
+             [style.right]="isProfileMenuOpen ? '0' : '-300px'">
+          <ul>
+
+            <li>
+
+              <button class="nav-menu-button"
+                      routerLink="/account/settings">
+
+                <i class="fas fa-cog"></i>
+
+                <div class="navbar__item__text">
+                  Настройки
+                </div>
+              </button>
+            </li>
+
+            <li>
+
+              <button class="nav-menu-button"
+                      routerLink="/account/history">
+
+                <i class="fas fa-history"></i>
+
+                <div class="navbar__item__text">
+                  История поездок
+                </div>
+              </button>
+            </li>
+
+          </ul>
+
+          <button class="nav-login-button"
+                  routerLink="/auth/">
+
+            <i class="fas fa-sign-in-alt"></i>
+
+            <div class="navbar__item__text">
+              Войти
+            </div>
+          </button>
+        </div>
+      </button>
+    </div>
+  </div>
 </nav>
