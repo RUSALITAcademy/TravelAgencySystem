@@ -4,8 +4,11 @@ using Backend.Application.Models.Tours.Commands.DeleteTour;
 using Backend.Application.Models.Tours.Commands.UpdateTour;
 using Backend.Application.Models.Tours.Queries.GetTourDetails;
 using Backend.Application.Models.Tours.Queries.GetTourList;
+using Backend.Domain.Models;
 using Backend.WebAPI.Models.CreateDto;
 using Backend.WebAPI.Models.UpdateDto;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.WebAPI.Controllers
@@ -13,8 +16,17 @@ namespace Backend.WebAPI.Controllers
     public class TourController : BaseController
     {
         private readonly IMapper _mapper;
+        private readonly UserManager<User> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public TourController(IMapper mapper) => _mapper = mapper;
+        public TourController(IMapper mapper, UserManager<User> userManager, RoleManager<IdentityRole> roleManager) 
+        {
+            _mapper = mapper;
+            _userManager = userManager;
+            _roleManager = roleManager;
+        }
+        
+
 
 
 
@@ -31,8 +43,10 @@ namespace Backend.WebAPI.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "Agent")]
         public async Task<ActionResult<Guid>> CreateTour([FromBody] CreateTourDto createTourDto)
         {
+            //HttpContext.User.IsInRole();
             var command = _mapper.Map<CreateTourCommand>(createTourDto);
             var TourId = await Mediator.Send(command);
             return Ok(TourId);
@@ -59,6 +73,7 @@ namespace Backend.WebAPI.Controllers
             return NoContent();
         }
         [HttpGet]
+        [Authorize] //Под вопросом
         public async Task<ActionResult<TourListVm>> GetAllTours()
         {
             var query = new GetTourListQuery
@@ -67,5 +82,26 @@ namespace Backend.WebAPI.Controllers
             var vm = await Mediator.Send(query);
             return Ok(vm);
         }
+
+        [HttpPost("Role")]
+        public async Task<ActionResult> CreateRole([FromBody] RoleRequest request)
+        {
+            var role = await _roleManager.FindByNameAsync(request.RoleName);
+            if(role == null)
+            {
+                await _roleManager.CreateAsync(new IdentityRole(request.RoleName));
+            }
+            var user = await _userManager.FindByNameAsync(request.UserName);
+            
+            await _userManager.AddToRoleAsync(user, request.RoleName);
+            return Ok();
+        }
+    }
+
+
+    public class RoleRequest
+    {
+        public string RoleName { get; set; }
+        public string UserName { get; set; }
     }
 }

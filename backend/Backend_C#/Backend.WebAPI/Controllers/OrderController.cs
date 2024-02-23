@@ -60,7 +60,7 @@ namespace Backend.WebAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<OrderListVm>> GetAllOrdersFromUser(Guid id)
+        public async Task<ActionResult<OrderListVm>> GetAllOrdersFromUser(string id)
         {
             var query = new GetOrderListQuery
             {

@@ -6,9 +6,9 @@ namespace Backend.Application.Models.Users.Queries.GetUserList
 {
     public class UserLookupDto : IMapWith<User>
     {
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
         public string? Email { get; set; }
-        public string? Password { get; set; }
+        //public string? Password { get; set; }
         public string? Name { get; set; }
         public string ImgUrl { get; set; }
 
@@ -16,13 +16,13 @@ namespace Backend.Application.Models.Users.Queries.GetUserList
         {
             profile.CreateMap<User, UserLookupDto>()
                 .ForMember(businessman => businessman.UserId,
-                    opt => opt.MapFrom(businessman => businessman.UserId))
+                    opt => opt.MapFrom(businessman => businessman.Id))
                 .ForMember(businessman => businessman.Email,
                     opt => opt.MapFrom(businessman => businessman.Email))
-                .ForMember(businessman => businessman.Password,
-                    opt => opt.MapFrom(businessman => businessman.Password))
+                //.ForMember(businessman => businessman.Password,
+                //    opt => opt.MapFrom(businessman => businessman.Password))
                 .ForMember(businessman => businessman.Name,
-                    opt => opt.MapFrom(businessman => businessman.Name))
+                    opt => opt.MapFrom(businessman => businessman.UserName))
                 .ForMember(clientVm => clientVm.ImgUrl,
                     opt => opt.MapFrom(client => client.ImgUrl));
         }

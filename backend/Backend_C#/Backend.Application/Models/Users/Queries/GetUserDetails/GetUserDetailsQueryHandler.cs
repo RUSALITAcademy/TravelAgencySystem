@@ -22,7 +22,7 @@ namespace Backend.Application.Models.Users.Queries.GetUserDetails
         {
             var entity = await _dbContext.User
                 .FirstOrDefaultAsync(client =>
-                client.UserId == request.UserId, cancellationToken);
+                client.Id == request.UserId.ToString(), cancellationToken);
 
             if (entity == null)
             {

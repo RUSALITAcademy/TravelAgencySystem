@@ -1,12 +1,13 @@
 ﻿using Backend.Application.Interfaces;
 using Backend.Domain.Models;
 using Backend.Persistence.EntityTypeConfigurations;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Persistence.ModelsDbContext
 {
     public class UserDbContext 
-        : DbContext, IUserDbContext
+        : IdentityDbContext<User>, IUserDbContext
     {
         public DbSet<User> User { get; set; }
 

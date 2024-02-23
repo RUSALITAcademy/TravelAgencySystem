@@ -12,6 +12,6 @@ namespace Backend.Application.Models.Orders.Queries.GetOrderList
 {
     public class GetOrderListQuery : IRequest<OrderListVm>
     {
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
     }
 }

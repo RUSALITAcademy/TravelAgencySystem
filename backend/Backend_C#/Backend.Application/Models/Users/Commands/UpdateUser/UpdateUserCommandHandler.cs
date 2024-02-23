@@ -18,18 +18,18 @@ namespace Backend.Application.Models.Users.Commands.UpdateUser
         {
             var entity =
                 await _dbContext.User.FirstOrDefaultAsync(client =>
-                client.UserId == request.UserId, cancellationToken);
+                client.Id == request.UserId.ToString(), cancellationToken);
             if (entity == null)
             {
                 throw new NotFoundException(nameof(User), request.UserId);
             }
 
-            entity.Name = request.Name;
-            entity.Password = request.Password;
-            entity.Email = request.Email;
-            entity.ImgUrl = request.ImgUrl;
+            entity.UserName = request.Name;
+            //entity.Password = request.Password;
+            //entity.Email = request.Email;
+            //entity.ImgUrl = request.ImgUrl;
 
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            //await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }
