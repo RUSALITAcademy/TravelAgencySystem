@@ -14,8 +14,6 @@ builder.Services.AddAutoMapper(config =>
     config.AddProfile(new AssemblyMappingProfile(typeof(IUserDbContext).Assembly));
     config.AddProfile(new AssemblyMappingProfile(typeof(ITourDbContext).Assembly));
     config.AddProfile(new AssemblyMappingProfile(typeof(IOrderDbContext).Assembly));
-    config.AddProfile(new AssemblyMappingProfile(typeof(IPassportDbContext).Assembly));
-    config.AddProfile(new AssemblyMappingProfile(typeof(IInternationalPassportDbContext).Assembly));
 });
 
 

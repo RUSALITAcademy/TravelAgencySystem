@@ -25,14 +25,6 @@ namespace Backend.Persistence
             {
                 options.UseNpgsql(connectionString);
             });
-            services.AddDbContext<PassportDbContext>(options =>
-            {
-                options.UseNpgsql(connectionString);
-            });
-            services.AddDbContext<InternationalPassportDbContext>(options =>
-            {
-                options.UseNpgsql(connectionString);
-            });
             //Далее другие пов аналогии\\
 
 
@@ -45,10 +37,6 @@ namespace Backend.Persistence
                 provider.GetService<TourDbContext>());
             services.AddScoped<IOrderDbContext>(provider =>
                 provider.GetService<OrderDbContext>());
-            services.AddScoped<IPassportDbContext>(provider =>
-                provider.GetService<PassportDbContext>());
-            services.AddScoped<IInternationalPassportDbContext>(provider =>
-                provider.GetService<InternationalPassportDbContext>());
 
             return services;
         }
