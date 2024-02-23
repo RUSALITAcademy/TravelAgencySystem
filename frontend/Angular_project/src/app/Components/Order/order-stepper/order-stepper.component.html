@@ -1,106 +1,262 @@
 <div class="order">
-    <div class="container">
-      <div class="ordet_tour_info">
-        <div class="tour_info_card">
-          <div class="image_container">
-            <!-- Изображение тура -->
-            <img [src]="tour.imgUrl[0]" alt="Tour Image">
-          </div>
-          <div class="info_container">
-            <!-- Информация о туре -->
-            <h2 class="tour-info-name">{{ tour.name }}</h2>
-            <span class="tour-info-location"><i class="fa-solid fa-location-dot"></i> {{tour.country}}, {{tour.region}}</span>
-            <p class="tour-quantity"><strong>Осталось мест:</strong> {{ tour.quantity }}</p>
-            <p class="tour-start"><strong>Начало тура:</strong> {{ tour.startDate| date:'dd.MM.yyyy' }}</p>
-            <p class="tour-end"><strong>Окончание тура:</strong> {{ tour.endDate | date:'dd.MM.yyyy' }}</p>
-            <p class="tour-info-desc">{{ tour.description }}</p>
-          </div>
+
+  <div class="container">
+
+    <div class="ordet_tour_info">
+
+      <div class="tour_info_card">
+
+        <div class="image_container">
+          <!-- Изображение тура -->
+          <img [src]="tour.imgUrl[0]"
+               alt="Tour Image">
+        </div>
+
+        <div class="info_container">
+          <!-- Информация о туре -->
+          <h2 class="tour-info-name">
+            {{ tour.name }}
+          </h2>
+
+          <span class="tour-info-location">
+            <i class="fa-solid fa-location-dot"></i> {{tour.country}}, {{tour.region}}
+          </span>
+
+          <p class="tour-quantity">
+            <strong>Осталось мест:</strong> {{ tour.quantity }}
+          </p>
+
+          <p class="tour-start">
+            <strong>Начало тура:</strong> {{ tour.startDate| date:'dd.MM.yyyy' }}
+          </p>
+
+          <p class="tour-end">
+            <strong>Окончание тура:</strong> {{ tour.endDate | date:'dd.MM.yyyy' }}
+          </p>
+
+          <p class="tour-info-desc">
+            {{ tour.description }}
+          </p>
         </div>
       </div>
-      <div class="order_content">
-        <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
-          <!-- Шаг 1 -->
-          <mat-step [stepControl]="firstFormGroup">
-            <ng-template matStepLabel>Добавьте данные паспорта</ng-template>
-            <form [formGroup]="firstFormGroup">
-                <div class="form-row">
-                    <mat-form-field>
-                        <mat-label>Серия</mat-label>
-                        <input matInput placeholder="Введите серию" formControlName="series" required>
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Номер</mat-label>
-                        <input matInput placeholder="Введите номер" formControlName="number" required>
-                    </mat-form-field>
-                </div>
-                <div class="form-row">
-                    <mat-form-field>
-                        <mat-label>Имя</mat-label>
-                        <input matInput placeholder="Введите имя" formControlName="firstName" required>
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Фамилия</mat-label>
-                        <input matInput placeholder="Введите фамилию" formControlName="lastName" required>
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Отчество</mat-label>
-                        <input matInput placeholder="Введите отчество" formControlName="patronymic" required>
-                    </mat-form-field>
-                </div>
-              <div>
-                <button class="order-button" mat-button matStepperNext [disabled]="firstFormGroup.invalid">Продолжить</button>
-              </div>
-            </form>
-          </mat-step>
-  
-          <!-- Шаг 2 -->
-          <mat-step [stepControl]="secondFormGroup">
-            <ng-template matStepLabel>Добавьте данные заграничного паспорта</ng-template>
-            <form [formGroup]="secondFormGroup">
-              <div class="form-row">
-                <mat-form-field>
-                  <mat-label>Серия</mat-label>
-                  <input matInput placeholder="Введите серию" formControlName="passportSeries" required>
-                </mat-form-field>
-                <mat-form-field>
-                  <mat-label>Номер</mat-label>
-                  <input matInput placeholder="Введите номер" formControlName="passportNumber" required>
-                </mat-form-field>
-              </div>
-              <div class="form-row">
-                <mat-form-field>
-                  <mat-label>Имя</mat-label>
-                  <input matInput placeholder="Введите имя" formControlName="passportFirstName" required>
-                </mat-form-field>
-                <mat-form-field>
-                  <mat-label>Фамилия</mat-label>
-                  <input matInput placeholder="Введите фамилию" formControlName="passportLastName" required>
-                </mat-form-field>
-                <mat-form-field>
-                  <mat-label>Отчество</mat-label>
-                  <input matInput placeholder="Введите отчество" formControlName="passportPatronymic" required>
-                </mat-form-field>
-              </div>
-              <div>
-                <button class="order-button" mat-button matStepperPrevious>Вернуться</button>
-                <button class="order-button" mat-button matStepperNext [disabled]="secondFormGroup.invalid">Продолжить</button>
-              </div>
-            </form>
-          </mat-step>
+    </div>
 
-          <!-- Шаг 3 -->
-          <mat-step>
-            <ng-template matStepLabel>Подтвердите оформление тура</ng-template>
-            
-            <div class="step3">
-              <h2><i class="fa-solid fa-triangle-exclamation" style="color: #8A2387;"></i> При продолжении вас перенаправит на страницу платежа!</h2>
-              <h3 class="info-price"><strong>Стоимость:</strong><span> {{tour.price}} ₽</span></h3>
-              <button class="order-button" mat-button matStepperPrevious>Вернуться</button>
-              <button class="order-button" mat-button (click)="stepper.reset()">Оплатить</button>
+    <div class="order_content">
+
+      <mat-stepper orientation="vertical"
+                   [linear]="isLinear"
+                   #stepper>
+        <!-- Шаг 1 -->
+        <mat-step [stepControl]="firstFormGroup">
+
+          <ng-template matStepLabel>
+            Добавьте данные паспорта
+          </ng-template>
+
+          <form [formGroup]="firstFormGroup">
+
+            <div class="form-row">
+
+              <mat-form-field>
+
+                <mat-label>
+                  Серия
+                </mat-label>
+
+                <input matInput
+                       placeholder="Введите серию"
+                       formControlName="series"
+                       required>
+              </mat-form-field>
+
+              <mat-form-field>
+
+                <mat-label>
+                  Номер
+                </mat-label>
+
+                <input matInput
+                       placeholder="Введите номер"
+                       formControlName="number"
+                       required>
+              </mat-form-field>
             </div>
-          </mat-step>
-        </mat-stepper>
-      </div>
+
+            <div class="form-row">
+
+              <mat-form-field>
+
+                <mat-label>
+                  Имя
+                </mat-label>
+
+                <input matInput
+                       placeholder="Введите имя"
+                       formControlName="firstName"
+                       required>
+              </mat-form-field>
+
+              <mat-form-field>
+
+                <mat-label>
+                  Фамилия
+                </mat-label>
+
+                <input matInput
+                       placeholder="Введите фамилию"
+                       formControlName="lastName"
+                       required>
+              </mat-form-field>
+
+              <mat-form-field>
+
+                <mat-label>
+                  Отчество
+                </mat-label>
+
+                <input matInput
+                       placeholder="Введите отчество"
+                       formControlName="patronymic"
+                       required>
+              </mat-form-field>
+            </div>
+
+            <div>
+
+              <button class="order-button"
+                      mat-button
+                      matStepperNext
+                      [disabled]="firstFormGroup.invalid">
+                Продолжить
+              </button>
+            </div>
+          </form>
+        </mat-step>
+
+        <!-- Шаг 2 -->
+        <mat-step [stepControl]="secondFormGroup">
+
+          <ng-template matStepLabel>
+            Добавьте данные заграничного паспорта
+          </ng-template>
+
+          <form [formGroup]="secondFormGroup">
+
+            <div class="form-row">
+
+              <mat-form-field>
+
+                <mat-label>
+                  Серия
+                </mat-label>
+
+                <input matInput
+                       placeholder="Введите серию"
+                       formControlName="passportSeries"
+                       required>
+              </mat-form-field>
+
+              <mat-form-field>
+
+                <mat-label>
+                  Номер
+                </mat-label>
+
+                <input matInput
+                       placeholder="Введите номер"
+                       formControlName="passportNumber"
+                       required>
+              </mat-form-field>
+            </div>
+
+            <div class="form-row">
+
+              <mat-form-field>
+
+                <mat-label>
+                  Имя
+                </mat-label>
+
+                <input matInput
+                       placeholder="Введите имя"
+                       formControlName="passportFirstName"
+                       required>
+              </mat-form-field>
+
+              <mat-form-field>
+
+                <mat-label>
+                  Фамилия
+                </mat-label>
+
+                <input matInput
+                       placeholder="Введите фамилию"
+                       formControlName="passportLastName"
+                       required>
+              </mat-form-field>
+
+              <mat-form-field>
+
+                <mat-label>
+                  Отчество
+                </mat-label>
+
+                <input matInput
+                       placeholder="Введите отчество"
+                       formControlName="passportPatronymic"
+                       required>
+              </mat-form-field>
+            </div>
+
+            <div>
+
+              <button class="order-button"
+                      mat-button
+                      matStepperPrevious>
+                Вернуться
+              </button>
+
+              <button class="order-button"
+                      mat-button
+                      matStepperNext
+                      [disabled]="secondFormGroup.invalid">
+                Продолжить
+              </button>
+            </div>
+          </form>
+        </mat-step>
+
+        <!-- Шаг 3 -->
+        <mat-step>
+          <ng-template matStepLabel>Подтвердите оформление тура</ng-template>
+
+          <div class="step3">
+
+            <h2>
+              <i class="fa-solid fa-triangle-exclamation"
+                 style="color: #8A2387;">
+              </i>
+              При продолжении вас перенаправит на страницу платежа!
+            </h2>
+
+            <h3 class="info-price">
+              <strong>Стоимость:</strong><span> {{tour.price}} ₽</span>
+            </h3>
+
+            <button class="order-button"
+                    mat-button
+                    matStepperPrevious>
+              Вернуться
+            </button>
+
+            <button class="order-button"
+                    mat-button
+                    (click)="stepper.reset()">
+              Оплатить
+            </button>
+          </div>
+        </mat-step>
+      </mat-stepper>
     </div>
   </div>
-  
+</div>

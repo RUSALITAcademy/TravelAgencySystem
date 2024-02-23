@@ -9,7 +9,6 @@ import { PaymentPageComponent } from './Pages/Payment-page/payment-page.componen
 import { UserAccountPageComponent } from './Pages/User-account-page/user-account-page.component';
 import { AccountSettingsComponent } from './Components/User-account-page-components/account-settings/account-settings.component';
 import { AccountTravelHistoryComponent } from './Components/User-account-page-components/account-travel-history/account-travel-history.component';
-import { AccountDocumentsComponent } from './Components/User-account-page-components/account-documents/account-documents.component';
 //личный кабинет
 
 const routes: Routes = [
@@ -21,7 +20,6 @@ const routes: Routes = [
       { path: '', redirectTo: 'account', pathMatch: 'full' },
       { path: "settings", component: AccountSettingsComponent },
       { path: "history", component: AccountTravelHistoryComponent },
-      { path: "documents", component: AccountDocumentsComponent },
     ]
   },
   { path: "main", component: MainPageComponent },
