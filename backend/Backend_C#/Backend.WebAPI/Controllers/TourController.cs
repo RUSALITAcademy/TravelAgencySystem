@@ -43,7 +43,7 @@ namespace Backend.WebAPI.Controllers
 
 
         [HttpPost]
-        [Authorize(Roles = "Agent")]
+        [Authorize(Roles = "TourAgency")]
         public async Task<ActionResult<Guid>> CreateTour([FromBody] CreateTourDto createTourDto)
         {
             //HttpContext.User.IsInRole();
@@ -54,6 +54,7 @@ namespace Backend.WebAPI.Controllers
 
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "TourAgency")]
         public async Task<IActionResult> UpdateTour([FromBody] UpdateTourDto updateTourDto, Guid id)
         {
             var command = _mapper.Map<UpdateTourCommand>(updateTourDto);
@@ -63,6 +64,7 @@ namespace Backend.WebAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "TourAgency, Admin")]
         public async Task<IActionResult> DeleteTour(Guid id)
         {
             var command = new DeleteTourCommand
@@ -73,7 +75,6 @@ namespace Backend.WebAPI.Controllers
             return NoContent();
         }
         [HttpGet]
-        [Authorize] //Под вопросом
         public async Task<ActionResult<TourListVm>> GetAllTours()
         {
             var query = new GetTourListQuery
@@ -84,6 +85,7 @@ namespace Backend.WebAPI.Controllers
         }
 
         [HttpPost("Role")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> CreateRole([FromBody] RoleRequest request)
         {
             var role = await _roleManager.FindByNameAsync(request.RoleName);

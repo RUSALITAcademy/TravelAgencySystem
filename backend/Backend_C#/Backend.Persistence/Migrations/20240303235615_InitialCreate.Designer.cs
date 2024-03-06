@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Persistence.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20240223055218_InitialCreate")]
+    [Migration("20240303235615_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -187,6 +187,26 @@ namespace Backend.Persistence.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "62d969be-785d-4219-b286-9b65a8718a99",
+                            Name = "User",
+                            NormalizedName = "User"
+                        },
+                        new
+                        {
+                            Id = "0d2a7796-5724-482c-a280-5cc853619c38",
+                            Name = "Admin",
+                            NormalizedName = "Admin"
+                        },
+                        new
+                        {
+                            Id = "6c451fc5-7063-4c3b-a52b-528e930e1885",
+                            Name = "TourAgency",
+                            NormalizedName = "TourAgency"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

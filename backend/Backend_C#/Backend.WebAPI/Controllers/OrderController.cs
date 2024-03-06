@@ -6,6 +6,7 @@ using Backend.Application.Models.Orders.Queries.GetOrderDetails;
 using Backend.Application.Models.Orders.Queries.GetOrderList;
 using Backend.WebAPI.Models.CreateDto;
 using Backend.WebAPI.Models.UpdateDto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.WebAPI.Controllers
@@ -19,6 +20,7 @@ namespace Backend.WebAPI.Controllers
 
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "TourAgency, User")]
         public async Task<ActionResult<OrderDetailsVm>> GetOrder(Guid id)
         {
             var query = new GetOrderDetailsQuery
@@ -31,6 +33,7 @@ namespace Backend.WebAPI.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "User")]
         public async Task<ActionResult<Guid>> CreateOrder([FromBody] CreateOrderDto createTourDto)
         {
             var command = _mapper.Map<CreateOrderCommand>(createTourDto);
@@ -60,6 +63,7 @@ namespace Backend.WebAPI.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "User")]
         public async Task<ActionResult<OrderListVm>> GetAllOrdersFromUser(string id)
         {
             var query = new GetOrderListQuery
