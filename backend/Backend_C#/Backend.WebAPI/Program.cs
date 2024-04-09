@@ -1,8 +1,11 @@
 using Backend.Application;
 using Backend.Application.Common.Mappings;
 using Backend.Application.Interfaces;
+using Backend.Domain.Models;
 using Backend.Persistence;
+using Backend.Persistence.ModelsDbContext;
 using Backend.WebAPI.Middleware;
+using Microsoft.AspNetCore.Identity;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +25,9 @@ builder.Services.AddSwaggerDocument();
 builder.Services.AddApplication();
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddControllers();
+builder.Services.AddAuthorization();
+builder.Services.AddIdentityApiEndpoints<User>().AddRoles<IdentityRole>().AddEntityFrameworkStores<UserDbContext>();
+//builder.Services.
 //МБ не надо
 builder.Services.AddControllersWithViews();
 
@@ -49,10 +55,11 @@ app.UseRouting();
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 //Нужно для авторизации аутентификации
-//app.UseAuthentication();
-//app.UseAuthorization();
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapIdentityApi<User>();
 app.MapControllers();
 //Swagger
 app.UseOpenApi();
-app.UseSwaggerUi3();
+app.UseSwaggerUi();
 app.Run();

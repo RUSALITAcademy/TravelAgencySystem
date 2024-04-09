@@ -16,11 +16,11 @@ namespace Backend.Application.Models.Users.Queries.GetUserDetails
         {
             profile.CreateMap<User, UserDetailsVm>()
                 .ForMember(clientVm => clientVm.UserId,
-                    opt => opt.MapFrom(client => client.UserId))
+                    opt => opt.MapFrom(client => client.Id))
                 .ForMember(clientVm => clientVm.Name,
-                    opt => opt.MapFrom(client => client.Name))
-                .ForMember(clientVm => clientVm.Password,
-                    opt => opt.MapFrom(client => client.Password))
+                    opt => opt.MapFrom(client => client.UserName))
+                //.ForMember(clientVm => clientVm.Password,
+                //    opt => opt.MapFrom(client => client.Password))
                 .ForMember(clientVm => clientVm.Email,
                     opt => opt.MapFrom(client => client.Email))
                 .ForMember(clientVm => clientVm.ImgUrl,

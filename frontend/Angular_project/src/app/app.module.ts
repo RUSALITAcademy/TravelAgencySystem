@@ -3,7 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './Components/Common/navbar/navbar.component';
@@ -27,6 +27,8 @@ import { TourMainComponent } from './Components/Tour-page-components/tour-main/t
 import { OrderStepperComponent } from "./Components/Order/order-stepper/order-stepper.component";
 import { AccountSettingsComponent } from './Components/User-account-page-components/account-settings/account-settings.component';
 import { AccountTravelHistoryComponent } from './Components/User-account-page-components/account-travel-history/account-travel-history.component';
+import { AuthService } from './Services/auth.service';
+import { TokenInterceptorInterceptor } from './Services/token-interceptor.interceptor';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,8 @@ import { AccountTravelHistoryComponent } from './Components/User-account-page-co
     MatButtonModule,
     OrderStepperComponent
   ],
-  providers: [],
+  providers: [AuthService, { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true },],
   bootstrap: [AppComponent]
+
 })
 export class AppModule { }
