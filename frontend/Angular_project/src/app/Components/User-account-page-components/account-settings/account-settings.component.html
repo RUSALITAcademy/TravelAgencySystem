@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
 
   <div class="header">
     Основное
@@ -78,4 +78,85 @@
       </button>
     </div>
   </div>
+</div> -->
+
+<div class="container">
+  <form action="">
+    <div class="header">
+      <h1>Личная информация</h1>
+    </div>
+    <div class="fields__info">
+      <mat-form-field appearance="outline"
+                      subscriptSizing="dynamic"
+                      color="primary">
+        <input matInput
+               placeholder="Имя"
+               type="text"
+               [disabled]="!editMode">
+        <mat-error>ОШИБКА</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline"
+                      subscriptSizing="dynamic"
+                      color="primary">
+        <input matInput
+               placeholder="Email"
+               type="text"
+               [disabled]="!editMode">
+        <mat-error>ОШИБКА</mat-error>
+      </mat-form-field>
+      <div class="buttons_box">
+        <button *ngIf="editMode"
+                mat-raised-button
+                class="save_button"
+                color="link">
+          Сохранить
+        </button>
+        <button mat-raised-button
+                class="change_button"
+                color="link"
+                (click)="toggleEditMode()">
+          {{ editMode ? 'Отменить изменения' : 'Изменить' }}
+        </button>
+      </div>
+    </div>
+    <div class="fields__password">
+      <mat-form-field appearance="outline"
+                      subscriptSizing="dynamic"
+                      color="primary">
+        <input matInput
+               placeholder="Новый пароль"
+               [type]="hidePass ? 'password' : 'text'"
+               [disabled]="!editModePass">
+        <mat-error>ОШИБКА</mat-error>
+        <!-- <mat-icon matSuffix
+  (click)="hidePass = !hidePass">{{hidePass ? 'visibility_off' : 'visibility'}}</mat-icon> -->
+      </mat-form-field>
+      <mat-form-field appearance="outline"
+                      subscriptSizing="dynamic"
+                      color="primary">
+        <input matInput
+               placeholder="Повторите пароль"
+               [type]="hidePassRepeat ? 'password' : 'text'"
+               [disabled]="!editModePass">
+        <mat-error>ОШИБКА</mat-error>
+        <!-- <mat-icon matSuffix
+  (click)="hidePassRepeat = !hidePassRepeat">{{hidePassRepeat ? 'visibility_off' :
+'visibility'}}</mat-icon> -->
+      </mat-form-field>
+      <div class="buttons_box">
+        <button *ngIf="editModePass"
+                mat-raised-button
+                class="save_button"
+                color="link">
+          Сохранить
+        </button>
+        <button mat-raised-button
+                class="change_button"
+                color="link"
+                (click)="toggleEditModePass()">
+          {{ editModePass ? 'Отменить изменения' : 'Изменить' }}
+        </button>
+      </div>
+    </div>
+  </form>
 </div>

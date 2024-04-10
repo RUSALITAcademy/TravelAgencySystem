@@ -30,6 +30,7 @@ import { AccountSettingsComponent } from './Components/User-account-page-compone
 import { AccountTravelHistoryComponent } from './Components/User-account-page-components/account-travel-history/account-travel-history.component';
 import { AuthService } from './Services/auth.service';
 import { TokenInterceptorInterceptor } from './Services/token-interceptor.interceptor';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { TokenInterceptorInterceptor } from './Services/token-interceptor.interc
     MatFormFieldModule,
     MatButtonModule,
     OrderStepperComponent,
+    MatIconModule,
     MatCheckboxModule
   ],
   providers: [AuthService, { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true },],

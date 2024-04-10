@@ -1,0 +1,37 @@
+.container {
+    margin-left: 5%;
+    width: 80%;
+    //color: white;
+    padding: 24px;
+    border-radius: 10px;
+    //background: linear-gradient(to right, rgba(233, 64, 87, 0.3), rgba(138, 35, 135, 0.3));
+    background-color: white;
+    box-shadow: 0px 0 15px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    margin-bottom: 16px;
+}
+
+.header {
+    //display: flex;
+    margin-bottom: 8px;
+    //justify-content: start;
+    //align-items: end;
+    //gap: 10px;
+
+    h1 {
+        font-size: 32px;
+        margin-bottom: 4px;
+    }
+
+    span {
+        font-size: 16px;
+        margin-bottom: 6px;
+    }
+}
+
+.info_order {
+    p {
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+}

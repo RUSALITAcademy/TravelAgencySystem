@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { IUser } from 'src/app/Models/user.model';
 
 @Component({
   selector: 'app-account-settings',
@@ -7,6 +8,13 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./account-settings.component.scss']
 })
 export class AccountSettingsComponent implements OnInit {
+
+  hidePass = true;
+  hidePassRepeat = true;
+  editMode: boolean = false;
+  editModePass: boolean = false;
+
+  originalUser: IUser | null = null;
 
   infoForm: FormGroup;
   passwordForm: FormGroup;
@@ -25,5 +33,21 @@ export class AccountSettingsComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  toggleEditMode(): void {
+    if (this.editMode) {
+      // Если режим редактирования был активен, восстанавливаем исходные значения
+      //this.editedProduct = { ...this.originalProduct! };
+    }
+    this.editMode = !this.editMode;
+  }
+
+  toggleEditModePass(): void {
+    if (this.editModePass) {
+      // Если режим редактирования был активен, восстанавливаем исходные значения
+      //this.editedProduct = { ...this.originalProduct! };
+    }
+    this.editModePass = !this.editModePass;
   }
 }
