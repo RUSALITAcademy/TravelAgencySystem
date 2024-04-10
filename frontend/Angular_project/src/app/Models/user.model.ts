@@ -1,5 +1,4 @@
-import { IInternationalPassport } from "./international_passport.model";
-import { IPassport } from "./passport.model";
+
 
 export interface IUser {
         id: string;
@@ -8,6 +7,6 @@ export interface IUser {
         password: string;
         imgUrl: string;
 
-        passport: IPassport;
-        internationalPassport: IInternationalPassport;
+        // passport: IPassport;
+        // internationalPassport: IInternationalPassport;
 }

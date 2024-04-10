@@ -27,6 +27,7 @@ import { TourMainComponent } from './Components/Tour-page-components/tour-main/t
 import { OrderStepperComponent } from "./Components/Order/order-stepper/order-stepper.component";
 import { AccountSettingsComponent } from './Components/User-account-page-components/account-settings/account-settings.component';
 import { AccountTravelHistoryComponent } from './Components/User-account-page-components/account-travel-history/account-travel-history.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { AccountTravelHistoryComponent } from './Components/User-account-page-co
     MatNativeDateModule,
     MatFormFieldModule,
     MatButtonModule,
-    OrderStepperComponent
+    OrderStepperComponent,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

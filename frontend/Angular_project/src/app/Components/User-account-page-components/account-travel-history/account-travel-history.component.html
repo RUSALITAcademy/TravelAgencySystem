@@ -1,1 +1,22 @@
-<p>account-travel-history works!</p>
+<div class="container"
+     *ngFor="let order of orders">
+    <div class="header">
+        <h1>{{order.tour.name}}</h1>
+        <span class="tour-info"><i class="fa-solid fa-location-dot"></i> {{ order.tour.country }}, {{ order.tour.region
+            }}</span>
+    </div>
+    <div class="info_order">
+        <p>{{order.registrationDate | date: "dd.MM.yyyy"}}</p>
+        <p>Статус: {{order.status}}</p>
+    </div>
+</div>
+<!-- <div class="container">
+    <div class="header">
+        <h1>Название тура допустим длинное</h1>
+        <span class="tour-info"><i class="fa-solid fa-location-dot"></i> Россия, Красноярск</span>
+    </div>
+    <div class="info_order">
+        <p>Дата: 01.01.2024 - 10.01.2024</p>
+        <p>Статус: Завершен</p>
+    </div>
+</div> -->
