@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/Services/auth.service';
 
 @Component({
   selector: 'app-auth-panel',
@@ -8,10 +9,15 @@ import { Router } from '@angular/router';
 })
 export class AuthPanelComponent implements OnInit {
 
+  name: string = "";
+  password: string = "";
+
   constructor(
     private router: Router,
     private renderer: Renderer2,
-    private el: ElementRef) { }
+    private el: ElementRef,
+    private authService: AuthService) { }
+
 
   ngOnInit(): void {
     const signUnButton = this.el.nativeElement.querySelector('#signUp');
@@ -29,8 +35,11 @@ export class AuthPanelComponent implements OnInit {
 
   //! Реализовать логику к html
 
-  SignIn() {
-    this.router.navigate(['main']);
+  SignIn(name: string, password: string) {
+    let IsAuth = this.authService.login(name, password);
+    if (IsAuth) {
+      this.router.navigate(['main']);
+    }
     console.log(this.router.url)
   }
 

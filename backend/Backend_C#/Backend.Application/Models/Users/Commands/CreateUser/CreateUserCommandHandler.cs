@@ -18,16 +18,16 @@ namespace Backend.Application.Models.Users.Commands.CreateUser
         {
             var user = new User
             {
-                UserId = Guid.NewGuid(),
+                Id = Guid.NewGuid().ToString(),
                 Email = request.Email,
-                Password = request.Password,
-                Name = request.Name,
+                //Password = request.Password,
+                UserName = request.Name,
                 ImgUrl = request.ImgUrl
             };
             await _dbContext.User.AddAsync(user, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            return user.UserId;
+            return Guid.Parse(user.Id);
         }
     }
 }
