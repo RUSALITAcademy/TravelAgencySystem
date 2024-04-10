@@ -67,12 +67,24 @@
           </ul>
 
           <button class="nav-login-button"
-                  routerLink="/auth/">
+                  (click)="login()"
+                  *ngIf="!this.storageService.isLoggedIn()">
 
             <i class="fas fa-sign-in-alt"></i>
 
             <div class="navbar__item__text">
               Войти
+            </div>
+          </button>
+
+          <button class="nav-login-button"
+                  (click)="logout()"
+                  *ngIf="this.storageService.isLoggedIn()">
+
+            <i class="fas fa-sign-in-alt"></i>
+
+            <div class="navbar__item__text">
+              Выйти
             </div>
           </button>
         </div>

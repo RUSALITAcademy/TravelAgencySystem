@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { ITour } from 'src/app/Models/tour.model';
 import { TourService } from 'src/app/Services/tour.service';
 import { GeonamesService } from 'src/app/Services/geonames.service';
+import { City } from './type';
 
 @Component({
   selector: 'app-tours-table',
@@ -96,8 +97,4 @@ function formatDate(date: Date | null): string {
   }
 
   return ''; // или какое-то другое значение по умолчанию, в зависимости от ваших требований
-}
-
-interface City {
-  name: string;
 }
