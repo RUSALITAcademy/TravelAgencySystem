@@ -22,6 +22,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { TourMainComponent } from './Components/Tour-page-components/tour-main/tour-main.component';
 import { OrderStepperComponent } from "./Components/Order/order-stepper/order-stepper.component";
@@ -29,6 +30,7 @@ import { AccountSettingsComponent } from './Components/User-account-page-compone
 import { AccountTravelHistoryComponent } from './Components/User-account-page-components/account-travel-history/account-travel-history.component';
 import { AuthService } from './Services/auth.service';
 import { TokenInterceptorInterceptor } from './Services/token-interceptor.interceptor';
+import { MatIconModule } from '@angular/material/icon';
 import { ToursComponent } from './Components/Travel-agent-components/tours/tours.component';
 import { TravelAgentPageComponent } from './Pages/Travel-agent-page/travel-agent-page.component';
 
@@ -64,7 +66,9 @@ import { TravelAgentPageComponent } from './Pages/Travel-agent-page/travel-agent
     MatNativeDateModule,
     MatFormFieldModule,
     MatButtonModule,
-    OrderStepperComponent
+    OrderStepperComponent,
+    MatIconModule,
+    MatCheckboxModule
   ],
   providers: [AuthService, { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true },],
   bootstrap: [AppComponent]

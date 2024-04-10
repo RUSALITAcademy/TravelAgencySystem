@@ -10,24 +10,20 @@ import { environment } from 'src/environments/environment';
 })
 export class TourService {
 
-  private apiUrl // Адрес API
+  private apiUrl: string // Адрес API
 
-  constructor(private http: HttpClient) { this.apiUrl = environment.apiUrl + "/Tour" }
-
+  constructor(private http: HttpClient) { this.apiUrl = environment.apiUrl + "/api/Tour" }
 
   ////
   GetAllTours(): Observable<ITour[]> {
     return this.http.get<ITour[]>(this.apiUrl + "/GetAllTours");
   }
 
-
   GetTourById(id: string): Observable<ITour | undefined> {
     const url = `${this.apiUrl}/GetTour/${id}`;
     return this.http.get<ITour>(url);
   }
   ////
-
-
 
   ////
   CreateTour(tour: ITour): Observable<ITour> {
@@ -36,14 +32,12 @@ export class TourService {
   }
   ////
 
-
   ////
   UpdateTour(tour: ITour): Observable<ITour> {
     const url = `${this.apiUrl}/UpdateTour/${tour.tourId}`;
     return this.http.put<ITour>(url, tour);
   }
   ////
-
 
   ////
   DeleteTour(id: string): Observable<void> {

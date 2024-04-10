@@ -6,15 +6,15 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from './auth.service';
+import { StorageService } from './storage.service';
 
 @Injectable()
 export class TokenInterceptorInterceptor implements HttpInterceptor {
 
-  constructor(private authService: AuthService) { }
+  constructor(private storageService: StorageService) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const account = this.authService.userAuth;
+    const account = this.storageService.getToken();
     const isLoggedIn = account?.accessToken;
     const isApiUrl = request.url.startsWith("");
     if (isLoggedIn && isApiUrl) {
