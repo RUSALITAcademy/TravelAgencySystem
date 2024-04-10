@@ -31,6 +31,8 @@ import { AccountTravelHistoryComponent } from './Components/User-account-page-co
 import { AuthService } from './Services/auth.service';
 import { TokenInterceptorInterceptor } from './Services/token-interceptor.interceptor';
 import { MatIconModule } from '@angular/material/icon';
+import { ToursComponent } from './Components/Travel-agent-components/tours/tours.component';
+import { TravelAgentPageComponent } from './Pages/Travel-agent-page/travel-agent-page.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { MatIconModule } from '@angular/material/icon';
     TourMainComponent,
     AccountSettingsComponent,
     AccountTravelHistoryComponent,
+    TravelAgentPageComponent,
+    ToursComponent,
     //Страницы
   ],
   imports: [

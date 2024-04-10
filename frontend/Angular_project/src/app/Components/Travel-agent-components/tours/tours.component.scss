@@ -1,0 +1,63 @@
+.container {
+    box-sizing: border-box;
+    width: 80%;
+    margin-left: 5%;
+    display: flex;
+    flex-direction: column;
+}
+
+.tour_card {
+    display: flex;
+    width: 80%;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0px 0 15px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+}
+
+.add_button {
+    width: 20%;
+    height: 44px;
+    background: linear-gradient(to right, rgba(233, 79, 65, 0.7), rgba(240, 105, 42, 0.7));
+    color: #fff !important;
+    padding: 16px;
+    align-items: center;
+    display: flex;
+    border: none;
+    border-radius: 7px;
+}
+
+.tour_info {
+    width: 70%;
+
+    h1 {
+        font-size: 28px;
+        margin-bottom: 4px;
+    }
+
+    p {
+        margin-bottom: 4px;
+    }
+}
+
+.tour_menu {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    column-gap: 20px;
+    justify-content: space-around;
+}
+
+.change_button {
+    border-radius: 7px;
+    //width: 50%;
+    display: flex;
+    border: none;
+    // background: linear-gradient(to right, rgba(138, 35, 135, 0.7), rgba(233, 64, 87, 0.7));
+    background: linear-gradient(to right, rgba(233, 64, 87, 0.7), rgba(138, 35, 135, 0.7));
+    align-items: center;
+    color: #fff !important;
+    padding: 16px;
+    margin-bottom: 8px;
+}

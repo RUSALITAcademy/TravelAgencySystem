@@ -1,0 +1,32 @@
+<div class="container">
+    <button class="add_button"
+            mat-raised-button>
+        Добавить тур
+    </button>
+
+    <div class="tour_card"
+         *ngFor="let tour of tours">
+        <div class="tour_info">
+            <h1>{{tour.name}}</h1>
+            <span class="tour-info"><i class="fa-solid fa-location-dot"></i> {{ tour.country }}, {{ tour.region
+                }}</span>
+            <p>Период: {{ tour.startDate | date: "dd.MM.yyyy"}} - {{ tour.endDate | date: "dd.MM.yyyy"}}</p>
+            <p>Стоимость: {{tour.price}}</p>
+            <p>Количество мест: {{tour.quantity}}</p>
+        </div>
+        <div class="tour_menu">
+            <button mat-raised-button
+                    class="change_button">
+                Изменить
+            </button>
+            <button mat-raised-button
+                    class="change_button">
+                Снять с публикации
+            </button>
+            <button mat-raised-button
+                    class="change_button">
+                Удалить
+            </button>
+        </div>
+    </div>
+</div>
