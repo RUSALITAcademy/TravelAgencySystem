@@ -1,6 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
+import { StorageService } from 'src/app/Services/storage.service';
 
 @Component({
   selector: 'app-auth-panel',
@@ -9,15 +12,27 @@ import { AuthService } from 'src/app/Services/auth.service';
 })
 export class AuthPanelComponent implements OnInit {
 
-  name: string = "";
-  password: string = "";
-
   constructor(
     private router: Router,
     private renderer: Renderer2,
     private el: ElementRef,
-    private authService: AuthService) { }
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private storageService: StorageService) { }
 
+  isLoginFailed: boolean = false;
+  isRegisterFailed: boolean = false;
+
+  loginForm = this.fb.group({
+    email: [""],
+    password: [""],
+  });
+
+  registerForm = this.fb.group({
+    name: [""],
+    email: [""],
+    password: [""],
+  });
 
   ngOnInit(): void {
     const signUnButton = this.el.nativeElement.querySelector('#signUp');
@@ -35,15 +50,41 @@ export class AuthPanelComponent implements OnInit {
 
   //! Реализовать логику к html
 
-  SignIn(name: string, password: string) {
-    let IsAuth = this.authService.login(name, password);
-    if (IsAuth) {
-      this.router.navigate(['main']);
-    }
-    console.log(this.router.url)
+  SignIn(loginForm: FormGroup) {
+    let name = loginForm.value.email
+    let password = loginForm.value.password
+
+    this.authService.login(name, password).subscribe({
+      next: data => {
+        this.storageService.saveToken(data);
+
+        this.router.navigate(['main']);
+      },
+      error: err => {
+        if (err instanceof HttpErrorResponse && err.status === 401) {
+          this.isLoginFailed = true;
+        }
+      }
+    });
   }
 
-  SignUp() {
-    this.router.navigate(['main']);
+  SignUp(registerForm: FormGroup) {
+
+    let name = registerForm.value.email;
+    let password = registerForm.value.password;
+
+    this.authService.register(name, password).subscribe({
+      next: data => {
+        //ответ пустой
+        // this.storageService.saveToken(data);
+
+        this.router.navigate(['main']);
+      },
+      error: err => {
+        // if (err instanceof HttpErrorResponse && err.status === 401) {
+        this.isRegisterFailed = true;
+        // }
+      }
+    });
   }
 }

@@ -22,6 +22,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { TourMainComponent } from './Components/Tour-page-components/tour-main/tour-main.component';
 import { OrderStepperComponent } from "./Components/Order/order-stepper/order-stepper.component";
@@ -60,7 +61,8 @@ import { TokenInterceptorInterceptor } from './Services/token-interceptor.interc
     MatNativeDateModule,
     MatFormFieldModule,
     MatButtonModule,
-    OrderStepperComponent
+    OrderStepperComponent,
+    MatCheckboxModule
   ],
   providers: [AuthService, { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true },],
   bootstrap: [AppComponent]
