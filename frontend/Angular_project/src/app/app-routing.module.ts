@@ -9,6 +9,8 @@ import { PaymentPageComponent } from './Pages/Payment-page/payment-page.componen
 import { UserAccountPageComponent } from './Pages/User-account-page/user-account-page.component';
 import { AccountSettingsComponent } from './Components/User-account-page-components/account-settings/account-settings.component';
 import { AccountTravelHistoryComponent } from './Components/User-account-page-components/account-travel-history/account-travel-history.component';
+import { TravelAgentPageComponent } from './Pages/Travel-agent-page/travel-agent-page.component';
+import { ToursComponent } from './Components/Travel-agent-components/tours/tours.component';
 //личный кабинет
 
 const routes: Routes = [
@@ -25,6 +27,13 @@ const routes: Routes = [
   { path: "main", component: MainPageComponent },
   { path: "tour/:id", component: TourPageComponent },
   { path: "payment/:id", component: PaymentPageComponent },
+  {
+    path: "travelagent", component: TravelAgentPageComponent,
+    children: [
+      { path: "tours", component: ToursComponent },
+      { path: "orders", component: ToursComponent },
+    ]
+  },
   { path: "**", redirectTo: 'auth', pathMatch: 'full' },
 ];
 

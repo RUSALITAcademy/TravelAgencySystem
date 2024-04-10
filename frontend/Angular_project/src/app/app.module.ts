@@ -29,6 +29,8 @@ import { AccountSettingsComponent } from './Components/User-account-page-compone
 import { AccountTravelHistoryComponent } from './Components/User-account-page-components/account-travel-history/account-travel-history.component';
 import { AuthService } from './Services/auth.service';
 import { TokenInterceptorInterceptor } from './Services/token-interceptor.interceptor';
+import { ToursComponent } from './Components/Travel-agent-components/tours/tours.component';
+import { TravelAgentPageComponent } from './Pages/Travel-agent-page/travel-agent-page.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,8 @@ import { TokenInterceptorInterceptor } from './Services/token-interceptor.interc
     TourMainComponent,
     AccountSettingsComponent,
     AccountTravelHistoryComponent,
+    TravelAgentPageComponent,
+    ToursComponent,
     //Страницы
   ],
   imports: [
