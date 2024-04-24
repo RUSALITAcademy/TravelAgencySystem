@@ -1,0 +1,36 @@
+<div class="create-modal-container">
+       <div class="content-modal">
+              <div class="header-modal">
+                     <h1 mat-dialog-title>Добавить тур</h1>
+              </div>
+              <div class="main-form-modal">
+                     <mat-form-field>
+                            <mat-label>Название</mat-label>
+                            <input matInput
+                                   [maxLength]="60"
+                                   type="text"
+                                   placeholder="Название тура не больше 60 символов">
+                     </mat-form-field>
+                     <mat-form-field>
+                            <mat-label>Страна</mat-label>
+                            <input type="text"
+                                   [maxLength]="25"
+                                   placeholder="Страна не больше 25 символов">
+                     </mat-form-field>
+                     <mat-form-field>
+                            <mat-label>Регион</mat-label>
+                            <input type="text"
+                                   [maxLength]="60"
+                                   placeholder="Регион не больше 60 символов">
+                     </mat-form-field>
+                     <mat-form-field appearance="outline"
+                                     subscriptSizing="dynamic">
+                            <mat-label>Описание</mat-label>
+                            <textarea matInput
+                                      [maxLength]="3200"
+                                      type="text"
+                                      placeholder="Описание не больше 3200 символов"></textarea>
+                     </mat-form-field>
+              </div>
+       </div>
+</div>

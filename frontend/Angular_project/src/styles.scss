@@ -12,8 +12,8 @@ body {
 
 :root {
     --foreground-rgb: 0, 0, 0;
-    --background-start-rgb: 214, 219, 220;
-    --background-end-rgb: 255, 255, 255;
+    --background-start-rgb: 220, 220, 220;
+    --background-end-rgb: 220, 220, 220;
 }
 
 // @media (prefers-color-scheme: dark) {
@@ -29,4 +29,13 @@ body {
     background: linear-gradient(to bottom,
             transparent,
             rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+}
+
+.custom-dialog-container {
+    backdrop-filter: blur(3px);
+    background-color: rgba(54, 54, 54, 0.409);
+}
+
+html {
+    overflow-y: auto !important;
 }

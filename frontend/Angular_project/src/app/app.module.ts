@@ -33,6 +33,8 @@ import { TokenInterceptorInterceptor } from './Services/token-interceptor.interc
 import { MatIconModule } from '@angular/material/icon';
 import { ToursComponent } from './Components/Travel-agent-components/tours/tours.component';
 import { TravelAgentPageComponent } from './Pages/Travel-agent-page/travel-agent-page.component';
+import { CreateTourModalComponent } from './Components/Travel-agent-components/create-tour-modal/create-tour-modal.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,7 @@ import { TravelAgentPageComponent } from './Pages/Travel-agent-page/travel-agent
     AccountTravelHistoryComponent,
     TravelAgentPageComponent,
     ToursComponent,
+    CreateTourModalComponent,
     //Страницы
   ],
   imports: [
@@ -68,7 +71,8 @@ import { TravelAgentPageComponent } from './Pages/Travel-agent-page/travel-agent
     MatButtonModule,
     OrderStepperComponent,
     MatIconModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule
   ],
   providers: [AuthService, { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true },],
   bootstrap: [AppComponent]
