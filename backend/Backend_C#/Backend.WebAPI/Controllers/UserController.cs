@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Backend.WebAPI.Controllers
 {
@@ -152,6 +153,8 @@ namespace Backend.WebAPI.Controllers
             return TypedResults.Ok();
         }
 
+
+
         public async Task<Results<Ok<AccessTokenResponse>, EmptyHttpResult, ProblemHttpResult>> Login
         ([FromBody] LoginRequest login, [FromQuery] bool? useCookies, [FromQuery] bool? useSessionCookies, [FromServices] IServiceProvider sp)
         {
@@ -164,27 +167,32 @@ namespace Backend.WebAPI.Controllers
 
             var result = await signInManager.PasswordSignInAsync(login.Email, login.Password, isPersistent, lockoutOnFailure: true);
 
-            if (result.RequiresTwoFactor)
-            {
-                if (!string.IsNullOrEmpty(login.TwoFactorCode))
-                {
-                    result = await signInManager.TwoFactorAuthenticatorSignInAsync(login.TwoFactorCode, isPersistent, rememberClient: isPersistent);
-                }
-                else if (!string.IsNullOrEmpty(login.TwoFactorRecoveryCode))
-                {
-                    result = await signInManager.TwoFactorRecoveryCodeSignInAsync(login.TwoFactorRecoveryCode);
-                }
-            }
-
             if (!result.Succeeded)
             {
                 return TypedResults.Problem(result.ToString(), statusCode: StatusCodes.Status401Unauthorized);
             }
 
-            var user = await userManager.FindByEmailAsync(login.Email);
-            var roles = await userManager.GetRolesAsync(user);
-
             return TypedResults.Empty;
+        }
+
+        [HttpGet("{email}")]
+        public async Task<ActionResult<UserInfoVm>> GetUserByEmail(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            var userInfo = new UserInfoVm
+            {
+                Id = user.Id,
+                Roles = roles
+            };
+
+            return Ok(userInfo);
         }
 
         private static ValidationProblem CreateValidationProblem(IdentityResult result)
