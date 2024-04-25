@@ -28,12 +28,24 @@ namespace Backend.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("RegistrationDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<bool>("IsChild")
+                        .HasColumnType("boolean");
 
-                    b.Property<string>("Status")
+                    b.Property<int>("NumberOfPeople")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("NumberPhone")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("RegistrationEndDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("RegistrationStartDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
 
                     b.Property<Guid>("TourId")
                         .HasColumnType("uuid");
@@ -190,19 +202,19 @@ namespace Backend.Persistence.Migrations
                         {
                             Id = "62d969be-785d-4219-b286-9b65a8718a99",
                             Name = "User",
-                            NormalizedName = "User"
+                            NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "0d2a7796-5724-482c-a280-5cc853619c38",
                             Name = "Admin",
-                            NormalizedName = "Admin"
+                            NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "6c451fc5-7063-4c3b-a52b-528e930e1885",
                             Name = "TourAgency",
-                            NormalizedName = "TourAgency"
+                            NormalizedName = "TOURAGENCY"
                         });
                 });
 

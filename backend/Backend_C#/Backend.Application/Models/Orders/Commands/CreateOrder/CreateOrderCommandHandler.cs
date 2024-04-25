@@ -24,10 +24,14 @@ namespace Backend.Application.Models.Orders.Commands.CreateOrder
             var order = new Order
             {
                 OrderId = Guid.NewGuid(),
-                RegistrationDate = request.RegistrationDate,
-                Status = request.Status,
+                RegistrationStartDate = request.RegistrationStartDate,
+                RegistrationEndDate = request.RegistrationEndDate,
+                NumberPhone = request.NumberPhone,
+                Status = Order.OrderStatus.Pending,
                 TourId = request.TourId,
-                UserId = request.UserId
+                UserId = request.UserId,
+                IsChild = request.IsChild,
+                NumberOfPeople = request.NumberOfPeople
             };
             await _dbContext.Order.AddAsync(order, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);

@@ -187,8 +187,12 @@ namespace Backend.Persistence.Migrations
                     OrderId = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: false),
                     TourId = table.Column<Guid>(type: "uuid", nullable: false),
-                    RegistrationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Status = table.Column<string>(type: "text", nullable: false)
+                    RegistrationStartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    RegistrationEndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    NumberPhone = table.Column<string>(type: "text", nullable: false),
+                    Status = table.Column<int>(type: "integer", nullable: false),
+                    IsChild = table.Column<bool>(type: "boolean", nullable: false),
+                    NumberOfPeople = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -212,9 +216,9 @@ namespace Backend.Persistence.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "0d2a7796-5724-482c-a280-5cc853619c38", null, "Admin", "Admin" },
-                    { "62d969be-785d-4219-b286-9b65a8718a99", null, "User", "User" },
-                    { "6c451fc5-7063-4c3b-a52b-528e930e1885", null, "TourAgency", "TourAgency" }
+                    { "0d2a7796-5724-482c-a280-5cc853619c38", null, "Admin", "ADMIN" },
+                    { "62d969be-785d-4219-b286-9b65a8718a99", null, "User", "USER" },
+                    { "6c451fc5-7063-4c3b-a52b-528e930e1885", null, "TourAgency", "TOURAGENCY" }
                 });
 
             migrationBuilder.CreateIndex(
