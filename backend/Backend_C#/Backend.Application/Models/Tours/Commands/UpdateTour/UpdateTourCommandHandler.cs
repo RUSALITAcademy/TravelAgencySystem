@@ -38,7 +38,7 @@ namespace Backend.Application.Models.Tours.Commands.UpdateTour
             entity.EndDate = request.EndDate;
             entity.Price = request.Price;
             entity.Quantity = request.Quantity;
-            entity.ImgUrl = request.ImgUrl;
+            //entity.Images = request.Images;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
         }

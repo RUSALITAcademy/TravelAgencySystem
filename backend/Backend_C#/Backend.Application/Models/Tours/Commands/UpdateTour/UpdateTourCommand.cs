@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Backend.Domain.Models;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace Backend.Application.Models.Tours.Commands.UpdateTour
         public DateTime EndDate { get; set; }
         public int Quantity { get; set; }
         //public string ImgUrl { get; set; }
-        public string[] ImgUrl { get; set; }
+        //public List<TourImage>? Images { get; set; }
         public double Price { get; set; }
     }
 }

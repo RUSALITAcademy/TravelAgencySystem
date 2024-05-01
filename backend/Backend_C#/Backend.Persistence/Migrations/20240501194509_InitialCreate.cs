@@ -66,8 +66,7 @@ namespace Backend.Persistence.Migrations
                     StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Price = table.Column<double>(type: "double precision", nullable: false),
-                    Quantity = table.Column<int>(type: "integer", nullable: false),
-                    ImgUrl = table.Column<string[]>(type: "text[]", nullable: false)
+                    Quantity = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -207,14 +206,33 @@ namespace Backend.Persistence.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "TourImage",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    TourId = table.Column<Guid>(type: "uuid", nullable: false),
+                    FileName = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TourImage", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TourImage_Tour_TourId",
+                        column: x => x.TourId,
+                        principalTable: "Tour",
+                        principalColumn: "TourId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "0d2a7796-5724-482c-a280-5cc853619c38", null, "Admin", "Admin" },
-                    { "62d969be-785d-4219-b286-9b65a8718a99", null, "User", "User" },
-                    { "6c451fc5-7063-4c3b-a52b-528e930e1885", null, "TourAgency", "TourAgency" }
+                    { "0d2a7796-5724-482c-a280-5cc853619c38", null, "Admin", "ADMIN" },
+                    { "62d969be-785d-4219-b286-9b65a8718a99", null, "User", "USER" },
+                    { "6c451fc5-7063-4c3b-a52b-528e930e1885", null, "TourAgency", "TOURAGENCY" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -263,6 +281,11 @@ namespace Backend.Persistence.Migrations
                 name: "IX_Order_UserId",
                 table: "Order",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TourImage_TourId",
+                table: "TourImage",
+                column: "TourId");
         }
 
         /// <inheritdoc />
@@ -285,6 +308,9 @@ namespace Backend.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Order");
+
+            migrationBuilder.DropTable(
+                name: "TourImage");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

@@ -10,13 +10,12 @@ using System.Threading.Tasks;
 
 namespace Backend.Persistence.ModelsDbContext
 {
-    public class TourDbContext
-        : DbContext, ITourDbContext
+    public class TourImageDbContext
+        : DbContext, ITourImageDbContext
     {
-        public DbSet<Tour> Tour { get; set; }
         public DbSet<TourImage> TourImage { get; set; }
 
-        public TourDbContext(DbContextOptions<TourDbContext> options)
+        public TourImageDbContext(DbContextOptions<TourImageDbContext> options)
             : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

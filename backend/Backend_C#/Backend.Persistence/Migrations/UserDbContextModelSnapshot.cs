@@ -68,10 +68,6 @@ namespace Backend.Persistence.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string[]>("ImgUrl")
-                        .IsRequired()
-                        .HasColumnType("text[]");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -91,6 +87,26 @@ namespace Backend.Persistence.Migrations
                     b.HasKey("TourId");
 
                     b.ToTable("Tour");
+                });
+
+            modelBuilder.Entity("Backend.Domain.Models.TourImage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("TourId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TourId");
+
+                    b.ToTable("TourImage");
                 });
 
             modelBuilder.Entity("Backend.Domain.Models.User", b =>
@@ -190,19 +206,19 @@ namespace Backend.Persistence.Migrations
                         {
                             Id = "62d969be-785d-4219-b286-9b65a8718a99",
                             Name = "User",
-                            NormalizedName = "User"
+                            NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "0d2a7796-5724-482c-a280-5cc853619c38",
                             Name = "Admin",
-                            NormalizedName = "Admin"
+                            NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "6c451fc5-7063-4c3b-a52b-528e930e1885",
                             Name = "TourAgency",
-                            NormalizedName = "TourAgency"
+                            NormalizedName = "TOURAGENCY"
                         });
                 });
 
@@ -331,6 +347,17 @@ namespace Backend.Persistence.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Backend.Domain.Models.TourImage", b =>
+                {
+                    b.HasOne("Backend.Domain.Models.Tour", "Tour")
+                        .WithMany("Images")
+                        .HasForeignKey("TourId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tour");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -384,6 +411,8 @@ namespace Backend.Persistence.Migrations
 
             modelBuilder.Entity("Backend.Domain.Models.Tour", b =>
                 {
+                    b.Navigation("Images");
+
                     b.Navigation("Orders");
                 });
 

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Backend.Application.Common.Mappings;
 using Backend.Application.Models.Tours.Commands.UpdateTour;
+using Backend.Domain.Models;
 
 namespace Backend.WebAPI.Models.UpdateDto
 {
@@ -15,7 +16,7 @@ namespace Backend.WebAPI.Models.UpdateDto
         public DateTime EndDate { get; set; }
         public int Quantity { get; set; }
         //public string ImgUrl { get; set; }
-        public string[] ImgUrl { get; set; }
+        //public List<TourImage> Images { get; set; }
         public double Price { get; set; }
 
         public void Mapping(Profile profile)
@@ -36,9 +37,9 @@ namespace Backend.WebAPI.Models.UpdateDto
                 .ForMember(clientVm => clientVm.Price,
                     opt => opt.MapFrom(client => client.Price))
                 .ForMember(clientVm => clientVm.Quantity,
-                    opt => opt.MapFrom(client => client.Quantity))
-                .ForMember(clientVm => clientVm.ImgUrl,
-                    opt => opt.MapFrom(client => client.ImgUrl));
+                    opt => opt.MapFrom(client => client.Quantity));
+                /*.ForMember(clientVm => clientVm.Images,
+                    opt => opt.MapFrom(client => client.Images));*/
         }
     }
 }
