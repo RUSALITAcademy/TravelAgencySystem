@@ -175,10 +175,11 @@ namespace Backend.WebAPI.Controllers
             return TypedResults.Empty;
         }
 
-        [HttpGet("{email}")]
-        public async Task<ActionResult<UserInfoVm>> GetUserByEmail(string email)
+        [HttpGet]
+        [Authorize]
+        public async Task<ActionResult<UserInfoVm>> GetUserInfo()
         {
-            var user = await _userManager.FindByEmailAsync(email);
+            var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return NotFound();
