@@ -2,6 +2,7 @@
 using Backend.Application.Common.Mappings;
 using Backend.Application.Models.Orders.Commands.CreateOrder;
 using Backend.Domain.Models;
+using static Backend.Domain.Models.Order;
 
 namespace Backend.WebAPI.Models.CreateDto
 {
@@ -10,8 +11,12 @@ namespace Backend.WebAPI.Models.CreateDto
     {
         public Guid UserId { get; set; }
         public Guid TourId { get; set; }
-        public DateTime RegistrationDate { get; set; }
-        public string Status { get; set; }
+        public DateTime RegistrationStartDate { get; set; }
+        public DateTime RegistrationEndDate { get; set; }
+        public string NumberPhone { get; set; }
+        public OrderStatus Status { get; set; }
+        public bool IsChild { get; set; }
+        public int NumberOfPeople { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -20,10 +25,18 @@ namespace Backend.WebAPI.Models.CreateDto
                     opt => opt.MapFrom(client => client.UserId))
                 .ForMember(clientVm => clientVm.TourId,
                     opt => opt.MapFrom(client => client.TourId))
-                .ForMember(clientVm => clientVm.RegistrationDate,
-                    opt => opt.MapFrom(client => client.RegistrationDate))
+                .ForMember(clientVm => clientVm.RegistrationStartDate,
+                    opt => opt.MapFrom(client => client.RegistrationEndDate))
+                .ForMember(clientVm => clientVm.RegistrationEndDate,
+                    opt => opt.MapFrom(client => client.RegistrationEndDate))
+                .ForMember(clientVm => clientVm.NumberPhone,
+                    opt => opt.MapFrom(client => client.NumberPhone))
                 .ForMember(clientVm => clientVm.Status,
-                    opt => opt.MapFrom(client => client.Status));
+                    opt => opt.MapFrom(client => client.Status))
+                .ForMember(clientVm => clientVm.IsChild,
+                    opt => opt.MapFrom(client => client.IsChild))
+                .ForMember(clientVm => clientVm.NumberOfPeople,
+                    opt => opt.MapFrom(client => client.NumberOfPeople));
         }
     }
 }

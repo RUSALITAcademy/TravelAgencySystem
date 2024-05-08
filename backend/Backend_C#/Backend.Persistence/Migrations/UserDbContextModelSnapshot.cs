@@ -28,12 +28,24 @@ namespace Backend.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("RegistrationDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<bool>("IsChild")
+                        .HasColumnType("boolean");
 
-                    b.Property<string>("Status")
+                    b.Property<int>("NumberOfPeople")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("NumberPhone")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("RegistrationEndDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("RegistrationStartDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
 
                     b.Property<Guid>("TourId")
                         .HasColumnType("uuid");

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,24 @@ namespace Backend.Domain.Models
         public string UserId { get; set; }
         public Tour Tour { get; set; }
         public Guid TourId { get; set; }
-        public DateTime RegistrationDate { get; set; }
-        public string Status { get; set; }
+        public DateTime RegistrationStartDate { get; set; }
+        public DateTime RegistrationEndDate { get; set; }
+        public string NumberPhone { get; set; }
+        public OrderStatus Status { get; set; }
+        public bool IsChild { get; set; }
+        public int NumberOfPeople { get; set; }
+
+
+        public enum OrderStatus
+        {
+            [Description("В ожидании")]
+            Pending,
+            [Description("Подтвержден")]
+            Confirmed,
+            [Description("Завершен")]
+            Completed,
+            [Description("Отменен")]
+            Cancelled
+        }
     }
 }
