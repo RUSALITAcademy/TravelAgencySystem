@@ -73,5 +73,17 @@ namespace Backend.WebAPI.Controllers
             var vm = await Mediator.Send(query);
             return Ok(vm);
         }
+
+        [HttpGet("{id}")]
+        [Authorize(Roles = "TourAgent")]
+        public async Task<ActionResult<OrderListVm>> GetAllOrdersByTour(string id)
+        {
+            var query = new GetOrderListQuery
+            {
+                TourId = id
+            };
+            var vm = await Mediator.Send(query);
+            return Ok(vm);
+        }
     }
 }

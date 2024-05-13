@@ -12,16 +12,15 @@ namespace Backend.Application.Models.Orders.Commands.CreateOrder
     {
         public CreateOrderCommandValidator()
         {
-            RuleFor(createClientCommand =>
-                createClientCommand.UserId).NotEmpty();
-            RuleFor(createClientCommand =>
-                createClientCommand.TourId).NotEmpty();
-            //RuleFor(createClientCommand =>
-            //    createClientCommand.Tour).NotEmpty();
-            RuleFor(createClientCommand =>
-                createClientCommand.RegistrationDate).NotEmpty().GreaterThanOrEqualTo(DateTime.Today);
-            RuleFor(createClientCommand =>
-                createClientCommand.Status).NotEmpty();
+            RuleFor(createClientCommand => createClientCommand.UserId).NotEmpty();
+            RuleFor(createClientCommand => createClientCommand.TourId).NotEmpty();
+            //RuleFor(createClientCommand => createClientCommand.Tour).NotEmpty();
+            RuleFor(createClientCommand => createClientCommand.RegistrationStartDate).NotEmpty();
+            RuleFor(createClientCommand => createClientCommand.RegistrationEndDate).NotEmpty();
+            RuleFor(createClientCommand => createClientCommand.NumberPhone).NotEmpty();
+            RuleFor(createClientCommand => createClientCommand.Status).NotEmpty();
+            RuleFor(createClientCommand => createClientCommand.HasChildren).NotEmpty();
+            RuleFor(createClientCommand => createClientCommand.NumberOfPeople).NotEmpty();
         }
     }
 }
