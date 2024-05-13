@@ -27,10 +27,10 @@ namespace Backend.Application.Models.Orders.Commands.CreateOrder
                 RegistrationStartDate = request.RegistrationStartDate,
                 RegistrationEndDate = request.RegistrationEndDate,
                 NumberPhone = request.NumberPhone,
-                Status = Order.OrderStatus.Pending,
+                Status = OrderStatus.Pending,
                 TourId = request.TourId,
                 UserId = request.UserId,
-                IsChild = request.IsChild,
+                HasChildren = request.HasChildren,
                 NumberOfPeople = request.NumberOfPeople
             };
             await _dbContext.Order.AddAsync(order, cancellationToken);

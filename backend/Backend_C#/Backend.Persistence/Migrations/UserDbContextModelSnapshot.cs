@@ -28,7 +28,7 @@ namespace Backend.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<bool>("IsChild")
+                    b.Property<bool>("HasChildren")
                         .HasColumnType("boolean");
 
                     b.Property<int>("NumberOfPeople")

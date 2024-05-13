@@ -191,7 +191,7 @@ namespace Backend.Persistence.Migrations
                     RegistrationEndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     NumberPhone = table.Column<string>(type: "text", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false),
-                    IsChild = table.Column<bool>(type: "boolean", nullable: false),
+                    HasChildren = table.Column<bool>(type: "boolean", nullable: false),
                     NumberOfPeople = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
