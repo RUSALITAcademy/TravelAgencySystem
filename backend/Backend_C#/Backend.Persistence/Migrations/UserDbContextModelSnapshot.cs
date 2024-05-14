@@ -80,10 +80,6 @@ namespace Backend.Persistence.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string[]>("ImgUrl")
-                        .IsRequired()
-                        .HasColumnType("text[]");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -103,6 +99,26 @@ namespace Backend.Persistence.Migrations
                     b.HasKey("TourId");
 
                     b.ToTable("Tour");
+                });
+
+            modelBuilder.Entity("Backend.Domain.Models.TourImage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("TourId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TourId");
+
+                    b.ToTable("TourImage");
                 });
 
             modelBuilder.Entity("Backend.Domain.Models.User", b =>
@@ -343,6 +359,17 @@ namespace Backend.Persistence.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Backend.Domain.Models.TourImage", b =>
+                {
+                    b.HasOne("Backend.Domain.Models.Tour", "Tour")
+                        .WithMany("Images")
+                        .HasForeignKey("TourId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tour");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -396,6 +423,8 @@ namespace Backend.Persistence.Migrations
 
             modelBuilder.Entity("Backend.Domain.Models.Tour", b =>
                 {
+                    b.Navigation("Images");
+
                     b.Navigation("Orders");
                 });
 

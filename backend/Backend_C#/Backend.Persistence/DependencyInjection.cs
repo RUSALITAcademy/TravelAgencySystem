@@ -25,6 +25,10 @@ namespace Backend.Persistence
             {
                 options.UseNpgsql(connectionString);
             });
+            services.AddDbContext<TourImageDbContext>(options =>
+            {
+                options.UseNpgsql(connectionString);
+            });
             //Далее другие пов аналогии\\
 
 
@@ -37,6 +41,8 @@ namespace Backend.Persistence
                 provider.GetService<TourDbContext>());
             services.AddScoped<IOrderDbContext>(provider =>
                 provider.GetService<OrderDbContext>());
+            services.AddScoped<ITourImageDbContext>(provider =>
+                provider.GetService<TourImageDbContext>());
 
             return services;
         }
