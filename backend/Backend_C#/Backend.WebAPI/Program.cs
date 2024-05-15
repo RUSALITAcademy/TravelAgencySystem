@@ -18,6 +18,7 @@ builder.Services.AddAutoMapper(config =>
     config.AddProfile(new AssemblyMappingProfile(typeof(IUserDbContext).Assembly));
     config.AddProfile(new AssemblyMappingProfile(typeof(ITourDbContext).Assembly));
     config.AddProfile(new AssemblyMappingProfile(typeof(IOrderDbContext).Assembly));
+    config.AddProfile(new AssemblyMappingProfile(typeof(ITourImageDbContext).Assembly));
 });
 
 
@@ -64,4 +65,5 @@ app.MapControllers();
 //Swagger
 app.UseOpenApi();
 app.UseSwaggerUi();
+app.UseStaticFiles();
 app.Run();

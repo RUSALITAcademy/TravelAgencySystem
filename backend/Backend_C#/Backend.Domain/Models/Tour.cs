@@ -18,7 +18,7 @@ namespace Backend.Domain.Models
         public double Price { get; set; }
         public int Quantity { get; set; }
         //public string ImgUrl { get; set; }
-        public string[] ImgUrl { get; set; }
+        public List<TourImage>? Images { get; set; }
         
         public List<Order>? Orders { get; set; }
     }

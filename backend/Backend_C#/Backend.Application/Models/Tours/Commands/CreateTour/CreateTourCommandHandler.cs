@@ -26,7 +26,7 @@ namespace Backend.Application.Models.Tours.Commands.CreateTour
                 EndDate = request.EndDate,
                 Price = request.Price,
                 Quantity = request.Quantity,
-                ImgUrl = request.ImgUrl
+                //Images = request.Images
             };
             await _dbContext.Tour.AddAsync(tour, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);

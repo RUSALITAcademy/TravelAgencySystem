@@ -12,12 +12,10 @@ namespace Backend.Application.Models.Orders.Commands.UpdateOrder
     {
         public UpdateOrderCommandValidator()
         {
-            RuleFor(updateClientCommand =>
-                updateClientCommand.OrderId).NotEqual(Guid.Empty);
-            RuleFor(createClientCommand =>
-                createClientCommand.RegistrationDate).NotEmpty();
-            RuleFor(createClientCommand =>
-                createClientCommand.Status).NotEmpty();
+            RuleFor(updateClientCommand => updateClientCommand.OrderId).NotEqual(Guid.Empty);
+            RuleFor(createClientCommand => createClientCommand.RegistrationStartDate).NotEmpty();
+            RuleFor(createClientCommand => createClientCommand.RegistrationEndDate).NotEmpty();
+            RuleFor(createClientCommand => createClientCommand.Status).NotEmpty();
         }
     }
 }

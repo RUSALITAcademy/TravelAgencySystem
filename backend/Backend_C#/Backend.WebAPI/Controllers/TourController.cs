@@ -27,10 +27,6 @@ namespace Backend.WebAPI.Controllers
             _roleManager = roleManager;
         }
         
-
-
-
-
         [HttpGet("{id}")]
         public async Task<ActionResult<TourDetailsVm>> GetTour(Guid id)
         {

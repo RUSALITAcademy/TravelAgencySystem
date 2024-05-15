@@ -32,7 +32,8 @@ namespace Backend.Application.Models.Orders.Commands.UpdateOrder
 
             //entity.User = request.User;
             //entity.Tour = request.Tour;
-            entity.RegistrationDate = request.RegistrationDate;
+            entity.RegistrationStartDate = request.RegistrationStartDate;
+            entity.RegistrationEndDate = request.RegistrationEndDate;
             entity.Status = request.Status;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
