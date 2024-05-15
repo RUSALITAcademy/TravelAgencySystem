@@ -20,7 +20,7 @@ namespace Backend.Application.Models.Orders.Queries.GetOrderList
         public DateTime RegistrationEndDate { get; set; }
         public string NumberPhone { get; set; }
         public OrderStatus Status { get; set; }
-        public bool IsChild { get; set; }
+        public bool HasChildren { get; set; }
         public int NumberOfPeople { get; set; }
 
         public void Mapping(Profile profile)
@@ -38,8 +38,8 @@ namespace Backend.Application.Models.Orders.Queries.GetOrderList
                     opt => opt.MapFrom(client => client.NumberPhone))
                 .ForMember(clientVm => clientVm.Status,
                     opt => opt.MapFrom(client => client.Status))
-                .ForMember(clientVm => clientVm.IsChild,
-                    opt => opt.MapFrom(client => client.IsChild))
+                .ForMember(clientVm => clientVm.HasChildren,
+                    opt => opt.MapFrom(client => client.HasChildren))
                 .ForMember(clientVm => clientVm.NumberOfPeople,
                     opt => opt.MapFrom(client => client.NumberOfPeople));
         }

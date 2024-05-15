@@ -19,7 +19,7 @@ namespace Backend.Application.Models.Orders.Commands.CreateOrder
             RuleFor(createClientCommand => createClientCommand.RegistrationEndDate).NotEmpty();
             RuleFor(createClientCommand => createClientCommand.NumberPhone).NotEmpty();
             RuleFor(createClientCommand => createClientCommand.Status).NotEmpty();
-            RuleFor(createClientCommand => createClientCommand.IsChild).NotEmpty();
+            RuleFor(createClientCommand => createClientCommand.HasChildren).NotEmpty();
             RuleFor(createClientCommand => createClientCommand.NumberOfPeople).NotEmpty();
         }
     }

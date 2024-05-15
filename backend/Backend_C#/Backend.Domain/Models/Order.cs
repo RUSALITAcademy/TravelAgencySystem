@@ -18,20 +18,8 @@ namespace Backend.Domain.Models
         public DateTime RegistrationEndDate { get; set; }
         public string NumberPhone { get; set; }
         public OrderStatus Status { get; set; }
-        public bool IsChild { get; set; }
+        public bool HasChildren { get; set; }
         public int NumberOfPeople { get; set; }
 
-
-        public enum OrderStatus
-        {
-            [Description("В ожидании")]
-            Pending,
-            [Description("Подтвержден")]
-            Confirmed,
-            [Description("Завершен")]
-            Completed,
-            [Description("Отменен")]
-            Cancelled
-        }
     }
 }

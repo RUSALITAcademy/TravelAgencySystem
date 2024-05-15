@@ -12,7 +12,7 @@ namespace Backend.Application.Models.Orders.Commands.CreateOrder
         public DateTime RegistrationEndDate { get; set; }
         public string NumberPhone { get; set; }
         public OrderStatus Status { get; set; }
-        public bool IsChild { get; set; }
+        public bool HasChildren { get; set; }
         public int NumberOfPeople { get; set; }
     }
 }
