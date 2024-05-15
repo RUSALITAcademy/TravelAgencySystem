@@ -5,6 +5,7 @@ using Backend.Domain.Models;
 using Backend.Persistence;
 using Backend.Persistence.ModelsDbContext;
 using Backend.WebAPI.Middleware;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using System.Reflection;
 
@@ -27,6 +28,7 @@ builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddControllers();
 builder.Services.AddAuthorization();
 builder.Services.AddIdentityApiEndpoints<User>().AddRoles<IdentityRole>().AddEntityFrameworkStores<UserDbContext>();
+builder.Services.AddTransient<IClaimsTransformation, ClaimsTransformation>();
 //builder.Services.
 //МБ не надо
 builder.Services.AddControllersWithViews();

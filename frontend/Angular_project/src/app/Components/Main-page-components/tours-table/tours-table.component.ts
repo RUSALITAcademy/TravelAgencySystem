@@ -17,15 +17,14 @@ export class ToursTableComponent implements OnInit {
     private tourService: TourService,
     private geonamesService: GeonamesService,) { }
 
-  //сделать контролы и отслеживание на изминение
   departureLocation = this.fb.control<string>('');
   destinationLocation = this.fb.control<string>('');
 
   departureDate: Date | null = null;
   returnDate: Date | null = null;
-  showReturnDate: boolean = true;
-  toursIsVisiable: boolean = false;
-  passengerCount: number = 1;
+  showReturnDate = true;
+  toursIsVisiable = false;
+  passengerCount = 1;
 
   tours: ITour[] = [];
 
@@ -75,7 +74,7 @@ export class ToursTableComponent implements OnInit {
     });
   }
 
-  getFiltredCities(cityName: String, locations: Array<string>) {
+  getFiltredCities(cityName: string, locations: Array<string>) {
 
     this.geonamesService.getCities({ name: cityName.toLocaleLowerCase() }).subscribe((response) => {
 

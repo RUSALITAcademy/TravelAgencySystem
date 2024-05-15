@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { StorageService } from './storage.service';
 import { Observable, delay, tap } from 'rxjs';
@@ -29,11 +29,21 @@ export class AuthService {
       email: login,
       password: password
     };
-    return this.httpClient.post<AuthResponse>(this.apiUrl + "/login", bodyRequest, httpOptions)
+    if (environment.production) {
+      return this.httpClient.post<AuthResponse>(this.apiUrl + "/login?useCookies=true", bodyRequest, httpOptions)
+    } else {
+      return this.httpClient.post<AuthResponse>(this.apiUrl + "/login", bodyRequest, httpOptions)
+    }
   }
 
-  //!
-  public register(login: string, password: string): Observable<AuthResponse> {
+  public getUserInfo(): Observable<AuthResponse> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    }
+    return this.httpClient.post<AuthResponse>(this.apiUrl + `/api/User/GetUserInfo`, httpOptions)
+  }
+
+  public userRegistration(login: string, password: string): Observable<AuthResponse> {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }
@@ -41,7 +51,18 @@ export class AuthService {
       email: login,
       password: password
     };
-    return this.httpClient.post<AuthResponse>(this.apiUrl + "/register", bodyRequest, httpOptions)
+    return this.httpClient.post<AuthResponse>(this.apiUrl + "/api/User/UserRegistration", bodyRequest, httpOptions)
+  }
+
+  public tourAgencyRegistration(login: string, password: string): Observable<AuthResponse> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    }
+    const bodyRequest = {
+      email: login,
+      password: password
+    };
+    return this.httpClient.post<AuthResponse>(this.apiUrl + "/api/User/TourAgencyRegistration", bodyRequest, httpOptions)
   }
 
   public refreshToken(): Observable<AuthResponse> {
@@ -64,5 +85,6 @@ export class AuthService {
 
 type AuthResponse = {
   accessToken?: string,
-  refreshToken?: string
+  refreshToken?: string,
+  roles?: string[]
 }
