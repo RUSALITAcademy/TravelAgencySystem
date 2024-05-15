@@ -16,10 +16,10 @@
 
         public Task<ClaimsPrincipal> TransformAsync(ClaimsPrincipal principal)
         {
-            var user = _dbcontext.User.Single(x => x.NormalizedEmail == principal.Identity.Name.ToUpper());
-
+            var user = _dbcontext.User.SingleOrDefault(x => x.NormalizedEmail == principal.Identity.Name.ToUpper());
             ClaimsIdentity claimsIdentity = new ClaimsIdentity();
             var claimType = "UserId";
+
             if (!principal.HasClaim(claim => claim.Type == claimType))
             {
                 claimsIdentity.AddClaim(new Claim(claimType, user.Id.ToString()));

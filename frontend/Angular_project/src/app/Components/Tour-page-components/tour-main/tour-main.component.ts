@@ -1,14 +1,15 @@
 import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Router, NavigationEnd  } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+import { ImageService } from 'src/app/Services/image.service';
 import { TourService } from 'src/app/Services/tour.service';
 
 @Component({
   selector: 'app-tour-main',
   templateUrl: './tour-main.component.html',
   styleUrls: ['./tour-main.component.scss']
-  
+
 })
 export class TourMainComponent implements OnInit {
   tourId: string = "";
@@ -27,7 +28,11 @@ export class TourMainComponent implements OnInit {
   currentIndex: number = 0;
   totalImages!: number;
 
-  constructor(private route: ActivatedRoute, private router: Router, private tourService: TourService) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private tourService: TourService,
+    private imageService: ImageService) {
   }
   ngOnInit(): void {
     this.router.events.subscribe(event => {
@@ -40,8 +45,16 @@ export class TourMainComponent implements OnInit {
       this.tourId = String(params['id']);
       this.tourService.GetTourById(this.tourId).subscribe((tourData) => {
         if (tourData) {
+
+          this.imageService.GetImagesNames(tourData.tourId).subscribe((names) => {
+            names.forEach((element: { fileName: string; }) => {
+              this.imageService.GetImageByFileName(element.fileName).subscribe((image) => {
+                this.images.push(image)
+              })
+            });
+          });
           // Обновите поля данными из ответа сервиса
-          
+
           this.tourTitle = tourData.name || this.tourTitle;
           this.tourDescription = tourData.description || this.tourDescription;
           this.tourCountry = tourData.country || this.tourCountry;
@@ -52,8 +65,8 @@ export class TourMainComponent implements OnInit {
           this.quantity = tourData.quantity || this.quantity;
           this.images = tourData.imgUrl || this.images;
           // Добавьте любые дополнительные поля, которые нужно обновить
-          this.totalImages = this.images.length;
-          
+          // this.totalImages = this.images.length;
+
           const sentences = this.splitIntoSentences(this.tourDescription);
           const firstFourSentences = sentences.slice(0, 4);
           this.smallDescription = firstFourSentences.join(' ');

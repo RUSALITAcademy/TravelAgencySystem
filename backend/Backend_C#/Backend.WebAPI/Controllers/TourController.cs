@@ -39,8 +39,7 @@ namespace Backend.WebAPI.Controllers
         }
 
 
-        [HttpPost]
-        [Authorize(Roles = "TourAgency")]
+        
         public async Task<ActionResult<Guid>> CreateTour([FromBody] CreateTourDto createTourDto)
         {
             //HttpContext.User.IsInRole();

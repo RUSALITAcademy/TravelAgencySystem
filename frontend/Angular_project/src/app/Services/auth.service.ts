@@ -40,7 +40,7 @@ export class AuthService {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }
-    return this.httpClient.post<AuthResponse>(this.apiUrl + `/api/User/GetUserInfo`, httpOptions)
+    return this.httpClient.get<AuthResponse>(this.apiUrl + `/api/User/GetUserInfo`, httpOptions)
   }
 
   public userRegistration(login: string, password: string): Observable<AuthResponse> {
