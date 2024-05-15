@@ -19,7 +19,9 @@ namespace Backend.Domain.Models
         public int Quantity { get; set; }
         //public string ImgUrl { get; set; }
         public List<TourImage>? Images { get; set; }
+        public TourImage? MainImage { get; set; }
         
         public List<Order>? Orders { get; set; }
+        public TourStatus Status { get; set; }
     }
 }
