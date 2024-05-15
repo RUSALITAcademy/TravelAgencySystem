@@ -1,7 +1,8 @@
-import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router, NavigationEnd } from '@angular/router';
+import { concatMap, from } from 'rxjs';
+import { ITour } from 'src/app/Models/tour.model';
 import { ImageService } from 'src/app/Services/image.service';
 import { TourService } from 'src/app/Services/tour.service';
 
@@ -23,7 +24,7 @@ export class TourMainComponent implements OnInit {
   price!: number;
   quantity!: number;
   overlayColor: string = 'rgba(11, 8, 11, 0.681);'; // Прозрачность затемнения
-  images!: string[];
+  images: string[] = [];
 
   currentIndex: number = 0;
   totalImages!: number;
@@ -46,13 +47,7 @@ export class TourMainComponent implements OnInit {
       this.tourService.GetTourById(this.tourId).subscribe((tourData) => {
         if (tourData) {
 
-          this.imageService.GetImagesNames(tourData.tourId).subscribe((names) => {
-            names.forEach((element: { fileName: string; }) => {
-              this.imageService.GetImageByFileName(element.fileName).subscribe((image) => {
-                this.images.push(image)
-              })
-            });
-          });
+          this.loadImages(tourData);
           // Обновите поля данными из ответа сервиса
 
           this.tourTitle = tourData.name || this.tourTitle;
@@ -63,15 +58,27 @@ export class TourMainComponent implements OnInit {
           this.tourEndDate = tourData.endDate?.toString() || this.tourEndDate;
           this.price = tourData.price || this.price;
           this.quantity = tourData.quantity || this.quantity;
-          this.images = tourData.imgUrl || this.images;
           // Добавьте любые дополнительные поля, которые нужно обновить
-          // this.totalImages = this.images.length;
+
 
           const sentences = this.splitIntoSentences(this.tourDescription);
           const firstFourSentences = sentences.slice(0, 4);
           this.smallDescription = firstFourSentences.join(' ');
         }
       });
+    });
+  }
+
+  loadImages(tour: ITour) {
+    this.imageService.GetImagesNames(tour.tourId).pipe(
+      concatMap((names) => from(names)),
+      concatMap((element: any) =>
+        this.imageService.GetImageByFileName(element.fileName)
+      )
+    ).subscribe((imageBlob: Blob) => {
+      const imageUrl = URL.createObjectURL(imageBlob);
+      this.images.push(imageUrl);
+      this.totalImages = this.images.length;
     });
   }
 

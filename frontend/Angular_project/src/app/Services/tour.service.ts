@@ -27,7 +27,6 @@ export class TourService {
 
   ////
   CreateTour(tour: ITour): Observable<ITour> {
-    console.log(tour)
     return this.http.post<ITour>(this.apiUrl + "/CreateTour", tour);
   }
   ////

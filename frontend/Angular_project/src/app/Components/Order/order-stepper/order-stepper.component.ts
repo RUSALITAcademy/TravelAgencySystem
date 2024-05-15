@@ -8,6 +8,8 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { TourService } from 'src/app/Services/tour.service';
 import { ActivatedRoute } from '@angular/router';
 import { ITour } from 'src/app/Models/tour.model';
+import { ImageService } from 'src/app/Services/image.service';
+import { concatMap, from } from 'rxjs';
 
 
 
@@ -26,8 +28,8 @@ import { ITour } from 'src/app/Models/tour.model';
     CommonModule
   ],
 })
-export class OrderStepperComponent implements OnInit  { 
-  tourId!:string;
+export class OrderStepperComponent implements OnInit {
+  tourId!: string;
   tour: ITour = {} as ITour;
   // FormGroup для первого шага (паспорт)
   firstFormGroup!: FormGroup;
@@ -36,13 +38,25 @@ export class OrderStepperComponent implements OnInit  {
   secondFormGroup!: FormGroup;
   isLinear = true;
 
-  constructor(private _formBuilder: FormBuilder, private route: ActivatedRoute, private tourService: TourService) {}
+  constructor(
+    private _formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private tourService: TourService,
+    private imageService: ImageService,
+  ) { }
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.tourId = String(params['id']);
     });
     this.tourService.GetTourById(this.tourId).subscribe((tourData) => {
       this.tour = tourData || {} as ITour
+
+      this.imageService.GetImage(this.tour.tourId).subscribe((element) => {
+        this.imageService.GetImageByFileName(element.fileName).subscribe((imageBlob: Blob) => {
+          const imageUrl = URL.createObjectURL(imageBlob);
+          this.tour.mainImageUrl = imageUrl;
+        });
+      })
     });
     // Инициализация FormGroup для первого шага
     this.firstFormGroup = this._formBuilder.group({

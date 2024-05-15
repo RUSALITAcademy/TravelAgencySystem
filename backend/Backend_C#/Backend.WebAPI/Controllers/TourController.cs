@@ -60,7 +60,7 @@ namespace Backend.WebAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "TourAgency, Admin")]
+        //[Authorize(Roles = "TourAgency, Admin")]
         public async Task<IActionResult> DeleteTour(Guid id)
         {
             var command = new DeleteTourCommand

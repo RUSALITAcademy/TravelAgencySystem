@@ -4,6 +4,8 @@ import { ITour } from 'src/app/Models/tour.model';
 import { TourService } from 'src/app/Services/tour.service';
 import { GeonamesService } from 'src/app/Services/geonames.service';
 import { City } from './type';
+import { concatMap, from } from 'rxjs';
+import { ImageService } from 'src/app/Services/image.service';
 
 @Component({
   selector: 'app-tours-table',
@@ -15,6 +17,7 @@ export class ToursTableComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private tourService: TourService,
+    private imageService: ImageService,
     private geonamesService: GeonamesService,) { }
 
   departureLocation = this.fb.control<string>('');
@@ -71,6 +74,10 @@ export class ToursTableComponent implements OnInit {
 
         return filtered;
       });
+
+      for (const tour of this.tours) {
+        this.loadImages(tour);
+      }
     });
   }
 
@@ -82,6 +89,15 @@ export class ToursTableComponent implements OnInit {
       locations = response.geonames.filter((city: City, index: number, self: Array<City>) =>
         index === self.findIndex((c) => c.name === city.name)
       ).map((city: City) => city.name);
+    });
+  }
+
+  loadImages(tour: ITour) {
+    this.imageService.GetImage(tour.tourId).subscribe((element) => {
+      this.imageService.GetImageByFileName(element.fileName).subscribe((imageBlob: Blob) => {
+        const imageUrl = URL.createObjectURL(imageBlob);
+        tour.mainImageUrl = imageUrl;
+      });
     });
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
@@ -18,9 +18,16 @@ export class ImageService {
     return this.http.get<any>(this.apiUrl + "/tour_images/" + tourId);
   }
 
-  GetImageByFileName(name: string): Observable<any> {
+  GetImage(tourId: string): Observable<any> {
+    return this.http.get<any>(this.apiUrl + "/tour_image/" + tourId);
+  }
+
+  GetImageByFileName(name: string): Observable<Blob> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'image/jpeg',
+    });
     const url = `${this.apiUrl}/${name}`;
-    return this.http.get<any>(url);
+    return this.http.get(url, { headers: headers, responseType: 'blob' });
   }
   ////
 

@@ -55,6 +55,36 @@ export class AuthPanelComponent implements OnInit {
     const email = loginForm.value.email
     const password = loginForm.value.password
 
+    this.login(email, password);
+  }
+
+  SignUp(registerForm: FormGroup) {
+
+    const name = registerForm.value.email;
+    const password = registerForm.value.password;
+
+    if (!registerForm.value.isTourAgency) {
+      this.authService.userRegistration(name, password).subscribe({
+        next: () => {
+          this.login(name, password);
+        },
+        error: () => {
+          this.isRegisterFailed = true;
+        }
+      });
+    } else {
+      this.authService.tourAgencyRegistration(name, password).subscribe({
+        next: () => {
+          this.login(name, password);
+        },
+        error: () => {
+          this.isRegisterFailed = true;
+        }
+      });
+    }
+  }
+
+  login(email: string, password: string) {
     this.authService.login(email, password).subscribe({
       next: data => {
         if (data && !environment.production) {
@@ -84,27 +114,5 @@ export class AuthPanelComponent implements OnInit {
         }
       }
     });
-  }
-
-  SignUp(registerForm: FormGroup) {
-
-    const name = registerForm.value.email;
-    const password = registerForm.value.password;
-
-    if (!registerForm.value.isTourAgency) {
-      this.authService.userRegistration(name, password).subscribe({
-        next: () => { },
-        error: () => {
-          this.isRegisterFailed = true;
-        }
-      });
-    } else {
-      this.authService.tourAgencyRegistration(name, password).subscribe({
-        next: () => { },
-        error: () => {
-          this.isRegisterFailed = true;
-        }
-      });
-    }
   }
 }
