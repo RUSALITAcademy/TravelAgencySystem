@@ -10,6 +10,7 @@ using Backend.WebAPI.Models.UpdateDto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Backend.WebAPI.Controllers
 {
@@ -38,8 +39,7 @@ namespace Backend.WebAPI.Controllers
         }
 
 
-        [HttpPost]
-        [Authorize(Roles = "TourAgency")]
+        
         public async Task<ActionResult<Guid>> CreateTour([FromBody] CreateTourDto createTourDto)
         {
             //HttpContext.User.IsInRole();
@@ -60,7 +60,7 @@ namespace Backend.WebAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "TourAgency, Admin")]
+        //[Authorize(Roles = "TourAgency, Admin")]
         public async Task<IActionResult> DeleteTour(Guid id)
         {
             var command = new DeleteTourCommand
@@ -73,6 +73,19 @@ namespace Backend.WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<TourListVm>> GetAllTours()
         {
+            var query = new GetTourListQuery
+            {
+            };
+            var vm = await Mediator.Send(query);
+            return Ok(vm);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult<TourListVm>> GetUserTours()
+        {
+            //Получение Id через claim
+            var UserId = Guid.Parse(HttpContext.User.FindFirstValue("UserId"));
             var query = new GetTourListQuery
             {
             };

@@ -7,8 +7,6 @@ const USER_KEY = 'token';
 })
 export class StorageService {
 
-  constructor() { }
-
   clean(): void {
     window.localStorage.clear();
   }

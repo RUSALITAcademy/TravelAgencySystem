@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
 import { StorageService } from 'src/app/Services/storage.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-auth-panel',
@@ -20,8 +21,8 @@ export class AuthPanelComponent implements OnInit {
     private authService: AuthService,
     private storageService: StorageService) { }
 
-  isLoginFailed: boolean = false;
-  isRegisterFailed: boolean = false;
+  isLoginFailed = false;
+  isRegisterFailed = false;
 
   loginForm = this.fb.group({
     email: [""],
@@ -32,6 +33,7 @@ export class AuthPanelComponent implements OnInit {
     name: [""],
     email: [""],
     password: [""],
+    isTourAgency: [false],
   });
 
   ngOnInit(): void {
@@ -48,42 +50,68 @@ export class AuthPanelComponent implements OnInit {
     });
   }
 
-  //! Реализовать логику к html
-
   SignIn(loginForm: FormGroup) {
-    let name = loginForm.value.email
-    let password = loginForm.value.password
 
-    this.authService.login(name, password).subscribe({
-      next: data => {
-        this.storageService.saveToken(data);
+    const email = loginForm.value.email
+    const password = loginForm.value.password
 
-        this.router.navigate(['main']);
-      },
-      error: err => {
-        if (err instanceof HttpErrorResponse && err.status === 401) {
-          this.isLoginFailed = true;
-        }
-      }
-    });
+    this.login(email, password);
   }
 
   SignUp(registerForm: FormGroup) {
 
-    let name = registerForm.value.email;
-    let password = registerForm.value.password;
+    const name = registerForm.value.email;
+    const password = registerForm.value.password;
 
-    this.authService.register(name, password).subscribe({
+    if (!registerForm.value.isTourAgency) {
+      this.authService.userRegistration(name, password).subscribe({
+        next: () => {
+          this.login(name, password);
+        },
+        error: () => {
+          this.isRegisterFailed = true;
+        }
+      });
+    } else {
+      this.authService.tourAgencyRegistration(name, password).subscribe({
+        next: () => {
+          this.login(name, password);
+        },
+        error: () => {
+          this.isRegisterFailed = true;
+        }
+      });
+    }
+  }
+
+  login(email: string, password: string) {
+    this.authService.login(email, password).subscribe({
       next: data => {
-        //ответ пустой
-        // this.storageService.saveToken(data);
+        if (data && !environment.production) {
+          this.storageService.saveToken(data);
+        }
 
-        this.router.navigate(['main']);
+        this.authService.getUserInfo().subscribe({
+
+          next: (user) => {
+            if (user.roles?.includes('Admin')) {
+              // this.router.navigate(['admin']);
+            } else if (user.roles?.includes('TourAgency')) {
+              this.router.navigate(['travelagent/tours']);
+            } else if (user.roles?.includes('User')) {
+              this.router.navigate(['main']);
+            }
+          },
+          error: (err) => {
+            console.log("Произошла ошибка - " + err)
+          }
+
+        });
       },
-      error: err => {
-        // if (err instanceof HttpErrorResponse && err.status === 401) {
-        this.isRegisterFailed = true;
-        // }
+      error: (err) => {
+        if (err instanceof HttpErrorResponse && err.status === 401) {
+          this.isLoginFailed = true;
+        }
       }
     });
   }

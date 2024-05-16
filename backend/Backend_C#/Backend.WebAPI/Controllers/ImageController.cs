@@ -70,6 +70,26 @@ namespace Backend.WebAPI.Controllers
             }
             return fileName;
         }
+
+        [HttpGet("tour_image/{tourId}")]
+        public async Task<ActionResult<TourImageDto>> GetFirstTourImage(Guid tourId)
+        {
+            var tourImage = await _dbContext.TourImage
+                .Where(ti => ti.TourId == tourId)
+                .Select(ti => new TourImageDto
+                {
+                    Id = ti.Id,
+                    FileName = ti.FileName
+                })
+                .FirstOrDefaultAsync();
+
+            if (tourImage == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(tourImage);
+        }
     }
 
     public class TourImageDto

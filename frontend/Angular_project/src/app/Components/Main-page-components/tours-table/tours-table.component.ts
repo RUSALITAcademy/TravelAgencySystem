@@ -4,6 +4,8 @@ import { ITour } from 'src/app/Models/tour.model';
 import { TourService } from 'src/app/Services/tour.service';
 import { GeonamesService } from 'src/app/Services/geonames.service';
 import { City } from './type';
+import { concatMap, from } from 'rxjs';
+import { ImageService } from 'src/app/Services/image.service';
 
 @Component({
   selector: 'app-tours-table',
@@ -15,17 +17,17 @@ export class ToursTableComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private tourService: TourService,
+    private imageService: ImageService,
     private geonamesService: GeonamesService,) { }
 
-  //сделать контролы и отслеживание на изминение
   departureLocation = this.fb.control<string>('');
   destinationLocation = this.fb.control<string>('');
 
   departureDate: Date | null = null;
   returnDate: Date | null = null;
-  showReturnDate: boolean = true;
-  toursIsVisiable: boolean = false;
-  passengerCount: number = 1;
+  showReturnDate = true;
+  toursIsVisiable = false;
+  passengerCount = 1;
 
   tours: ITour[] = [];
 
@@ -72,10 +74,14 @@ export class ToursTableComponent implements OnInit {
 
         return filtered;
       });
+
+      for (const tour of this.tours) {
+        this.loadImages(tour);
+      }
     });
   }
 
-  getFiltredCities(cityName: String, locations: Array<string>) {
+  getFiltredCities(cityName: string, locations: Array<string>) {
 
     this.geonamesService.getCities({ name: cityName.toLocaleLowerCase() }).subscribe((response) => {
 
@@ -83,6 +89,12 @@ export class ToursTableComponent implements OnInit {
       locations = response.geonames.filter((city: City, index: number, self: Array<City>) =>
         index === self.findIndex((c) => c.name === city.name)
       ).map((city: City) => city.name);
+    });
+  }
+
+  loadImages(tour: ITour) {
+    this.imageService.GetImage(tour.tourId).subscribe((element) => {
+      tour.mainImageUrl = this.imageService.GetImageByFileName(element.fileName);
     });
   }
 }

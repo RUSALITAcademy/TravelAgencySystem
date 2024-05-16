@@ -1,0 +1,18 @@
+@test = https://localhost:7271
+
+POST {{test}}/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "registratsia@test.shit",
+  "password": "Test123!"
+}
+###
+
+@auth.token = CfDJ8K2BZK2OqZJEsvDyyPrKmg_LQCarqBDUbWHQZSrFZeYwhcvMGykrIuIIz6xKXnwlnH0IX0mAHUzRFz-7I4jQ69UAc9fTkdVSrRDmncwJv4dSPwKs_igLfbLUq1waAVFJacZsheMhZNA51k7byRTdE0XJrfkHIQHzppI7-k3FvknkNWtrtXos1Nc9oPAeR-8eMKcJOdwHpHakeBwta6H_6x1BP5ClBU_jIOEv-dRNmE8HrbCi26VZFi_yQ3Qy_FtqpKccN98l1u8TDsbGAh6GDmhpaR2vjruSr0qhqi6ozIoC_47nxR6FwmaAhmEZT79xFBwUyLw3efv2381JYFxT_wCRuyWI41bOprY32DJQy58G3-klB0jp7Apt0SWD-JXl3l_swBiPi1E0DTgmAQgMb5p6BtaDVbMVX6P0Kquo_qXfC27W6QCXNQ7WB8pIqXnuRnD0JOHRruh1F3R0RZBb_oghpAMhkNsT5taWnvcnzDOacsYADZ6pRAMvst2cMZFdhCOqUKmtzx-W4dxwZDieFlOtk7GPyDf9nMcvzJtwPqgK_r_eqjYJ_4CmL_e2TIXl24qGi-viBMMQlt_9YtDCxDBuudTfzFAuUrQ0UBcejFPbuz1yovE8-ovpQOnzP14EgcDuNtWZ4WBTw2tCuBLFUucifG9hLuQuM1q-HH7CRMMIOq_ZuChUXtxqPEK42M3ZuULkAWePfRlVsfGYte5UldQ
+GET {{test}}/api/Tour/GetUserTours
+Accept: application/json
+Authorization: Bearer {{auth.token}}
+
+###
