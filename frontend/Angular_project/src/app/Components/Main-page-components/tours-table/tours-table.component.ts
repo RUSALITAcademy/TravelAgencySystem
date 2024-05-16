@@ -94,10 +94,7 @@ export class ToursTableComponent implements OnInit {
 
   loadImages(tour: ITour) {
     this.imageService.GetImage(tour.tourId).subscribe((element) => {
-      this.imageService.GetImageByFileName(element.fileName).subscribe((imageBlob: Blob) => {
-        const imageUrl = URL.createObjectURL(imageBlob);
-        tour.mainImageUrl = imageUrl;
-      });
+      tour.mainImageUrl = this.imageService.GetImageByFileName(element.fileName);
     });
   }
 }

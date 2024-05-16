@@ -22,12 +22,9 @@ export class ImageService {
     return this.http.get<any>(this.apiUrl + "/tour_image/" + tourId);
   }
 
-  GetImageByFileName(name: string): Observable<Blob> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'image/jpeg',
-    });
+  GetImageByFileName(name: string): string {
     const url = `${this.apiUrl}/${name}`;
-    return this.http.get(url, { headers: headers, responseType: 'blob' });
+    return url;
   }
   ////
 

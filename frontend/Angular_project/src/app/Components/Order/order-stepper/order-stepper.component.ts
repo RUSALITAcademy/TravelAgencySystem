@@ -52,10 +52,7 @@ export class OrderStepperComponent implements OnInit {
       this.tour = tourData || {} as ITour
 
       this.imageService.GetImage(this.tour.tourId).subscribe((element) => {
-        this.imageService.GetImageByFileName(element.fileName).subscribe((imageBlob: Blob) => {
-          const imageUrl = URL.createObjectURL(imageBlob);
-          this.tour.mainImageUrl = imageUrl;
-        });
+        this.tour.mainImageUrl = this.imageService.GetImageByFileName(element.fileName);
       })
     });
     // Инициализация FormGroup для первого шага

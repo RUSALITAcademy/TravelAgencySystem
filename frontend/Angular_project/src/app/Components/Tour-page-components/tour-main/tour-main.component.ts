@@ -70,14 +70,12 @@ export class TourMainComponent implements OnInit {
   }
 
   loadImages(tour: ITour) {
-    this.imageService.GetImagesNames(tour.tourId).pipe(
-      concatMap((names) => from(names)),
-      concatMap((element: any) =>
-        this.imageService.GetImageByFileName(element.fileName)
-      )
-    ).subscribe((imageBlob: Blob) => {
-      const imageUrl = URL.createObjectURL(imageBlob);
-      this.images.push(imageUrl);
+    this.imageService.GetImagesNames(tour.tourId).subscribe((images: any) => {
+      console.log(images)
+      images.forEach((element: { fileName: string; }) => {
+        this.images.push(this.imageService.GetImageByFileName(element.fileName));
+
+      });
       this.totalImages = this.images.length;
     });
   }
