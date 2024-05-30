@@ -11,6 +11,7 @@ import { AccountSettingsComponent } from './Components/User-account-page-compone
 import { AccountTravelHistoryComponent } from './Components/User-account-page-components/account-travel-history/account-travel-history.component';
 import { TravelAgentPageComponent } from './Pages/Travel-agent-page/travel-agent-page.component';
 import { ToursComponent } from './Components/Travel-agent-components/tours/tours.component';
+import { NotFoundComponent } from './Pages/not-found/not-found.component';
 //личный кабинет
 
 const routes: Routes = [
@@ -34,7 +35,7 @@ const routes: Routes = [
       { path: "orders", component: ToursComponent },
     ]
   },
-  { path: "**", redirectTo: 'auth', pathMatch: 'full' },
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
