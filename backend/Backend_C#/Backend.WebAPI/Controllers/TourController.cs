@@ -19,33 +19,53 @@ namespace Backend.WebAPI.Controllers
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ILogger<TourController> _logger;
 
-        public TourController(IMapper mapper, UserManager<User> userManager, RoleManager<IdentityRole> roleManager) 
+        public TourController(IMapper mapper, UserManager<User> userManager, RoleManager<IdentityRole> roleManager, ILogger<TourController> logger) 
         {
             _mapper = mapper;
             _userManager = userManager;
             _roleManager = roleManager;
+            _logger = logger;
         }
         
         [HttpGet("{id}")]
         public async Task<ActionResult<TourDetailsVm>> GetTour(Guid id)
         {
-            var query = new GetTourDetailsQuery
+            try
             {
-                TourId = id
-            };
-            var vm = await Mediator.Send(query);
-            return Ok(vm);
+                var query = new GetTourDetailsQuery
+                {
+                    TourId = id
+                };
+                var vm = await Mediator.Send(query);
+                return Ok(vm);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("Произошла ошибка  - {ex}", ex);
+                throw;
+            }
+            
         }
 
 
-        
+        [HttpPost]
         public async Task<ActionResult<Guid>> CreateTour([FromBody] CreateTourDto createTourDto)
         {
-            //HttpContext.User.IsInRole();
-            var command = _mapper.Map<CreateTourCommand>(createTourDto);
-            var TourId = await Mediator.Send(command);
-            return Ok(TourId);
+            try
+            {
+                //HttpContext.User.IsInRole();
+                var command = _mapper.Map<CreateTourCommand>(createTourDto);
+                var TourId = await Mediator.Send(command);
+                return Ok(TourId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("Произошла ошибка  - {ex}", ex);
+                throw;
+            }
+            
         }
 
 
@@ -53,46 +73,79 @@ namespace Backend.WebAPI.Controllers
         [Authorize(Roles = "TourAgency")]
         public async Task<IActionResult> UpdateTour([FromBody] UpdateTourDto updateTourDto, Guid id)
         {
-            var command = _mapper.Map<UpdateTourCommand>(updateTourDto);
-            command.TourId = id;
-            await Mediator.Send(command);
-            return NoContent();
+            try
+            {
+                var command = _mapper.Map<UpdateTourCommand>(updateTourDto);
+                command.TourId = id;
+                await Mediator.Send(command);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("Произошла ошибка  - {ex}", ex);
+                throw;
+            }
         }
 
         [HttpDelete("{id}")]
         //[Authorize(Roles = "TourAgency, Admin")]
         public async Task<IActionResult> DeleteTour(Guid id)
         {
-            var command = new DeleteTourCommand
+            try
             {
-                TourId = id
-            };
-            await Mediator.Send(command);
-            return NoContent();
+                var command = new DeleteTourCommand
+                {
+                    TourId = id
+                };
+                await Mediator.Send(command);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("Произошла ошибка  - {ex}", ex);
+                throw;
+            }
         }
+
         [HttpPost]
         public async Task<ActionResult<TourListVm>> GetAllTours([FromBody] Filters filters)
         {
-            var query = new GetTourListQuery
+            try
             {
-                MinPrice = filters.minPrice,
-                MaxPrice = filters.maxPrice
-            };
-            var vm = await Mediator.Send(query);
-            return Ok(vm);
+                var query = new GetTourListQuery
+                {
+                     MinPrice = filters.minPrice,
+                    MaxPrice = filters.maxPrice
+                };
+                var vm = await Mediator.Send(query);
+                return Ok(vm);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("Произошла ошибка  - {ex}", ex);
+                throw;
+            }
         }
 
         [Authorize]
         [HttpGet]
         public async Task<ActionResult<TourListVm>> GetUserTours()
         {
-            //Получение Id через claim
-            var UserId = Guid.Parse(HttpContext.User.FindFirstValue("UserId"));
-            var query = new GetTourListQuery
+            try
             {
-            };
-            var vm = await Mediator.Send(query);
-            return Ok(vm);
+                //Получение Id через claim
+                var UserId = Guid.Parse(HttpContext.User.FindFirstValue("UserId"));
+                var query = new GetTourListQuery
+                {
+                };
+                var vm = await Mediator.Send(query);
+                return Ok(vm);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("Произошла ошибка  - {ex}", ex);
+                throw;
+            }
         }
 
         [HttpPost("Role")]
