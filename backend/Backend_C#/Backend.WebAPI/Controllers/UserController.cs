@@ -55,6 +55,8 @@ namespace Backend.WebAPI.Controllers
             return Ok(UserId);
         }
 
+        
+
 
         [HttpPut("{id}")]
         [Authorize(Roles = "User")]
@@ -65,6 +67,36 @@ namespace Backend.WebAPI.Controllers
             await Mediator.Send(command);
             return NoContent();
         }
+
+        [HttpPut]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> UpdatePasswordUser([FromBody] UpdatePasswordModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return BadRequest(ModelState);
+            }
+
+            return NoContent();
+        }
+
+
 
         [HttpDelete("{id}")]
         //[Authorize(Roles = "Admin")]
@@ -142,7 +174,7 @@ namespace Backend.WebAPI.Controllers
             var user = new User();
             await userStore.SetUserNameAsync(user, email, CancellationToken.None);
             await emailStore.SetEmailAsync(user, email, CancellationToken.None);
-            var result = await _userManager.CreateAsync(user, registration.Password);
+            var result = await _userManager.CreateAsync(user, registration.Password); 
 
             if (!result.Succeeded)
             {
@@ -224,4 +256,11 @@ namespace Backend.WebAPI.Controllers
             return TypedResults.ValidationProblem(errorDictionary);
         }
     }
+
+    public class UpdatePasswordModel
+    {
+        public string CurrentPassword { get; set; }
+        public string NewPassword { get; set; }
+    }
+
 }

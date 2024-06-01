@@ -21,7 +21,10 @@ namespace Backend.Application.Models.Users.Commands.CreateUser
                 Id = Guid.NewGuid().ToString(),
                 Email = request.Email,
                 //Password = request.Password,
-                UserName = request.Name,
+                UserName = request.UserName,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Patronymic = request.Patronymic,
                 ImgUrl = request.ImgUrl
             };
             await _dbContext.User.AddAsync(user, cancellationToken);
