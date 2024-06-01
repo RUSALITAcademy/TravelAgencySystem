@@ -70,11 +70,13 @@ namespace Backend.WebAPI.Controllers
             await Mediator.Send(command);
             return NoContent();
         }
-        [HttpGet]
-        public async Task<ActionResult<TourListVm>> GetAllTours()
+        [HttpPost]
+        public async Task<ActionResult<TourListVm>> GetAllTours([FromBody] Filters filters)
         {
             var query = new GetTourListQuery
             {
+                MinPrice = filters.minPrice,
+                MaxPrice = filters.maxPrice
             };
             var vm = await Mediator.Send(query);
             return Ok(vm);
@@ -114,5 +116,11 @@ namespace Backend.WebAPI.Controllers
     {
         public string RoleName { get; set; }
         public string UserName { get; set; }
+    }
+
+    public class Filters
+    {
+        public double? minPrice { get; set; }
+        public double? maxPrice { get; set; }
     }
 }
