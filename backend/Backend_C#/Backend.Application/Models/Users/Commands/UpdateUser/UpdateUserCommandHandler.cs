@@ -24,12 +24,15 @@ namespace Backend.Application.Models.Users.Commands.UpdateUser
                 throw new NotFoundException(nameof(User), request.UserId);
             }
 
-            entity.UserName = request.Name;
+            entity.UserName = request.UserName;
+            entity.FirstName = request.FirstName;
+            entity.LastName = request.LastName;
+            entity.MiddleName = request.MiddleName;
             //entity.Password = request.Password;
             //entity.Email = request.Email;
             //entity.ImgUrl = request.ImgUrl;
 
-            //await _dbContext.SaveChangesAsync(cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

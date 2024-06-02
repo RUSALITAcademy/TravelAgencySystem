@@ -4,19 +4,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Persistence.EntityTypeConfigurations
 {
-    public class TourConfiguration
-        : IEntityTypeConfiguration<Tour>
+    public class TourConfiguration : IEntityTypeConfiguration<Tour>
     {
         public void Configure(EntityTypeBuilder<Tour> entity)
         {
-            entity.HasIndex(tour => tour.TourId).IsUnique();
-           
+            entity.HasKey(t => t.TourId);
+            entity.HasIndex(t => t.TourId).IsUnique();
 
-            entity.HasMany(tour => tour.Orders)
-              .WithOne(order => order.Tour)
-              .HasForeignKey(order => order.TourId);
+            entity.HasMany(t => t.Images)
+                .WithOne(i => i.Tour)
+                .HasForeignKey(i => i.TourId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasMany(t => t.Orders)
+                .WithOne(order => order.Tour)
+                .HasForeignKey(order => order.TourId);
+
         }
-
     }
+
 
 }

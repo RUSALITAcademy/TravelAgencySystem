@@ -8,9 +8,9 @@ namespace Backend.Application.Models.Users.Queries.GetUserList
     {
         public string UserId { get; set; }
         public string? Email { get; set; }
-        //public string? Password { get; set; }
-        public string? Name { get; set; }
-        public string ImgUrl { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? MiddleName { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -19,12 +19,12 @@ namespace Backend.Application.Models.Users.Queries.GetUserList
                     opt => opt.MapFrom(businessman => businessman.Id))
                 .ForMember(businessman => businessman.Email,
                     opt => opt.MapFrom(businessman => businessman.Email))
-                //.ForMember(businessman => businessman.Password,
-                //    opt => opt.MapFrom(businessman => businessman.Password))
-                .ForMember(businessman => businessman.Name,
-                    opt => opt.MapFrom(businessman => businessman.UserName))
-                .ForMember(clientVm => clientVm.ImgUrl,
-                    opt => opt.MapFrom(client => client.ImgUrl));
+                .ForMember(clientVm => clientVm.FirstName,
+                    opt => opt.MapFrom(client => client.FirstName))
+                .ForMember(clientVm => clientVm.LastName,
+                    opt => opt.MapFrom(client => client.LastName))
+                .ForMember(clientVm => clientVm.MiddleName,
+                    opt => opt.MapFrom(client => client.MiddleName));
         }
     }
 }
