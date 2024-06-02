@@ -27,6 +27,7 @@ namespace Backend.Application.Models.Tours.Commands.CreateTour
                 Price = request.Price,
                 Quantity = request.Quantity,
                 //Images = request.Images
+                Status = request.Status,
             };
             await _dbContext.Tour.AddAsync(tour, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);

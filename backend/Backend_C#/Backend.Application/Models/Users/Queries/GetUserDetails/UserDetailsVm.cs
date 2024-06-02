@@ -8,23 +8,23 @@ namespace Backend.Application.Models.Users.Queries.GetUserDetails
     {
         public Guid UserId { get; set; }
         public string? Email { get; set; }
-        public string? Password { get; set; }
-        public string? Name { get; set; }
-        public string ImgUrl { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? MiddleName { get; set; }
 
         public void Mapping(Profile profile)
         {
             profile.CreateMap<User, UserDetailsVm>()
                 .ForMember(clientVm => clientVm.UserId,
                     opt => opt.MapFrom(client => client.Id))
-                .ForMember(clientVm => clientVm.Name,
-                    opt => opt.MapFrom(client => client.UserName))
-                //.ForMember(clientVm => clientVm.Password,
-                //    opt => opt.MapFrom(client => client.Password))
                 .ForMember(clientVm => clientVm.Email,
                     opt => opt.MapFrom(client => client.Email))
-                .ForMember(clientVm => clientVm.ImgUrl,
-                    opt => opt.MapFrom(client => client.ImgUrl));
+                .ForMember(clientVm => clientVm.FirstName,
+                    opt => opt.MapFrom(client => client.FirstName))
+                .ForMember(clientVm => clientVm.LastName,
+                    opt => opt.MapFrom(client => client.LastName))
+                .ForMember(clientVm => clientVm.MiddleName,
+                    opt => opt.MapFrom(client => client.MiddleName));
         }
     }
 }
