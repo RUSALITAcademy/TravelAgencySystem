@@ -172,7 +172,7 @@ namespace Backend.Persistence.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("text");
 
-                    b.Property<string>("Patronymic")
+                    b.Property<string>("MiddleName")
                         .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")

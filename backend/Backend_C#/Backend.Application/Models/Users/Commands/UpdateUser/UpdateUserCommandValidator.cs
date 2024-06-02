@@ -16,7 +16,7 @@ namespace Backend.Application.Models.Users.Commands.UpdateUser
             RuleFor(createClientCommand =>
                 createClientCommand.LastName).MaximumLength(30);
             RuleFor(createClientCommand =>
-                createClientCommand.Patronymic).MaximumLength(30);
+                createClientCommand.MiddleName).MaximumLength(30);
             RuleFor(createClientCommand =>
                 createClientCommand.Password).NotEmpty().MinimumLength(3).MaximumLength(15);
             RuleFor(createClientCommand =>

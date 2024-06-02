@@ -11,7 +11,7 @@ namespace Backend.Application.Models.Users.Commands.CreateUser
         public string? ImgUrl { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
-        public string? Patronymic { get; set; }
+        public string? MiddleName { get; set; }
 
     }
 }

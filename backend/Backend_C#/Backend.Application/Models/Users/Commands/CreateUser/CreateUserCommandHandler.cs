@@ -24,7 +24,7 @@ namespace Backend.Application.Models.Users.Commands.CreateUser
                 UserName = request.UserName,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
-                Patronymic = request.Patronymic,
+                MiddleName = request.MiddleName,
                 ImgUrl = request.ImgUrl
             };
             await _dbContext.User.AddAsync(user, cancellationToken);

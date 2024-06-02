@@ -27,7 +27,7 @@ namespace Backend.Application.Models.Users.Commands.UpdateUser
             entity.UserName = request.UserName;
             entity.FirstName = request.FirstName;
             entity.LastName = request.LastName;
-            entity.Patronymic = request.Patronymic;
+            entity.MiddleName = request.MiddleName;
             //entity.Password = request.Password;
             //entity.Email = request.Email;
             //entity.ImgUrl = request.ImgUrl;
