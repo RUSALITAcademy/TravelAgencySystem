@@ -13,7 +13,7 @@ namespace Backend.WebAPI.Models.CreateDto
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string MiddleName { get; set; }
-        public string ImgUrl { get; set; }
+        //public string ImgUrl { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateUserDto, CreateUserCommand>()
@@ -26,9 +26,9 @@ namespace Backend.WebAPI.Models.CreateDto
                 .ForMember(userVm => userVm.Password,
                     opt => opt.MapFrom(user => user.Password))
                 .ForMember(userVm => userVm.Email,
-                    opt => opt.MapFrom(user => user.Email))
-                .ForMember(userVm => userVm.ImgUrl,
-                    opt => opt.MapFrom(user => user.ImgUrl));
+                    opt => opt.MapFrom(user => user.Email));
+                /*.ForMember(userVm => userVm.ImgUrl,
+                    opt => opt.MapFrom(user => user.ImgUrl));*/
         }
     }
 }
