@@ -20,10 +20,21 @@ namespace Backend.Application.Models.Tours.Queries.GetTourList
                 IMapper mapper) =>
                 (_dbContext, _mapper) = (dbContext, mapper);
 
-        public async Task<TourListVm> Handle(GetTourListQuery request,
-            CancellationToken cancelToken)
+        public async Task<TourListVm> Handle(GetTourListQuery request, CancellationToken cancelToken)
         {
-            var tourQuery = await _dbContext.Tour
+            var query = _dbContext.Tour.AsQueryable();
+
+            if (request.MinPrice.HasValue)
+            {
+                query = query.Where(t => t.Price >= request.MinPrice.Value);
+            }
+
+            if (request.MaxPrice.HasValue)
+            {
+                query = query.Where(t => t.Price <= request.MaxPrice.Value);
+            }
+
+            var tourQuery = await query
                 .ProjectTo<TourLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancelToken);
 

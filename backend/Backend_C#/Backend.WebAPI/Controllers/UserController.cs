@@ -24,35 +24,53 @@ namespace Backend.WebAPI.Controllers
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ILogger<TourController> _logger;
         private static readonly EmailAddressAttribute _emailAddressAttribute = new();
         string? confirmEmailEndpointName = null;
 
-        public UserController(IMapper mapper, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public UserController(IMapper mapper, UserManager<User> userManager, RoleManager<IdentityRole> roleManager, ILogger<TourController> logger)
         {
             _mapper = mapper;
             _userManager = userManager;
             _roleManager = roleManager;
+            _logger = logger;
         }
 
         [HttpGet("{id}")]
         [Authorize]
         public async Task<ActionResult<UserDetailsVm>> GetUser(Guid id)
         {
-            var query = new GetUserDetailsQuery
+            try
             {
-                UserId = id
-            };
-            var vm = await Mediator.Send(query);
-            return Ok(vm);
+                var query = new GetUserDetailsQuery
+                {
+                    UserId = id
+                };
+                var vm = await Mediator.Send(query);
+                return Ok(vm);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("Произошла ошибка  - {ex}", ex);
+                throw;
+            }
         }
 
 
         [HttpPost]
         public async Task<ActionResult<Guid>> CreateUser([FromBody] CreateUserDto createUserDto)
         {
-            var command = _mapper.Map<CreateUserCommand>(createUserDto);
-            var UserId = await Mediator.Send(command);
-            return Ok(UserId);
+            try
+            {
+                var command = _mapper.Map<CreateUserCommand>(createUserDto);
+                var UserId = await Mediator.Send(command);
+                return Ok(UserId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("Произошла ошибка  - {ex}", ex);
+                throw;
+            }
         }
 
         
@@ -62,10 +80,18 @@ namespace Backend.WebAPI.Controllers
         [Authorize(Roles = "User")]
         public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDto updateUserDto, Guid id)
         {
-            var command = _mapper.Map<UpdateUserCommand>(updateUserDto);
-            command.UserId = id;
-            await Mediator.Send(command);
-            return NoContent();
+            try
+            {
+                var command = _mapper.Map<UpdateUserCommand>(updateUserDto);
+                command.UserId = id;
+                await Mediator.Send(command);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("Произошла ошибка  - {ex}", ex);
+                throw;
+            }
         }
 
         [HttpPut]
@@ -102,12 +128,20 @@ namespace Backend.WebAPI.Controllers
         //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
-            var command = new DeleteUserCommand
+            try
             {
-                UserId = id
-            };
-            await Mediator.Send(command);
-            return NoContent();
+                var command = new DeleteUserCommand
+                {
+                    UserId = id
+                };
+                await Mediator.Send(command);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("Произошла ошибка  - {ex}", ex);
+                throw;
+            }
         }
 
 
@@ -115,74 +149,98 @@ namespace Backend.WebAPI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<UserListVm>> GetAllUsers()
         {
-            var query = new GetUserListQuery
+            try
             {
-            };
-            var vm = await Mediator.Send(query);
-            return Ok(vm);
+                var query = new GetUserListQuery
+                {
+                };
+                var vm = await Mediator.Send(query);
+                return Ok(vm);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("Произошла ошибка  - {ex}", ex);
+                throw;
+            }
         }
 
         [HttpPost]
         public async Task<Results<Ok, ValidationProblem>> UserRegistration([FromBody] RegisterRequest registration, [FromServices] IServiceProvider sp)
         {
-            if (!_userManager.SupportsUserEmail)
+            try
             {
-                throw new NotSupportedException($"{nameof(UserRegistration)} requires a user store with email support.");
+                if (!_userManager.SupportsUserEmail)
+                {
+                    throw new NotSupportedException($"{nameof(UserRegistration)} requires a user store with email support.");
+                }
+
+                var userStore = sp.GetRequiredService<IUserStore<User>>();
+                var emailStore = (IUserEmailStore<User>)userStore;
+                var email = registration.Email;
+
+                if (string.IsNullOrEmpty(email) || !_emailAddressAttribute.IsValid(email))
+                {
+                    return CreateValidationProblem(IdentityResult.Failed(_userManager.ErrorDescriber.InvalidEmail(email)));
+                }
+
+                var user = new User();
+                await userStore.SetUserNameAsync(user, email, CancellationToken.None);
+                await emailStore.SetEmailAsync(user, email, CancellationToken.None);
+                var result = await _userManager.CreateAsync(user, registration.Password);
+
+                if (!result.Succeeded)
+                {
+                    return CreateValidationProblem(result);
+                }
+
+                await _userManager.AddToRoleAsync(user, "User");
+                return TypedResults.Ok();
             }
-
-            var userStore = sp.GetRequiredService<IUserStore<User>>();
-            var emailStore = (IUserEmailStore<User>)userStore;
-            var email = registration.Email;
-
-            if (string.IsNullOrEmpty(email) || !_emailAddressAttribute.IsValid(email))
+            catch (Exception ex)
             {
-                return CreateValidationProblem(IdentityResult.Failed(_userManager.ErrorDescriber.InvalidEmail(email)));
+                _logger.LogInformation("Произошла ошибка  - {ex}", ex);
+                throw;
             }
-
-            var user = new User();
-            await userStore.SetUserNameAsync(user, email, CancellationToken.None);
-            await emailStore.SetEmailAsync(user, email, CancellationToken.None);
-            var result = await _userManager.CreateAsync(user, registration.Password);
-
-            if (!result.Succeeded)
-            {
-                return CreateValidationProblem(result);
-            }
-
-            await _userManager.AddToRoleAsync(user, "User");
-            return TypedResults.Ok();
         }
 
 
         [HttpPost]
         public async Task<Results<Ok, ValidationProblem>> TourAgencyRegistration([FromBody] RegisterRequest registration, [FromServices] IServiceProvider sp)
         {
-            if (!_userManager.SupportsUserEmail)
+            try
             {
-                throw new NotSupportedException($"{nameof(TourAgencyRegistration)} requires a user store with email support.");
-            }
+                if (!_userManager.SupportsUserEmail)
+                {
+                    throw new NotSupportedException($"{nameof(TourAgencyRegistration)} requires a user store with email support.");
+                }
 
-            var userStore = sp.GetRequiredService<IUserStore<User>>();
-            var emailStore = (IUserEmailStore<User>)userStore;
-            var email = registration.Email;
+                var userStore = sp.GetRequiredService<IUserStore<User>>();
+                var emailStore = (IUserEmailStore<User>)userStore;
+                var email = registration.Email;
 
-            if (string.IsNullOrEmpty(email) || !_emailAddressAttribute.IsValid(email))
-            {
-                return CreateValidationProblem(IdentityResult.Failed(_userManager.ErrorDescriber.InvalidEmail(email)));
-            }
+                if (string.IsNullOrEmpty(email) || !_emailAddressAttribute.IsValid(email))
+                {
+                    return CreateValidationProblem(IdentityResult.Failed(_userManager.ErrorDescriber.InvalidEmail(email)));
+                }
 
             var user = new User();
             await userStore.SetUserNameAsync(user, email, CancellationToken.None);
             await emailStore.SetEmailAsync(user, email, CancellationToken.None);
-            var result = await _userManager.CreateAsync(user, registration.Password); 
+            var result = await _userManager.CreateAsync(user, registration.Password);
 
-            if (!result.Succeeded)
-            {
-                return CreateValidationProblem(result);
+                if (!result.Succeeded)
+                {
+                    return CreateValidationProblem(result);
+                }
+
+                await _userManager.AddToRoleAsync(user, "TourAgency");
+                return TypedResults.Ok();
             }
-
-            await _userManager.AddToRoleAsync(user, "TourAgency");
-            return TypedResults.Ok();
+            catch (Exception ex)
+            {
+                _logger.LogInformation("Произошла ошибка  - {ex}", ex);
+                throw;
+            }
         }
 
 
@@ -190,42 +248,58 @@ namespace Backend.WebAPI.Controllers
         public async Task<Results<Ok<AccessTokenResponse>, EmptyHttpResult, ProblemHttpResult>> Login
         ([FromBody] LoginRequest login, [FromQuery] bool? useCookies, [FromQuery] bool? useSessionCookies, [FromServices] IServiceProvider sp)
         {
-            var signInManager = sp.GetRequiredService<SignInManager<User>>();
-            var userManager = sp.GetRequiredService<UserManager<User>>();
-
-            var useCookieScheme = (useCookies == true) || (useSessionCookies == true);
-            var isPersistent = (useCookies == true) && (useSessionCookies != true);
-            signInManager.AuthenticationScheme = useCookieScheme ? IdentityConstants.ApplicationScheme : IdentityConstants.BearerScheme;
-
-            var result = await signInManager.PasswordSignInAsync(login.Email, login.Password, isPersistent, lockoutOnFailure: true);
-
-            if (!result.Succeeded)
+            try
             {
-                return TypedResults.Problem(result.ToString(), statusCode: StatusCodes.Status401Unauthorized);
-            }
+                var signInManager = sp.GetRequiredService<SignInManager<User>>();
+                var userManager = sp.GetRequiredService<UserManager<User>>();
 
-            return TypedResults.Empty;
+                var useCookieScheme = (useCookies == true) || (useSessionCookies == true);
+                var isPersistent = (useCookies == true) && (useSessionCookies != true);
+                signInManager.AuthenticationScheme = useCookieScheme ? IdentityConstants.ApplicationScheme : IdentityConstants.BearerScheme;
+
+                var result = await signInManager.PasswordSignInAsync(login.Email, login.Password, isPersistent, lockoutOnFailure: true);
+
+                if (!result.Succeeded)
+                {
+                    return TypedResults.Problem(result.ToString(), statusCode: StatusCodes.Status401Unauthorized);
+                }
+
+                return TypedResults.Empty;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("Произошла ошибка  - {ex}", ex);
+                throw;
+            }
         }
 
         [HttpGet]
         [Authorize]
         public async Task<ActionResult<UserInfoVm>> GetUserInfo()
         {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
+            try
             {
-                return NotFound();
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                var roles = await _userManager.GetRolesAsync(user);
+
+                var userInfo = new UserInfoVm
+                {
+                    Id = user.Id,
+                    Roles = roles
+                };
+
+                return Ok(userInfo);
             }
-
-            var roles = await _userManager.GetRolesAsync(user);
-
-            var userInfo = new UserInfoVm
+            catch (Exception ex)
             {
-                Id = user.Id,
-                Roles = roles
-            };
-
-            return Ok(userInfo);
+                _logger.LogInformation("Произошла ошибка  - {ex}", ex);
+                throw;
+            }
         }
 
         private static ValidationProblem CreateValidationProblem(IdentityResult result)
