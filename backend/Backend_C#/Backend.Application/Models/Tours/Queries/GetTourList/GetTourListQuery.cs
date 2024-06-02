@@ -9,5 +9,7 @@ namespace Backend.Application.Models.Tours.Queries.GetTourList
 {
     public class GetTourListQuery : IRequest<TourListVm>
     {
+        public double? MinPrice { get; set; }
+        public double? MaxPrice { get; set; }
     }
 }
