@@ -22,5 +22,7 @@ namespace Backend.Domain.Models
         public Guid? MainImageId { get; set; }
         
         public List<Order>? Orders { get; set; }
+
+        public TourStatus Status { get; set; }
     }
 }
