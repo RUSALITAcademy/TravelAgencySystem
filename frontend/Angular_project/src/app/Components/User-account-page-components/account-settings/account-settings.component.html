@@ -1,162 +1,148 @@
-<!-- <div class="container">
-
-  <div class="header">
-    Основное
-  </div>
-
-  <div class="fields">
-
-    <div class="fields__info"
-         [formGroup]="infoForm">
-
-      <mat-form-field appearance="outline"
-                      subscriptSizing="dynamic"
-                      color="warn"
-                      floatLabel="auto">
-
-        <mat-label>
-          Имя
-        </mat-label>
-
-        <input matInput
-               name="person_name"
-               formControlName="person_name">
-      </mat-form-field>
-
-      <mat-form-field appearance="outline"
-                      subscriptSizing="dynamic"
-                      color="warn">
-
-        <mat-label>
-          E-mail
-        </mat-label>
-
-        <input matInput
-               name="person_email"
-               formControlName="person_email">
-      </mat-form-field>
-
-      <button mat-raised-button
-              class="cancel-button"
-              color="link">
-        Сохранить
-      </button>
-    </div>
-
-    <div class="fields__password"
-         [formGroup]="passwordForm">
-
-      <mat-form-field appearance="outline"
-                      subscriptSizing="dynamic">
-
-        <mat-label>
-          Новый пароль
-        </mat-label>
-
-        <input matInput
-               name="person_new_password"
-               formControlName="person_new_password">
-      </mat-form-field>
-
-      <mat-form-field appearance="outline"
-                      subscriptSizing="dynamic"
-                      color="warn">
-
-        <mat-label>
-          Старый пароль
-        </mat-label>
-
-        <input matInput
-               name="person_old_password"
-               formControlName="person_old_password">
-      </mat-form-field>
-
-      <button mat-raised-button
-              class="cancel-button"
-              color="link">
-        Сохранить
-      </button>
-    </div>
-  </div>
-</div> -->
-
 <div class="container">
   <form action="">
     <div class="header">
       <h1>Личная информация</h1>
     </div>
-    <div class="fields__info">
-      <mat-form-field appearance="outline"
-                      subscriptSizing="dynamic"
-                      color="primary">
-        <input matInput
-               placeholder="Имя"
-               type="text"
-               [disabled]="!editMode">
-        <mat-error>ОШИБКА</mat-error>
-      </mat-form-field>
-      <mat-form-field appearance="outline"
-                      subscriptSizing="dynamic"
-                      color="primary">
-        <input matInput
-               placeholder="Email"
-               type="text"
-               [disabled]="!editMode">
-        <mat-error>ОШИБКА</mat-error>
-      </mat-form-field>
-      <div class="buttons_box">
-        <button *ngIf="editMode"
-                mat-raised-button
-                class="save_button"
-                color="link">
-          Сохранить
-        </button>
-        <button mat-raised-button
-                class="change_button"
-                color="link"
-                (click)="toggleEditMode()">
-          {{ editMode ? 'Отменить изменения' : 'Изменить' }}
-        </button>
+
+    <form [formGroup]="infoForm">
+      <div class="fields__info">
+        <div class="fields">
+
+          <mat-form-field appearance="outline"
+                          subscriptSizing="dynamic"
+                          color="primary">
+
+            <mat-label>Имя</mat-label>
+
+            <input matInput
+                   formControlName="firstName"
+                   placeholder="Имя"
+                   type="text">
+            <mat-error>ОШИБКА</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline"
+                          subscriptSizing="dynamic"
+                          color="primary">
+
+            <mat-label>Фамилия</mat-label>
+
+            <input matInput
+                   formControlName="lastName"
+                   placeholder="Фамилия"
+                   type="text">
+            <mat-error>ОШИБКА</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline"
+                          subscriptSizing="dynamic"
+                          color="primary">
+
+            <mat-label>Отчество</mat-label>
+
+            <input matInput
+                   formControlName="middleName"
+                   placeholder="Отчество"
+                   type="text">
+            <mat-error>ОШИБКА</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="buttons_box">
+          <button *ngIf="editMode"
+                  mat-raised-button
+                  class="save_button"
+                  color="link"
+                  (click)="saveInfo()">
+            Сохранить
+          </button>
+          <button mat-raised-button
+                  class="change_button"
+                  color="link"
+                  (click)="toggleEditMode()">
+            {{ editMode ? 'Отменить изменения' : 'Изменить' }}
+          </button>
+        </div>
       </div>
-    </div>
-    <div class="fields__password">
-      <mat-form-field appearance="outline"
-                      subscriptSizing="dynamic"
-                      color="primary">
-        <input matInput
-               placeholder="Новый пароль"
-               [type]="hidePass ? 'password' : 'text'"
-               [disabled]="!editModePass">
-        <mat-error>ОШИБКА</mat-error>
-        <!-- <mat-icon matSuffix
-  (click)="hidePass = !hidePass">{{hidePass ? 'visibility_off' : 'visibility'}}</mat-icon> -->
-      </mat-form-field>
-      <mat-form-field appearance="outline"
-                      subscriptSizing="dynamic"
-                      color="primary">
-        <input matInput
-               placeholder="Повторите пароль"
-               [type]="hidePassRepeat ? 'password' : 'text'"
-               [disabled]="!editModePass">
-        <mat-error>ОШИБКА</mat-error>
-        <!-- <mat-icon matSuffix
-  (click)="hidePassRepeat = !hidePassRepeat">{{hidePassRepeat ? 'visibility_off' :
-'visibility'}}</mat-icon> -->
-      </mat-form-field>
-      <div class="buttons_box">
-        <button *ngIf="editModePass"
-                mat-raised-button
-                class="save_button"
-                color="link">
-          Сохранить
-        </button>
-        <button mat-raised-button
-                class="change_button"
-                color="link"
-                (click)="toggleEditModePass()">
-          {{ editModePass ? 'Отменить изменения' : 'Изменить' }}
-        </button>
+    </form>
+
+    <mat-divider></mat-divider>
+
+
+    <form [formGroup]="passwordForm">
+      <div class="fields__password">
+
+        <div class="fields">
+
+
+          <mat-form-field appearance="outline"
+                          subscriptSizing="dynamic"
+                          color="primary">
+
+            <mat-label>Текущий пароль</mat-label>
+
+            <input matInput
+                   formControlName="currentPassword"
+                   placeholder="Текущий пароль"
+                   [type]="hidePass ? 'password' : 'text'"
+                   [disabled]="!editModePass">
+            <mat-error>ОШИБКА</mat-error>
+            <!-- <mat-icon matSuffix
+            (click)="hidePass = !hidePass">{{hidePass ? 'visibility_off' : 'visibility'}}</mat-icon> -->
+          </mat-form-field>
+
+
+          <mat-form-field appearance="outline"
+                          subscriptSizing="dynamic"
+                          color="primary">
+
+            <mat-label>Новый пароль</mat-label>
+
+            <input matInput
+                   formControlName="newPassword"
+                   placeholder="Новый пароль"
+                   [type]="hidePassRepeat ? 'password' : 'text'"
+                   [disabled]="!editModePass">
+            <mat-error>ОШИБКА</mat-error>
+            <!-- <mat-icon matSuffix
+            (click)="hidePassRepeat = !hidePassRepeat">{{hidePassRepeat ? 'visibility_off' :
+            'visibility'}}</mat-icon> -->
+          </mat-form-field>
+
+          <mat-form-field appearance="outline"
+                          subscriptSizing="dynamic"
+                          color="primary">
+
+            <mat-label>Повторите пароль</mat-label>
+
+            <input matInput
+                   formControlName="newPasswordRepeat"
+                   placeholder="Повторите пароль"
+                   [type]="hidePassRepeat ? 'password' : 'text'"
+                   [disabled]="!editModePass">
+            <mat-error>ОШИБКА</mat-error>
+            <!-- <mat-icon matSuffix
+            (click)="hidePassRepeat = !hidePassRepeat">{{hidePassRepeat ? 'visibility_off' :
+            'visibility'}}</mat-icon> -->
+          </mat-form-field>
+        </div>
+
+        <div class="buttons_box">
+          <button *ngIf="editModePass"
+                  mat-raised-button
+                  class="save_button"
+                  color="link"
+                  (click)="savePassword()">
+            Сохранить
+          </button>
+          <button mat-raised-button
+                  class="change_button"
+                  color="link"
+                  (click)="toggleEditModePass()">
+            {{ editModePass ? 'Отменить изменения' : 'Изменить' }}
+          </button>
+        </div>
       </div>
-    </div>
+    </form>
   </form>
 </div>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IUser } from 'src/app/Models/user.model';
+import { cloneDeep } from 'lodash';
+import { UserService } from 'src/app/Services/user.service';
 
 @Component({
   selector: 'app-account-settings',
@@ -16,38 +18,60 @@ export class AccountSettingsComponent implements OnInit {
 
   originalUser: IUser | null = null;
 
-  infoForm: FormGroup;
-  passwordForm: FormGroup;
+  infoForm: FormGroup = this.fb.group({
+    firstName: ['',],
+    lastName: ['',],
+    middleName: ['',],
+  });
+  infoFormSaved: FormGroup;
 
-  constructor(private fb: FormBuilder) {
-    this.infoForm = this.fb.group({
-      person_name: ['',],
-      person_email: ['',],
+  passwordForm: FormGroup = this.fb.group({
+    currentPassword: ['',],
+    newPassword: ['',],
+    newPasswordRepeat: ['',],
+  });
+  passwordFormSaved: FormGroup;
 
-    });
-    this.passwordForm = this.fb.group({
-      person_new_password: ['',],
-      person_old_password: ['',],
-    });
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+  ) {
   }
 
   ngOnInit() {
-
+    this.userService.getUser().subscribe((user) => {
+      this.infoForm.patchValue({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        middleName: user.middleName,
+      });
+    });
   }
 
   toggleEditMode(): void {
+    console.log(this.editMode)
     if (this.editMode) {
-      // Если режим редактирования был активен, восстанавливаем исходные значения
-      //this.editedProduct = { ...this.originalProduct! };
+      this.infoForm = cloneDeep(this.infoFormSaved);
+    } else {
+      this.infoFormSaved = cloneDeep(this.infoForm);
     }
     this.editMode = !this.editMode;
   }
 
   toggleEditModePass(): void {
     if (this.editModePass) {
-      // Если режим редактирования был активен, восстанавливаем исходные значения
-      //this.editedProduct = { ...this.originalProduct! };
+      this.passwordForm = cloneDeep(this.passwordFormSaved);
+    } else {
+      this.passwordFormSaved = cloneDeep(this.passwordForm);
     }
     this.editModePass = !this.editModePass;
+  }
+
+  saveInfo() {
+    this.userService.updateUser(this.infoForm.value).subscribe();
+  }
+
+  savePassword() {
+    this.userService.changePassword(this.passwordForm.value).subscribe();
   }
 }
