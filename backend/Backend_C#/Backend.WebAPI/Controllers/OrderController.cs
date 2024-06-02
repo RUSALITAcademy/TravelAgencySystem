@@ -14,8 +14,13 @@ namespace Backend.WebAPI.Controllers
     public class OrderController : BaseController
     {
         private readonly IMapper _mapper;
+        private readonly ILogger<TourController> _logger;
 
-        public OrderController(IMapper mapper) => _mapper = mapper;
+        public OrderController(IMapper mapper, ILogger<TourController> logger) 
+        {
+            _mapper = mapper;
+            _logger = logger;
+        } 
 
 
 
@@ -23,12 +28,20 @@ namespace Backend.WebAPI.Controllers
         [Authorize(Roles = "TourAgency, User")]
         public async Task<ActionResult<OrderDetailsVm>> GetOrder(Guid id)
         {
-            var query = new GetOrderDetailsQuery
+            try
             {
-                OrderId = id
-            };
-            var vm = await Mediator.Send(query);
-            return Ok(vm);
+                var query = new GetOrderDetailsQuery
+                {
+                    OrderId = id
+                };
+                var vm = await Mediator.Send(query);
+                return Ok(vm);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("Произошла ошибка  - {ex}", ex);
+                throw;
+            }
         }
 
 
@@ -36,54 +49,94 @@ namespace Backend.WebAPI.Controllers
         [Authorize(Roles = "User")]
         public async Task<ActionResult<Guid>> CreateOrder([FromBody] CreateOrderDto createTourDto)
         {
-            var command = _mapper.Map<CreateOrderCommand>(createTourDto);
-            var TourId = await Mediator.Send(command);
-            return Ok(TourId);
+            try
+            {
+                var command = _mapper.Map<CreateOrderCommand>(createTourDto);
+                var TourId = await Mediator.Send(command);
+                return Ok(TourId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("Произошла ошибка  - {ex}", ex);
+                throw;
+            }
         }
 
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateOrder([FromBody] UpdateOrderDto updateTourDto, Guid id)
         {
-            var command = _mapper.Map<UpdateOrderCommand>(updateTourDto);
-            command.OrderId = id;
-            await Mediator.Send(command);
-            return NoContent();
+            try
+            {
+                var command = _mapper.Map<UpdateOrderCommand>(updateTourDto);
+                command.OrderId = id;
+                await Mediator.Send(command);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("Произошла ошибка  - {ex}", ex);
+                throw;
+            }
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrder(Guid id)
         {
-            var command = new DeleteOrderCommand
+            try
             {
-                OrderId = id
-            };
-            await Mediator.Send(command);
-            return NoContent();
+                var command = new DeleteOrderCommand
+                {
+                    OrderId = id
+                };
+                await Mediator.Send(command);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("Произошла ошибка  - {ex}", ex);
+                throw;
+            }
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "User")]
         public async Task<ActionResult<OrderListVm>> GetAllOrdersFromUser(string id)
         {
-            var query = new GetOrderListQuery
+            try
             {
-                UserId = id
-            };
-            var vm = await Mediator.Send(query);
-            return Ok(vm);
+                var query = new GetOrderListQuery
+                {
+                    UserId = id
+                };
+                var vm = await Mediator.Send(query);
+                return Ok(vm);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("Произошла ошибка  - {ex}", ex);
+                throw;
+            }
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "TourAgent")]
         public async Task<ActionResult<OrderListVm>> GetAllOrdersByTour(string id)
         {
-            var query = new GetOrderListQuery
+            try
             {
-                TourId = id
-            };
-            var vm = await Mediator.Send(query);
-            return Ok(vm);
+                var query = new GetOrderListQuery
+                {
+                    TourId = id
+                };
+                var vm = await Mediator.Send(query);
+                return Ok(vm);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("Произошла ошибка  - {ex}", ex);
+                throw;
+            }
         }
     }
 }

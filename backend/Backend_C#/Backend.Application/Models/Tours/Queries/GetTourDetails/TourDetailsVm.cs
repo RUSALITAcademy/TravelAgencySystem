@@ -18,7 +18,6 @@ namespace Backend.Application.Models.Tours.Queries.GetTourDetails
         //public string ImgUrl { get; set; }
         public List<TourImage> Images { get; set; }
         public double Price { get; set; }
-        public TourStatus Status { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -42,9 +41,7 @@ namespace Backend.Application.Models.Tours.Queries.GetTourDetails
                 .ForMember(clientVm => clientVm.Quantity,
                     opt => opt.MapFrom(client => client.Quantity))
                 .ForMember(clientVm => clientVm.Images,
-                    opt => opt.MapFrom(client => client.Images))
-                .ForMember(clientVm => clientVm.Status,
-                    opt => opt.MapFrom(client => client.Status));
+                    opt => opt.MapFrom(client => client.Images));
         }
     }
 }

@@ -7,9 +7,16 @@ using Backend.Persistence.ModelsDbContext;
 using Backend.WebAPI.Middleware;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
+using Serilog;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
+
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateLogger();
+
+builder.Host.UseSerilog();
 
 // Add services to the container.
 builder.Services.AddAutoMapper(config =>
@@ -66,4 +73,19 @@ app.MapControllers();
 app.UseOpenApi();
 app.UseSwaggerUi();
 app.UseStaticFiles();
-app.Run();
+
+try
+{
+    Log.Information("Starting web host");
+    app.Run();
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Host terminated unexpectedly");
+}
+finally
+{
+    Log.CloseAndFlush();
+}
+
+//app.Run();
