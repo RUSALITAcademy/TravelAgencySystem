@@ -1,15 +1,18 @@
 import { Component, Input, NgModule, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatError, MatFormFieldModule } from '@angular/material/form-field';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TourService } from 'src/app/Services/tour.service';
 import { ActivatedRoute } from '@angular/router';
 import { ITour } from 'src/app/Models/tour.model';
 import { ImageService } from 'src/app/Services/image.service';
 import { concatMap, from } from 'rxjs';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { OrderService } from 'src/app/Services/order.service';
+import { IOrder } from 'src/app/Models/order.model';
 
 
 
@@ -20,30 +23,44 @@ import { concatMap, from } from 'rxjs';
   standalone: true,
   imports: [
     MatButtonModule,
-    MatStepperModule,
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    CommonModule
+    CommonModule,
+    NgxMaskDirective,
+    MatCheckboxModule
+
   ],
+  providers: [provideNgxMask()]
 })
 export class OrderStepperComponent implements OnInit {
   tourId!: string;
   tour: ITour = {} as ITour;
-  // FormGroup для первого шага (паспорт)
-  firstFormGroup!: FormGroup;
-
-  // FormGroup для второго шага (заграничный паспорт)
-  secondFormGroup!: FormGroup;
   isLinear = true;
 
   constructor(
-    private _formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private tourService: TourService,
     private imageService: ImageService,
-  ) { }
+    private orderService: OrderService,
+    private fb: FormBuilder
+  ) {
+    this.orderForm = this.fb.group({
+      number_phone: ['', Validators.required],
+      has_children: [null, Validators.required],
+      number_of_people: [null, Validators.required],
+    });
+    this.userForm = this.fb.group({
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      middle_name: [''],
+    });
+  }
+
+  orderForm: FormGroup;
+  userForm: FormGroup;
+
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.tourId = String(params['id']);
@@ -55,22 +72,35 @@ export class OrderStepperComponent implements OnInit {
         this.tour.mainImageUrl = this.imageService.GetImageByFileName(element.fileName);
       })
     });
-    // Инициализация FormGroup для первого шага
-    this.firstFormGroup = this._formBuilder.group({
-      series: ['', Validators.required],
-      number: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      patronymic: ['', Validators.required]
-    });
+  }
 
-    // Инициализация FormGroup для второго шага
-    this.secondFormGroup = this._formBuilder.group({
-      passportSeries: ['', Validators.required],
-      passportNumber: ['', Validators.required],
-      passportFirstName: ['', Validators.required],
-      passportLastName: ['', Validators.required],
-      passportPatronymic: ['', Validators.required]
-    });
+  createOrder() {
+    const formValue = this.orderForm.getRawValue();
+    const order: IOrder = {
+      userId: '',
+      tourId: this.tour.tourId,
+      registrationStartDate: new Date(),
+      registrationEndDate: undefined,
+      numberPhone: formValue.number_phone,
+      status: 0,
+      hasChildren: formValue.has_children,
+      numberOfPeople: formValue.number_of_people
+    }
+    return this.orderService.CreateOrder(order).subscribe(() => {
+
+    })
+  }
+
+  validateNumberInput(event: any) {
+    const input = event.target;
+    if (input.value < 0) {
+      input.value = '';
+    }
+  }
+
+  preventNegativeInput(event: KeyboardEvent) {
+    if (event.key === '-' || event.key === 'Minus') {
+      event.preventDefault();
+    }
   }
 }
