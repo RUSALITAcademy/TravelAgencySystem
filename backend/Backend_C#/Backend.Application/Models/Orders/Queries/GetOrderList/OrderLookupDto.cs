@@ -14,7 +14,7 @@ namespace Backend.Application.Models.Orders.Queries.GetOrderList
 {
     public class OrderLookupDto : IMapWith<Order>
     {
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
         public Guid TourId { get; set; }
         public DateTime RegistrationStartDate { get; set; }
         public DateTime RegistrationEndDate { get; set; }

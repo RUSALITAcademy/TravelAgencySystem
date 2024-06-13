@@ -11,6 +11,12 @@ import { UserService } from 'src/app/Services/user.service';
 })
 export class AccountSettingsComponent implements OnInit {
 
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+  ) {
+  }
+
   hidePass = true;
   hidePassRepeat = true;
   editMode: boolean = false;
@@ -22,6 +28,7 @@ export class AccountSettingsComponent implements OnInit {
     firstName: ['',],
     lastName: ['',],
     middleName: ['',],
+    userName: ['',],
   });
   infoFormSaved: FormGroup;
 
@@ -32,18 +39,16 @@ export class AccountSettingsComponent implements OnInit {
   });
   passwordFormSaved: FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    private userService: UserService,
-  ) {
-  }
-
   ngOnInit() {
+    this.infoForm.disable();
+    this.passwordForm.disable();
+
     this.userService.getUser().subscribe((user) => {
       this.infoForm.patchValue({
         firstName: user.firstName,
         lastName: user.lastName,
         middleName: user.middleName,
+        userName: user.email,
       });
     });
   }
@@ -52,7 +57,9 @@ export class AccountSettingsComponent implements OnInit {
     console.log(this.editMode)
     if (this.editMode) {
       this.infoForm = cloneDeep(this.infoFormSaved);
+      this.infoForm.disable();
     } else {
+      this.infoForm.enable();
       this.infoFormSaved = cloneDeep(this.infoForm);
     }
     this.editMode = !this.editMode;
@@ -61,17 +68,22 @@ export class AccountSettingsComponent implements OnInit {
   toggleEditModePass(): void {
     if (this.editModePass) {
       this.passwordForm = cloneDeep(this.passwordFormSaved);
+      this.passwordForm.disable();
     } else {
+      this.passwordForm.enable();
       this.passwordFormSaved = cloneDeep(this.passwordForm);
     }
     this.editModePass = !this.editModePass;
   }
 
   saveInfo() {
+    console.log(this.infoForm.value)
     this.userService.updateUser(this.infoForm.value).subscribe();
   }
 
   savePassword() {
+    const value = this.passwordForm.value;
+    delete value.newPasswordRepeat;
     this.userService.changePassword(this.passwordForm.value).subscribe();
   }
 }

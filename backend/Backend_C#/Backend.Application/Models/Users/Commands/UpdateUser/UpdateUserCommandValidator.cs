@@ -8,7 +8,7 @@ namespace Backend.Application.Models.Users.Commands.UpdateUser
         public UpdateUserCommandValidator()
         {
             RuleFor(updateClientCommand =>
-                updateClientCommand.UserId).NotEqual(Guid.Empty);
+                updateClientCommand.UserId).NotEqual(string.Empty);
             RuleFor(createClientCommand =>
                 createClientCommand.UserName).NotEmpty().MaximumLength(30);
             RuleFor(createClientCommand =>

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { IUser } from '../Models/user.model';
 import { Observable } from 'rxjs';
+import { IOrder } from '../Models/order_tour.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,10 +29,15 @@ export class UserService {
 
   ////
   changePassword(password: IPassword): Observable<void> {
-    const url = `${this.apiUrl}/UpdateUser`;
+    const url = `${this.apiUrl}/UpdatePasswordUser`;
     return this.http.put<void>(url, password);
   }
   ////
+
+  GetAllTours(): Observable<IOrder[]> {
+    // return this.http.get<IOrder[]>(this.apiUrl + "/GetAllOrdersFromUser");
+    return this.http.get<IOrder[]>("https://localhost:7271/api/Order/GetAllOrdersFromUser");
+  }
 }
 
 interface IPassword {

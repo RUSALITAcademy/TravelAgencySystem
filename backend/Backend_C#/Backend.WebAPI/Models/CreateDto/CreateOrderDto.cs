@@ -9,7 +9,7 @@ namespace Backend.WebAPI.Models.CreateDto
     public class CreateOrderDto
         : IMapWith<CreateOrderCommand>
     {
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
         public Guid TourId { get; set; }
         public DateTime RegistrationStartDate { get; set; }
         public DateTime RegistrationEndDate { get; set; }
