@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IOrder } from 'src/app/Models/order.model';
+import { UserService } from 'src/app/Services/user.service';
 import { OrderService } from 'src/app/Services/order.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { OrderService } from 'src/app/Services/order.service';
 export class AccountTravelHistoryComponent implements OnInit {
   constructor(
     private orderService: OrderService,
+    private userService: UserService,
   ) {
 
   }
@@ -21,10 +23,25 @@ export class AccountTravelHistoryComponent implements OnInit {
     this.getOrders();
   }
 
-  getOrders(id?: string) {
-    return this.orderService.GetAllOrdersFromUser(id).subscribe((result) => {
-      this.orders = result;
+  getOrders() {
+    return this.userService.GetAllOrdersFromUser().subscribe((result) => {
+      this.orders = result?.orders;
     })
+  }
+
+  transform(value: number): string {
+    switch (value) {
+      case 0:
+        return 'В ожидании ответа';
+      case 1:
+        return 'Подтвержден';
+      case 2:
+        return 'Завершен';
+      case 3:
+        return 'Отменен';
+      default:
+        return 'Неизвестный статус';
+    }
   }
 
 }

@@ -75,25 +75,26 @@
   margin-bottom: 5px;
 }
 
-/* Дополнительные стили для красоты */
 .order_tour_info {
   margin: 20px;
 }
 
 .tour_info_card {
   overflow: hidden;
-  /* Если содержимое карты выходит за границы */
 }
 
 mat-form-field {
+  width: 240px;
   background-color: white;
 }
 
 .order-form-container {
+  margin-top: 14px;
   display: flex;
   flex-direction: row;
   gap: 20px;
   align-items: center;
+  justify-content: space-between;
 }
 
 .form-row {
@@ -123,6 +124,7 @@ input[type=number] {
 }
 
 .form-container {
+  background-color: white;
   margin-top: 20px;
   border-radius: 5px;
   display: flex;
@@ -132,7 +134,7 @@ input[type=number] {
 
 .save_button {
   height: 44px;
-  background: linear-gradient(to right, rgba(233, 79, 65, 0.85), rgba(240, 105, 42, 0.85));
+  background: linear-gradient(to right, rgb(138, 35, 135), rgb(233, 64, 87));
   color: #fff !important;
   padding: 16px;
   align-items: center;
@@ -140,6 +142,13 @@ input[type=number] {
   border: none;
   border-radius: 7px;
 }
+
+.save_button.disabled-button {
+  background: linear-gradient(to right, rgb(110, 28, 107), rgb(203, 55, 75)) !important;
+  color: #9e9e9e !important;
+  cursor: not-allowed;
+}
+
 
 .has_children {
   font-size: 16px;

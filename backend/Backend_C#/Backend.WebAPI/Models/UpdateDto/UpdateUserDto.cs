@@ -9,7 +9,7 @@ namespace Backend.WebAPI.Models.UpdateDto
     {
         //public string? Email { get; set; }
         //public string? Password { get; set; }
-        //public string? UserName { get; set; }
+        public string? UserName { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? MiddleName { get; set; }
@@ -18,8 +18,8 @@ namespace Backend.WebAPI.Models.UpdateDto
         public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdateUserDto, UpdateUserCommand>()
-                /*.ForMember(userVm => userVm.UserName,
-                    opt => opt.MapFrom(user => user.UserName))*/
+                .ForMember(userVm => userVm.UserName,
+                    opt => opt.MapFrom(user => user.UserName))
                 .ForMember(userVm => userVm.FirstName,
                     opt => opt.MapFrom(user => user.FirstName))
                 .ForMember(userVm => userVm.LastName,

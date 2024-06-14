@@ -7,7 +7,7 @@ namespace Backend.Application.Models.Users.Commands.DeleteUser
     {
         public DeleteUserCommandValidator() 
         {
-            RuleFor(deleteUserCommand => deleteUserCommand.UserId).NotEqual(Guid.Empty);
+            RuleFor(deleteUserCommand => deleteUserCommand.UserId).NotEqual(string.Empty);
         }
     }
 }

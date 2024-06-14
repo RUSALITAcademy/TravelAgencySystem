@@ -13,6 +13,9 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { OrderService } from 'src/app/Services/order.service';
 import { IOrder } from 'src/app/Models/order.model';
+import { UserService } from 'src/app/Services/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { RouterDialogComponent } from '../../router-dialog/router-dialog.component';
 
 
 
@@ -29,7 +32,7 @@ import { IOrder } from 'src/app/Models/order.model';
     MatInputModule,
     CommonModule,
     NgxMaskDirective,
-    MatCheckboxModule
+    MatCheckboxModule,
 
   ],
   providers: [provideNgxMask()]
@@ -44,27 +47,37 @@ export class OrderStepperComponent implements OnInit {
     private tourService: TourService,
     private imageService: ImageService,
     private orderService: OrderService,
-    private fb: FormBuilder
-  ) {
-    this.orderForm = this.fb.group({
-      number_phone: ['', Validators.required],
-      has_children: [null, Validators.required],
-      number_of_people: [null, Validators.required],
-    });
-    this.userForm = this.fb.group({
-      first_name: ['', Validators.required],
-      last_name: ['', Validators.required],
-      middle_name: [''],
-    });
-  }
+    private userService: UserService,
+    private fb: FormBuilder,
+    private dialog: MatDialog,
+  ) { }
 
-  orderForm: FormGroup;
-  userForm: FormGroup;
+  userForm: FormGroup = this.fb.group({
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
+    middleName: ['',],
+    userName: ['',],
+  });
+
+  orderForm: FormGroup = this.fb.group({
+    number_phone: ['', Validators.required],
+    has_children: [false],
+    number_of_people: [null, Validators.required],
+  });
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.tourId = String(params['id']);
     });
+    this.userService.getUser().subscribe((user) => {
+      this.userForm.patchValue({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        middleName: user.middleName,
+        userName: user.email,
+      });
+    });
+
     this.tourService.GetTourById(this.tourId).subscribe((tourData) => {
       this.tour = tourData || {} as ITour
 
@@ -77,18 +90,26 @@ export class OrderStepperComponent implements OnInit {
   createOrder() {
     const formValue = this.orderForm.getRawValue();
     const order: IOrder = {
-      userId: '',
       tourId: this.tour.tourId,
-      registrationStartDate: new Date(),
-      registrationEndDate: undefined,
+
       numberPhone: formValue.number_phone,
-      status: 0,
       hasChildren: formValue.has_children,
       numberOfPeople: formValue.number_of_people
     }
+    console.log(order)
     return this.orderService.CreateOrder(order).subscribe(() => {
-
+      this.updateUserName();
+      const dialogRef = this.dialog.open(RouterDialogComponent, {
+        height: '20%',
+        width: '20%',
+        disableClose: true,
+        backdropClass: 'dialog-backdrop'
+      })
     })
+  }
+
+  updateUserName() {
+    return this.userService.updateUser(this.userForm.value).subscribe();
   }
 
   validateNumberInput(event: any) {

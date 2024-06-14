@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <div class="form-container">
+    <div>
       <fieldset class="form-container">
         <form [formGroup]="userForm"
               class="order-form-container">
@@ -41,21 +41,21 @@
             <mat-label>Имя</mat-label>
             <input placeholder="Иван"
                    matInput
-                   formControlName="first_name" />
+                   formControlName="firstName" />
           </mat-form-field>
           <mat-form-field appearance="outline"
                           subscriptSizing="dynamic">
             <mat-label>Фамилия</mat-label>
             <input placeholder="Иван"
                    matInput
-                   formControlName="last_name" />
+                   formControlName="lastName" />
           </mat-form-field>
           <mat-form-field appearance="outline"
                           subscriptSizing="dynamic">
             <mat-label>Отчество</mat-label>
             <input placeholder="Иван"
                    matInput
-                   formControlName="middle_name" />
+                   formControlName="middleName" />
           </mat-form-field>
         </form>
 
@@ -83,7 +83,7 @@
                    (keydown)="preventNegativeInput($event)" />
           </mat-form-field>
 
-          <div>
+          <div style="width: 240px;">
             <span class="has_children"><strong>Наличие детей</strong></span>
             <mat-checkbox formControlName="has_children"></mat-checkbox>
           </div>
@@ -91,8 +91,10 @@
         <button mat-raised-button
                 class="save_button"
                 color="link"
+                [disabled]="!userForm.valid || !orderForm.valid"
+                [ngClass]="{'disabled-button': !userForm.valid || !orderForm.valid}"
                 (click)="createOrder()">
-          Сохранить
+          Отправить заявку
         </button>
       </fieldset>
     </div>

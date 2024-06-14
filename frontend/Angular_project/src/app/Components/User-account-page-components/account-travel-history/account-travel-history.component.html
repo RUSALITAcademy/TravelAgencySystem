@@ -1,13 +1,13 @@
 <div class="container"
      *ngFor="let order of orders">
-    <div class="header">
-        <h1>{{order.tour?.name}}</h1>
-        <span class="tour-info"><i class="fa-solid fa-location-dot"></i> {{ order.tour?.country }}, {{
-            order.tour?.region
-            }}</span>
-    </div>
-    <div class="info_order">
-        <p>{{order.registrationStartDate | date: "dd.MM.yyyy"}}</p>
-        <p>Статус: {{order.status}}</p>
-    </div>
+  <div class="header">
+    <h1>{{order.tour?.name}}</h1>
+    <span class="tour-info"><i class="fa-solid fa-location-dot"></i> {{ order.tour?.country }}, {{
+      order.tour?.region
+      }}</span>
+  </div>
+  <div class="info_order">
+    <p>{{order.registrationStartDate | date: "dd.MM.yyyy"}}</p>
+    <p>Статус: {{transform(order.status)}}</p>
+  </div>
 </div>

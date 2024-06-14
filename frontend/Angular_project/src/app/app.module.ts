@@ -35,6 +35,9 @@ import { ToursComponent } from './Components/Travel-agent-components/tours/tours
 import { TravelAgentPageComponent } from './Pages/Travel-agent-page/travel-agent-page.component';
 import { NotFoundComponent } from './Pages/not-found/not-found.component';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
+import { MatDividerModule } from '@angular/material/divider';
+import { RouterDialogComponent } from './Components/router-dialog/router-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -72,7 +75,10 @@ import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
     OrderStepperComponent,
     MatIconModule,
     MatCheckboxModule,
-    NgxMaskDirective, NgxMaskPipe
+    MatDividerModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
+    MatDialogModule
   ],
   providers: [AuthService, { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true },],
   bootstrap: [AppComponent]
