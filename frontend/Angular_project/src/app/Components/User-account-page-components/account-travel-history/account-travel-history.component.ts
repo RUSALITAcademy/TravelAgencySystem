@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IOrder } from 'src/app/Models/order_tour.model';
-import { UserService } from 'src/app/Services/user.service';
+import { OrderService } from 'src/app/Services/order.service';
 
 @Component({
   selector: 'app-account-travel-history',
@@ -11,13 +11,13 @@ export class AccountTravelHistoryComponent implements OnInit {
   orders?: IOrder[];
 
   constructor(
-    private userService: UserService,
+    private orderService: OrderService,
   ) {
   }
 
   ngOnInit() {
 
-    this.userService.GetAllTours().subscribe((orders) => {
+    this.orderService.GetAllOrdersFromUser().subscribe((orders) => {
       this.orders = orders;
     });
   }

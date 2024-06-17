@@ -4,6 +4,7 @@ using Backend.Application.Models.Orders.Commands.DeleteOrder;
 using Backend.Application.Models.Orders.Commands.UpdateOrder;
 using Backend.Application.Models.Orders.Queries.GetOrderDetails;
 using Backend.Application.Models.Orders.Queries.GetOrderList;
+using Backend.WebAPI.Middleware;
 using Backend.WebAPI.Models.CreateDto;
 using Backend.WebAPI.Models.UpdateDto;
 using Microsoft.AspNetCore.Authorization;
@@ -52,7 +53,7 @@ namespace Backend.WebAPI.Controllers
         {
             try
             {
-                var UserId = HttpContext.User.FindFirstValue("UserId");
+                var UserId = HttpContext.User.GetUserId();
                 createTourDto.UserId = UserId;
                 createTourDto.Status = 0;
                 var command = _mapper.Map<CreateOrderCommand>(createTourDto);
