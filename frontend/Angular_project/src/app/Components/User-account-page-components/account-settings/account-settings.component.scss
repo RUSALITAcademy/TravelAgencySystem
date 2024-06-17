@@ -1,88 +1,98 @@
 .container {
-    margin-left: 5%;
-    width: 80%;
-    //color: white;
-    padding: 20px;
-    border-radius: 10px;
-    //background: linear-gradient(to right, rgba(233, 64, 87, 0.3), rgba(138, 35, 135, 0.3));
-    background-color: white;
-    box-shadow: 0px 0 15px rgba(0, 0, 0, 0.2);
+  margin-left: 5%;
+  width: 80%;
+  //color: white;
+  padding: 20px;
+  border-radius: 10px;
+  //background: linear-gradient(to right, rgba(233, 64, 87, 0.3), rgba(138, 35, 135, 0.3));
+  background-color: white;
+  box-shadow: 0px 0 15px rgba(0, 0, 0, 0.2);
 }
 
 .header {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    padding-bottom: 2px;
-    padding-left: 48px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding-bottom: 2px;
+  justify-content: center;
 
-    //border-bottom: 2px solid black;
-    h1 {
-        font-size: 32px;
-    }
+  //border-bottom: 2px solid black;
+  h1 {
+    font-size: 32px;
+  }
 }
 
 
 .fields__info {
-    padding: 22px 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: baseline;
-    //border-bottom: 2px solid black;
+  align-items: baseline;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 22px 0;
+  gap: 40px;
+  //border-bottom: 2px solid black;
+}
+
+.fields {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .fields__password {
-    padding: 22px 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: baseline;
-    //border-bottom: 2px solid black;
+  padding: 22px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: baseline;
+  gap: 40px;
+  //border-bottom: 2px solid black;
 }
 
 .buttons_box {
-    display: flex;
-    width: 25%;
-    justify-content: end;
-    gap: 10px;
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+  width: 100%;
 }
 
 mat-form-field {
-    // background: linear-gradient(to right, rgba(233, 64, 87, 0.1), rgba(138, 35, 135, 0.1));
-    border-radius: 5px;
-    // border-color: #973791;
-    border-color: black;
+  // background: linear-gradient(to right, rgba(233, 64, 87, 0.1), rgba(138, 35, 135, 0.1));
+  border-radius: 5px;
+  // border-color: #973791;
+  border-color: black;
 }
 
 .cancel-button {
-    background: linear-gradient(to right, rgba(233, 64, 87, 0.7), rgba(138, 35, 135, 0.7)) !important;
+  background: linear-gradient(to right, rgba(233, 64, 87, 0.7), rgba(138, 35, 135, 0.7)) !important;
 }
 
 .change_button {
-    border-radius: 7px;
-    height: 44px;
-    //width: 50%;
-    display: flex;
-    border: none;
-    background: linear-gradient(to right, rgba(138, 35, 135, 0.7), rgba(233, 64, 87, 0.7));
-    align-items: center;
-    color: #fff !important;
-    padding: 16px;
+  border-radius: 7px;
+  height: 44px;
+  //width: 50%;
+  display: flex;
+  border: none;
+  background: linear-gradient(to right, rgba(138, 35, 135, 0.7), rgba(233, 64, 87, 0.7));
+  align-items: center;
+  color: #fff !important;
+  padding: 16px;
 }
 
 .save_button {
-    height: 44px;
-    background: linear-gradient(to right, rgba(233, 79, 65, 0.7), rgba(240, 105, 42, 0.7));
-    color: #fff !important;
-    padding: 16px;
-    align-items: center;
-    display: flex;
-    border: none;
-    border-radius: 7px;
+  height: 44px;
+  background: linear-gradient(to right, rgba(233, 79, 65, 0.7), rgba(240, 105, 42, 0.7));
+  color: #fff !important;
+  padding: 16px;
+  align-items: center;
+  display: flex;
+  border: none;
+  border-radius: 7px;
 }
 
 input.example-right-align::-webkit-outer-spin-button,
 input.example-right-align::-webkit-inner-spin-button {
-    display: none;
+  display: none;
 }
 
 // input.example-right-align {

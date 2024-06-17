@@ -7,7 +7,7 @@ namespace Backend.Application.Models.Orders.Queries.GetOrderDetails
     public class OrderDetailsVm : IMapWith<Order>
     {
         public Guid OrderId { get; set; }
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
         public Guid TourId { get; set; }
         public DateTime RegistrationStartDate { get; set; }
         public DateTime RegistrationEndDate { get; set; }

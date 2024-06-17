@@ -34,6 +34,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ToursComponent } from './Components/Travel-agent-components/tours/tours.component';
 import { TravelAgentPageComponent } from './Pages/Travel-agent-page/travel-agent-page.component';
 import { NotFoundComponent } from './Pages/not-found/not-found.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { NotFoundComponent } from './Pages/not-found/not-found.component';
     MatButtonModule,
     OrderStepperComponent,
     MatIconModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDividerModule
   ],
   providers: [AuthService, { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true },],
   bootstrap: [AppComponent]

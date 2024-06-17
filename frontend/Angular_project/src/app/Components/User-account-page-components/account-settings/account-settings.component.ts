@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IUser } from 'src/app/Models/user.model';
+import { cloneDeep } from 'lodash';
+import { UserService } from 'src/app/Services/user.service';
 
 @Component({
   selector: 'app-account-settings',
@@ -9,6 +11,12 @@ import { IUser } from 'src/app/Models/user.model';
 })
 export class AccountSettingsComponent implements OnInit {
 
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+  ) {
+  }
+
   hidePass = true;
   hidePassRepeat = true;
   editMode: boolean = false;
@@ -16,38 +24,66 @@ export class AccountSettingsComponent implements OnInit {
 
   originalUser: IUser | null = null;
 
-  infoForm: FormGroup;
-  passwordForm: FormGroup;
+  infoForm: FormGroup = this.fb.group({
+    firstName: ['',],
+    lastName: ['',],
+    middleName: ['',],
+    userName: ['',],
+  });
+  infoFormSaved: FormGroup;
 
-  constructor(private fb: FormBuilder) {
-    this.infoForm = this.fb.group({
-      person_name: ['',],
-      person_email: ['',],
-
-    });
-    this.passwordForm = this.fb.group({
-      person_new_password: ['',],
-      person_old_password: ['',],
-    });
-  }
+  passwordForm: FormGroup = this.fb.group({
+    currentPassword: ['',],
+    newPassword: ['',],
+    newPasswordRepeat: ['',],
+  });
+  passwordFormSaved: FormGroup;
 
   ngOnInit() {
+    this.infoForm.disable();
+    this.passwordForm.disable();
 
+    this.userService.getUser().subscribe((user) => {
+      this.infoForm.patchValue({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        middleName: user.middleName,
+        userName: user.email,
+      });
+    });
   }
 
   toggleEditMode(): void {
+    console.log(this.editMode)
     if (this.editMode) {
-      // Если режим редактирования был активен, восстанавливаем исходные значения
-      //this.editedProduct = { ...this.originalProduct! };
+      this.infoForm = cloneDeep(this.infoFormSaved);
+      this.infoForm.disable();
+    } else {
+      this.infoForm.enable();
+      this.infoFormSaved = cloneDeep(this.infoForm);
     }
     this.editMode = !this.editMode;
   }
 
   toggleEditModePass(): void {
     if (this.editModePass) {
-      // Если режим редактирования был активен, восстанавливаем исходные значения
-      //this.editedProduct = { ...this.originalProduct! };
+      this.passwordForm = cloneDeep(this.passwordFormSaved);
+      this.passwordForm.disable();
+    } else {
+      this.passwordForm.enable();
+      this.passwordFormSaved = cloneDeep(this.passwordForm);
     }
     this.editModePass = !this.editModePass;
+  }
+
+  saveInfo() {
+    console.log(this.infoForm.value)
+    this.userService.updateUser(this.infoForm.value).subscribe();
+  }
+
+  savePassword() {
+    const value = this.passwordForm.value;
+    delete value.newPasswordRepeat;
+    this.userService.changePassword(this.passwordForm.value).subscribe();
   }
 }

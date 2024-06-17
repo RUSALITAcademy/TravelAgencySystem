@@ -5,6 +5,7 @@ using Backend.Application.Models.Users.Commands.UpdateUser;
 using Backend.Application.Models.Users.Queries.GetUserDetails;
 using Backend.Application.Models.Users.Queries.GetUserList;
 using Backend.Domain.Models;
+using Backend.WebAPI.Middleware;
 using Backend.WebAPI.Models.CreateDto;
 using Backend.WebAPI.Models.UpdateDto;
 using Microsoft.AspNetCore.Authentication.BearerToken;
@@ -15,6 +16,7 @@ using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using System.Security.Claims;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Backend.WebAPI.Controllers
@@ -36,15 +38,16 @@ namespace Backend.WebAPI.Controllers
             _logger = logger;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
         [Authorize]
-        public async Task<ActionResult<UserDetailsVm>> GetUser(Guid id)
+        public async Task<ActionResult<UserDetailsVm>> GetUser()
         {
             try
             {
+                var UserId = HttpContext.User.GetUserId();
                 var query = new GetUserDetailsQuery
                 {
-                    UserId = id
+                    UserId = UserId
                 };
                 var vm = await Mediator.Send(query);
                 return Ok(vm);
@@ -76,14 +79,15 @@ namespace Backend.WebAPI.Controllers
         
 
 
-        [HttpPut("{id}")]
+        [HttpPut]
         [Authorize(Roles = "User")]
-        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDto updateUserDto, Guid id)
+        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDto updateUserDto)
         {
             try
             {
+                var UserId = HttpContext.User.GetUserId();
                 var command = _mapper.Map<UpdateUserCommand>(updateUserDto);
-                command.UserId = id;
+                command.UserId = UserId;
                 await Mediator.Send(command);
                 return NoContent();
             }
@@ -126,7 +130,7 @@ namespace Backend.WebAPI.Controllers
 
         [HttpDelete("{id}")]
         //[Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteUser(Guid id)
+        public async Task<IActionResult> DeleteUser(string id)
         {
             try
             {

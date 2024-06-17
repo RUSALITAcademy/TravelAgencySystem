@@ -8,7 +8,7 @@ namespace Backend.Application.Models.Users.Queries.GetUserDetails
         public GetUserDetailsQueryValidator() 
         {
             RuleFor(user => 
-                user.UserId).NotEqual(Guid.Empty);
+                user.UserId).NotEqual(string.Empty);
         }
     }
 }

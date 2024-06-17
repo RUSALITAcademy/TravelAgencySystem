@@ -4,10 +4,12 @@ using Backend.Application.Models.Orders.Commands.DeleteOrder;
 using Backend.Application.Models.Orders.Commands.UpdateOrder;
 using Backend.Application.Models.Orders.Queries.GetOrderDetails;
 using Backend.Application.Models.Orders.Queries.GetOrderList;
+using Backend.WebAPI.Middleware;
 using Backend.WebAPI.Models.CreateDto;
 using Backend.WebAPI.Models.UpdateDto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Backend.WebAPI.Controllers
 {
@@ -51,6 +53,9 @@ namespace Backend.WebAPI.Controllers
         {
             try
             {
+                var UserId = HttpContext.User.GetUserId();
+                createTourDto.UserId = UserId;
+                createTourDto.Status = 0;
                 var command = _mapper.Map<CreateOrderCommand>(createTourDto);
                 var TourId = await Mediator.Send(command);
                 return Ok(TourId);
@@ -99,15 +104,16 @@ namespace Backend.WebAPI.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
         [Authorize(Roles = "User")]
-        public async Task<ActionResult<OrderListVm>> GetAllOrdersFromUser(string id)
+        public async Task<ActionResult<OrderListVm>> GetAllOrdersFromUser()
         {
             try
             {
+                var UserId =  HttpContext.User.FindFirstValue("UserId");
                 var query = new GetOrderListQuery
                 {
-                    UserId = id
+                    UserId = UserId
                 };
                 var vm = await Mediator.Send(query);
                 return Ok(vm);
@@ -121,7 +127,7 @@ namespace Backend.WebAPI.Controllers
 
         [HttpGet("{id}")]
         [Authorize(Roles = "TourAgent")]
-        public async Task<ActionResult<OrderListVm>> GetAllOrdersByTour(string id)
+        public async Task<ActionResult<OrderListVm>> GetAllOrdersByTour(Guid id)
         {
             try
             {
