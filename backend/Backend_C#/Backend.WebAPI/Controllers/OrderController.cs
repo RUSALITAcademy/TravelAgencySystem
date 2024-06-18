@@ -4,6 +4,7 @@ using Backend.Application.Models.Orders.Commands.DeleteOrder;
 using Backend.Application.Models.Orders.Commands.UpdateOrder;
 using Backend.Application.Models.Orders.Queries.GetOrderDetails;
 using Backend.Application.Models.Orders.Queries.GetOrderList;
+using Backend.WebAPI.Middleware;
 using Backend.Domain.Models;
 using Backend.WebAPI.Models.CreateDto;
 using Backend.WebAPI.Models.UpdateDto;
@@ -54,7 +55,7 @@ namespace Backend.WebAPI.Controllers
             try
             {
                 var command = _mapper.Map<CreateOrderCommand>(createOrderDto);
-                var UserId = HttpContext.User.FindFirstValue("UserId");
+                var UserId = HttpContext.User.GetUserId();
                 command.RegistrationStartDate = DateTime.UtcNow;
                 command.UserId = UserId;
                 command.Status = OrderStatus.Pending;

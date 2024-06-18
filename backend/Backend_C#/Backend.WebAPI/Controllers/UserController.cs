@@ -5,6 +5,7 @@ using Backend.Application.Models.Users.Commands.UpdateUser;
 using Backend.Application.Models.Users.Queries.GetUserDetails;
 using Backend.Application.Models.Users.Queries.GetUserList;
 using Backend.Domain.Models;
+using Backend.WebAPI.Middleware;
 using Backend.WebAPI.Models.CreateDto;
 using Backend.WebAPI.Models.UpdateDto;
 using Microsoft.AspNetCore.Authentication.BearerToken;
@@ -43,7 +44,7 @@ namespace Backend.WebAPI.Controllers
         {
             try
             {
-                var UserId = HttpContext.User.FindFirstValue("UserId");
+                var UserId = HttpContext.User.GetUserId();
                 var query = new GetUserDetailsQuery
                 {
                     UserId = UserId
@@ -84,7 +85,7 @@ namespace Backend.WebAPI.Controllers
         {
             try
             {
-                var UserId = HttpContext.User.FindFirstValue("UserId");
+                var UserId = HttpContext.User.GetUserId();
                 var command = _mapper.Map<UpdateUserCommand>(updateUserDto);
                 command.UserId = UserId;
                 await Mediator.Send(command);

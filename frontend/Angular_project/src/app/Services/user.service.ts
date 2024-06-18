@@ -33,11 +33,6 @@ export class UserService {
     return this.http.put<void>(url, password);
   }
   ////
-
-  GetAllOrdersFromUser(): Observable<any> {
-    // return this.http.get<IOrder[]>(this.apiUrl + "/GetAllOrdersFromUser");
-    return this.http.get<any>("https://localhost:7271/api/Order/GetAllOrdersFromUser");
-  }
 }
 
 interface IPassword {
