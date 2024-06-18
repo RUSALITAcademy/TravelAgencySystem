@@ -54,8 +54,8 @@ namespace Backend.WebAPI.Controllers
         {
             try
             {
-                var command = _mapper.Map<CreateOrderCommand>(createOrderDto);
                 var UserId = HttpContext.User.GetUserId();
+                var command = _mapper.Map<CreateOrderCommand>(createOrderDto);
                 command.RegistrationStartDate = DateTime.UtcNow;
                 command.UserId = UserId;
                 command.Status = OrderStatus.Pending;
@@ -112,7 +112,7 @@ namespace Backend.WebAPI.Controllers
         {
             try
             {
-                var UserId =  HttpContext.User.FindFirstValue("UserId");
+                var UserId = HttpContext.User.GetUserId();
                 var query = new GetOrderListQuery
                 {
                     UserId = UserId

@@ -13,5 +13,4 @@ export interface IOrder {
     numberPhone?: string;
     hasChildren?: boolean;
     numberOfPeople?: number;
-
 }

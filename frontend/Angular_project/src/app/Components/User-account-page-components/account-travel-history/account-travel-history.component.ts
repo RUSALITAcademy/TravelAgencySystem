@@ -24,7 +24,7 @@ export class AccountTravelHistoryComponent implements OnInit {
   }
 
   getOrders() {
-    return this.userService.GetAllOrdersFromUser().subscribe((result) => {
+    return this.orderService.GetAllOrdersFromUser().subscribe((result) => {
       this.orders = result?.orders;
     })
   }

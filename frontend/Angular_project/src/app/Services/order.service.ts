@@ -23,8 +23,8 @@ export class OrderService {
         return this.http.get<IOrder>(url);
     }
 
-    GetAllOrdersFromUser(id?: string): Observable<IOrder[]> {
-        return this.http.get<IOrder[]>(`${this.apiUrl} + /GetAllOrdersFromUser/${id}`)
+    GetAllOrdersFromUser(): Observable<any> {
+        return this.http.get<IOrder[]>(`${this.apiUrl}/GetAllOrdersFromUser`)
     }
     ////
 
