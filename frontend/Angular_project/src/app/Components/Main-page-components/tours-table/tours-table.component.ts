@@ -60,7 +60,7 @@ export class ToursTableComponent implements OnInit {
     this.toursIsVisiable = true;
     // Реализация поиска с использованием выбранных значений фильтров
 
-    this.tourService.GetAllTours().subscribe((tours: any) => {
+    this.tourService.GetAllTours({}).subscribe((tours: any) => {
       this.tours = tours['tours'];
       this.tours = this.tours.filter((tour: ITour) => {
 

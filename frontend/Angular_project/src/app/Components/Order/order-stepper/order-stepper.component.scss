@@ -1,13 +1,12 @@
 .order {
   display: flex;
   justify-content: center;
-  align-items: center;
-  //height: 100%;
   margin-top: 20px;
   background-image: url('https://assets-global.website-files.com/61a075b1726f578610d0b991/621d0db10f6900254002913c_WorldMap_Labels_Updated_Cities.svg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  height: 90vh;
 }
 
 .container {
@@ -76,20 +75,26 @@
   margin-bottom: 5px;
 }
 
-/* Дополнительные стили для красоты */
 .order_tour_info {
   margin: 20px;
 }
 
 .tour_info_card {
   overflow: hidden;
-  /* Если содержимое карты выходит за границы */
 }
 
-.order_content {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.55);
-  /* Тень для подчеркивания блока */
-  margin-top: 22px;
+mat-form-field {
+  width: 240px;
+  background-color: white;
+}
+
+.order-form-container {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .form-row {
@@ -100,62 +105,51 @@
   width: 100%;
 }
 
-::ng-deep .mat-step-header {
-  background: -webkit-linear-gradient(to right, #8A2387, #E94057, #F27121);
-  background: linear-gradient(to right, #8A2387, #E94057, #F27121);
-}
-
-::ng-deep .mat-step-icon-state-edit {
-  background-color: #F27121 !important;
-}
-
-::ng-deep .mat-step-icon-selected {
-  background-color: #F27121 !important;
-  color: white !important;
-}
-
-::ng-deep .mat-step-icon {
-  background-color: #F27121 !important;
-  color: white !important;
-}
-
-::ng-deep .mat-stepper-vertical-line::before {
-  border-left-width: 2.5px !important;
-  border-left-color: rgba(0, 0, 0, 0.2) !important;
-}
-
-::ng-deep .mat-step-label.mat-step-label-active {
-  color: white !important;
-}
-
-::ng-deep .mat-step-label {
-  color: rgb(255 255 255 / 54%) !important;
-}
-
-.mat-stepper-vertical {
-  margin-top: 8px;
-}
-
-.mat-mdc-form-field {
-  margin-top: 16px;
-}
-
-.step3 {
-  margin-top: 12px;
-
-  i {
-    font-size: 28px;
-  }
-}
-
-.info-price {
-  text-transform: inherit;
-  font-size: 18px;
-}
-
 .order-button {
   width: 140px !important;
   background: linear-gradient(to right, rgba(138, 35, 135, 0.85), rgba(233, 64, 87, 0.85)) !important;
   color: #fff !important;
   margin-left: 8px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+  /* Убирает стрелочки в Firefox */
+}
+
+.form-container {
+  background-color: white;
+  margin-top: 20px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.save_button {
+  height: 44px;
+  background: linear-gradient(to right, rgb(138, 35, 135), rgb(233, 64, 87));
+  color: #fff !important;
+  padding: 16px;
+  align-items: center;
+  display: flex;
+  border: none;
+  border-radius: 7px;
+}
+
+.save_button.disabled-button {
+  background: linear-gradient(to right, rgb(110, 28, 107), rgb(203, 55, 75)) !important;
+  color: #9e9e9e !important;
+  cursor: not-allowed;
+}
+
+
+.has_children {
+  font-size: 16px;
 }

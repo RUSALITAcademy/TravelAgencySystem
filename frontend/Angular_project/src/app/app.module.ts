@@ -34,7 +34,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { ToursComponent } from './Components/Travel-agent-components/tours/tours.component';
 import { TravelAgentPageComponent } from './Pages/Travel-agent-page/travel-agent-page.component';
 import { NotFoundComponent } from './Pages/not-found/not-found.component';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { MatDividerModule } from '@angular/material/divider';
+import { RouterDialogComponent } from './Components/router-dialog/router-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -72,7 +75,10 @@ import { MatDividerModule } from '@angular/material/divider';
     OrderStepperComponent,
     MatIconModule,
     MatCheckboxModule,
-    MatDividerModule
+    MatDividerModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
+    MatDialogModule
   ],
   providers: [AuthService, { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true },],
   bootstrap: [AppComponent]
