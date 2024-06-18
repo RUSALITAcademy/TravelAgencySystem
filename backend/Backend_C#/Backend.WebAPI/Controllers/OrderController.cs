@@ -4,6 +4,7 @@ using Backend.Application.Models.Orders.Commands.DeleteOrder;
 using Backend.Application.Models.Orders.Commands.UpdateOrder;
 using Backend.Application.Models.Orders.Queries.GetOrderDetails;
 using Backend.Application.Models.Orders.Queries.GetOrderList;
+using Backend.Domain.Models;
 using Backend.WebAPI.Models.CreateDto;
 using Backend.WebAPI.Models.UpdateDto;
 using Microsoft.AspNetCore.Authorization;
@@ -56,7 +57,7 @@ namespace Backend.WebAPI.Controllers
                 var UserId = HttpContext.User.FindFirstValue("UserId");
                 command.RegistrationStartDate = DateTime.UtcNow;
                 command.UserId = UserId;
-                command.Status = (Domain.Models.OrderStatus)1;
+                command.Status = OrderStatus.Pending;
                 var TourId = await Mediator.Send(command);
                 return Ok(TourId);
             }
