@@ -35,6 +35,8 @@ import { ToursComponent } from './Components/Travel-agent-components/tours/tours
 import { TravelAgentPageComponent } from './Pages/Travel-agent-page/travel-agent-page.component';
 import { NotFoundComponent } from './Pages/not-found/not-found.component';
 import { MatDividerModule } from '@angular/material/divider';
+import { SnackbarComponent } from './Components/Common/snackbar/snackbar.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,7 @@ import { MatDividerModule } from '@angular/material/divider';
     TravelAgentPageComponent,
     ToursComponent,
     NotFoundComponent,
+    SnackbarComponent
     //Страницы
   ],
   imports: [
@@ -72,7 +75,8 @@ import { MatDividerModule } from '@angular/material/divider';
     OrderStepperComponent,
     MatIconModule,
     MatCheckboxModule,
-    MatDividerModule
+    MatDividerModule,
+    MatSnackBarModule
   ],
   providers: [AuthService, { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true },],
   bootstrap: [AppComponent]

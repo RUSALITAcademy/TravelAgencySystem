@@ -84,8 +84,7 @@
             <input matInput
                    formControlName="currentPassword"
                    placeholder="Текущий пароль"
-                   [type]="hidePass ? 'password' : 'text'"
-                   [disabled]="!editModePass">
+                   [type]="hidePass ? 'password' : 'text'">
             <mat-error>ОШИБКА</mat-error>
             <!-- <mat-icon matSuffix
             (click)="hidePass = !hidePass">{{hidePass ? 'visibility_off' : 'visibility'}}</mat-icon> -->
@@ -101,8 +100,7 @@
             <input matInput
                    formControlName="newPassword"
                    placeholder="Новый пароль"
-                   [type]="hidePassRepeat ? 'password' : 'text'"
-                   [disabled]="!editModePass">
+                   [type]="hidePassRepeat ? 'password' : 'text'">
             <mat-error>ОШИБКА</mat-error>
             <!-- <mat-icon matSuffix
             (click)="hidePassRepeat = !hidePassRepeat">{{hidePassRepeat ? 'visibility_off' :
@@ -118,8 +116,7 @@
             <input matInput
                    formControlName="newPasswordRepeat"
                    placeholder="Повторите пароль"
-                   [type]="hidePassRepeat ? 'password' : 'text'"
-                   [disabled]="!editModePass">
+                   [type]="hidePassRepeat ? 'password' : 'text'">
             <mat-error>ОШИБКА</mat-error>
             <!-- <mat-icon matSuffix
             (click)="hidePassRepeat = !hidePassRepeat">{{hidePassRepeat ? 'visibility_off' :
