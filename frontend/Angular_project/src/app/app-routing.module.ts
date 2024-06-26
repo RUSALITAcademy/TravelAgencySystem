@@ -12,6 +12,8 @@ import { AccountTravelHistoryComponent } from './Components/User-account-page-co
 import { TravelAgentPageComponent } from './Pages/Travel-agent-page/travel-agent-page.component';
 import { ToursComponent } from './Components/Travel-agent-components/tours/tours.component';
 import { NotFoundComponent } from './Pages/not-found/not-found.component';
+import { OrdersComponent } from './Components/Travel-agent-components/orders/orders.component';
+import { CabinetComponent } from './Components/Travel-agent-components/cabinet/cabinet.component';
 //личный кабинет
 
 const routes: Routes = [
@@ -32,7 +34,8 @@ const routes: Routes = [
     path: "travelagent", component: TravelAgentPageComponent,
     children: [
       { path: "tours", component: ToursComponent },
-      { path: "orders", component: ToursComponent },
+      { path: "orders", component: OrdersComponent },
+      { path: "cabinet", component: CabinetComponent },
     ]
   },
   { path: '**', component: NotFoundComponent }

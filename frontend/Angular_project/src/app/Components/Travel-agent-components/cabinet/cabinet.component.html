@@ -1,0 +1,137 @@
+<div class="container">
+  <form action="">
+    <div class="header">
+      <h1>Личная информация</h1>
+    </div>
+
+    <form [formGroup]="infoForm">
+      <div class="fields__info">
+        <div class="fields">
+
+          <mat-form-field appearance="outline"
+                          subscriptSizing="dynamic"
+                          color="primary">
+
+            <mat-label>Имя</mat-label>
+
+            <input matInput
+                   formControlName="firstName"
+                   placeholder="Имя"
+                   type="text">
+            <mat-error>ОШИБКА</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline"
+                          subscriptSizing="dynamic"
+                          color="primary">
+
+            <mat-label>Фамилия</mat-label>
+
+            <input matInput
+                   formControlName="lastName"
+                   placeholder="Фамилия"
+                   type="text">
+            <mat-error>ОШИБКА</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline"
+                          subscriptSizing="dynamic"
+                          color="primary">
+
+            <mat-label>Отчество</mat-label>
+
+            <input matInput
+                   formControlName="middleName"
+                   placeholder="Отчество"
+                   type="text">
+            <mat-error>ОШИБКА</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="buttons_box">
+          <button *ngIf="editMode"
+                  mat-raised-button
+                  class="save_button"
+                  color="link"
+                  (click)="saveInfo()">
+            Сохранить
+          </button>
+          <button mat-raised-button
+                  class="change_button"
+                  color="link"
+                  (click)="toggleEditMode()">
+            {{ editMode ? 'Отменить изменения' : 'Изменить' }}
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <mat-divider></mat-divider>
+
+
+    <form [formGroup]="passwordForm">
+      <div class="fields__password">
+
+        <div class="fields">
+
+
+          <mat-form-field appearance="outline"
+                          subscriptSizing="dynamic"
+                          color="primary">
+
+            <mat-label>Текущий пароль</mat-label>
+
+            <input matInput
+                   formControlName="currentPassword"
+                   placeholder="Текущий пароль"
+                   [type]="hidePass ? 'password' : 'text'">
+            <mat-error>ОШИБКА</mat-error>
+          </mat-form-field>
+
+
+          <mat-form-field appearance="outline"
+                          subscriptSizing="dynamic"
+                          color="primary">
+
+            <mat-label>Новый пароль</mat-label>
+
+            <input matInput
+                   formControlName="newPassword"
+                   placeholder="Новый пароль"
+                   [type]="hidePassRepeat ? 'password' : 'text'">
+            <mat-error>ОШИБКА</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline"
+                          subscriptSizing="dynamic"
+                          color="primary">
+
+            <mat-label>Повторите пароль</mat-label>
+
+            <input matInput
+                   formControlName="newPasswordRepeat"
+                   placeholder="Повторите пароль"
+                   [type]="hidePassRepeat ? 'password' : 'text'">
+            <mat-error>ОШИБКА</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="buttons_box">
+          <button *ngIf="editModePass"
+                  mat-raised-button
+                  class="save_button"
+                  color="link"
+                  (click)="savePassword()">
+            Сохранить
+          </button>
+          <button mat-raised-button
+                  class="change_button"
+                  color="link"
+                  (click)="toggleEditModePass()">
+            {{ editModePass ? 'Отменить изменения' : 'Изменить' }}
+          </button>
+        </div>
+      </div>
+    </form>
+  </form>
+</div>
