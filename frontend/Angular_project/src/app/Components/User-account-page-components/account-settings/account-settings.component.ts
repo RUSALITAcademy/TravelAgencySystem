@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { IUser } from 'src/app/Models/user.model';
 import { cloneDeep } from 'lodash';
 import { UserService } from 'src/app/Services/user.service';
+import { SnackbarComponent } from '../../Common/snackbar/snackbar.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-account-settings',
@@ -14,6 +16,7 @@ export class AccountSettingsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
+    private snackBar: MatSnackBar
   ) {
   }
 
@@ -67,23 +70,46 @@ export class AccountSettingsComponent implements OnInit {
 
   toggleEditModePass(): void {
     if (this.editModePass) {
-      this.passwordForm = cloneDeep(this.passwordFormSaved);
       this.passwordForm.disable();
     } else {
       this.passwordForm.enable();
-      this.passwordFormSaved = cloneDeep(this.passwordForm);
     }
     this.editModePass = !this.editModePass;
   }
 
   saveInfo() {
-    console.log(this.infoForm.value)
-    this.userService.updateUser(this.infoForm.value).subscribe();
+    this.userService.updateUser(this.infoForm.value).subscribe({
+      next: () => {
+        this.toggleEditMode();
+        this.openSnackBar('Данные сохранёны');
+      },
+      error(err) {
+        this.openSnackBar('Произошла ошибка при сохранении данных , попробуйте ещё раз');
+        console.error(err);
+      },
+    });
   }
 
   savePassword() {
     const value = this.passwordForm.value;
     delete value.newPasswordRepeat;
-    this.userService.changePassword(this.passwordForm.value).subscribe();
+    this.userService.changePassword(this.passwordForm.value).subscribe({
+      next: () => {
+        this.toggleEditModePass();
+        this.openSnackBar('Пороль сохранён')
+      },
+      error: (err) => {
+        console.log('here')
+        this.openSnackBar('Произошла ошибка при сохранении пороля, попробуйте ещё раз')
+        console.error(err);
+      },
+    });
+  }
+
+  openSnackBar(text: string) {
+    this.snackBar.openFromComponent(SnackbarComponent, {
+      data: text,
+      duration: 3000
+    });
   }
 }

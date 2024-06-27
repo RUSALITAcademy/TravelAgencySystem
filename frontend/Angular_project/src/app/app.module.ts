@@ -37,6 +37,8 @@ import { TravelAgentPageComponent } from './Pages/Travel-agent-page/travel-agent
 import { NotFoundComponent } from './Pages/not-found/not-found.component';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { MatDividerModule } from '@angular/material/divider';
+import { SnackbarComponent } from './Components/Common/snackbar/snackbar.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterDialogComponent } from './Components/router-dialog/router-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CabinetComponent } from './Components/Travel-agent-components/cabinet/cabinet.component';
@@ -60,6 +62,7 @@ import { OrdersComponent } from './Components/Travel-agent-components/orders/ord
     TravelAgentPageComponent,
     ToursComponent,
     NotFoundComponent,
+    SnackbarComponent,
     CabinetComponent,
     OrdersComponent,
     //Страницы
@@ -81,6 +84,7 @@ import { OrdersComponent } from './Components/Travel-agent-components/orders/ord
     MatIconModule,
     MatCheckboxModule,
     MatDividerModule,
+    MatSnackBarModule,
     NgxMaskDirective,
     NgxMaskPipe,
     MatDialogModule,
