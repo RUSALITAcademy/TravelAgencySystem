@@ -23,6 +23,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCardModule } from '@angular/material/card';
 
 import { TourMainComponent } from './Components/Tour-page-components/tour-main/tour-main.component';
 import { OrderStepperComponent } from "./Components/Order/order-stepper/order-stepper.component";
@@ -38,6 +39,8 @@ import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { MatDividerModule } from '@angular/material/divider';
 import { RouterDialogComponent } from './Components/router-dialog/router-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { CabinetComponent } from './Components/Travel-agent-components/cabinet/cabinet.component';
+import { OrdersComponent } from './Components/Travel-agent-components/orders/orders.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +60,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     TravelAgentPageComponent,
     ToursComponent,
     NotFoundComponent,
+    CabinetComponent,
+    OrdersComponent,
     //Страницы
   ],
   imports: [
@@ -78,7 +83,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDividerModule,
     NgxMaskDirective,
     NgxMaskPipe,
-    MatDialogModule
+    MatDialogModule,
+    MatCardModule,
   ],
   providers: [AuthService, { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true },],
   bootstrap: [AppComponent]
