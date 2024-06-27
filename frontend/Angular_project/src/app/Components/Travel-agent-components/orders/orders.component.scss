@@ -1,0 +1,47 @@
+h2,
+h3 {
+  margin: 0;
+}
+
+.order-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: black;
+  padding: 0 24px;
+}
+
+.order-card {
+  border-radius: 10px;
+  background-color: white;
+  padding: 18px;
+}
+
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.title {
+  padding-bottom: 5px;
+}
+
+.card-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.status {
+  align-items: baseline;
+  display: flex;
+  gap: 20px;
+}
+
+.button {
+  background-color: rgb(var(--main-color)) !important;
+  color: white !important;
+  width: 150px;
+}

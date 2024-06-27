@@ -80,7 +80,7 @@ namespace Backend.WebAPI.Controllers
 
 
         [HttpPut]
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "User, TourAgency")]
         public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDto updateUserDto)
         {
             try

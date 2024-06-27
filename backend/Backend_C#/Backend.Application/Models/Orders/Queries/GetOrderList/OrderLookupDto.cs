@@ -16,6 +16,7 @@ namespace Backend.Application.Models.Orders.Queries.GetOrderList
     {
         public string UserId { get; set; }
         public Guid TourId { get; set; }
+        public Tour Tour { get; set; }
         public DateTime RegistrationStartDate { get; set; }
         public DateTime RegistrationEndDate { get; set; }
         public string NumberPhone { get; set; }

@@ -15,8 +15,8 @@ export class TourService {
   constructor(private http: HttpClient) { this.apiUrl = environment.apiUrl + "/api/Tour" }
 
   ////
-  GetAllTours(): Observable<ITour[]> {
-    return this.http.post<ITour[]>(this.apiUrl + "/GetAllTours", {});
+  GetAllTours(body?: object): Observable<ITour[]> {
+    return this.http.post<ITour[]>(this.apiUrl + "/GetAllTours", body);
   }
 
   GetTourById(id: string): Observable<ITour | undefined> {

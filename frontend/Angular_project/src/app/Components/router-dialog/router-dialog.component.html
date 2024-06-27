@@ -1,0 +1,19 @@
+<div class="container">
+    <h2 mat-dialog-title
+        class="dialog-title">Заявка успешно отправлена</h2>
+
+    <div mat-button-actions
+         class="dialog_actions">
+        <button mat-raised-button
+                class="route_button"
+                extended
+                color="primary"
+                (click)="redirectToMainPage()">На главную</button>
+
+        <button mat-raised-button
+                class="route_button"
+                color="primary"
+                extended
+                (click)="redirectToAccountSettings()">Личный кабинет</button>
+    </div>
+</div>
