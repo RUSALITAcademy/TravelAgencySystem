@@ -23,6 +23,10 @@ export class TourService {
     const url = `${this.apiUrl}/GetTour/${id}`;
     return this.http.get<ITour>(url);
   }
+
+  GetUserTours(): Observable<any> {
+    return this.http.get<ITour[]>(`${this.apiUrl}/GetUserTours`);
+  }
   ////
 
   ////

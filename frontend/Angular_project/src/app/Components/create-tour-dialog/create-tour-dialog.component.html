@@ -1,0 +1,73 @@
+<div class="container">
+    <h2 mat-dialog-title
+        class="dialog-title">Добавить тур</h2>
+
+    <div mat-dialog-content>
+        <form [formGroup]="tourForm">
+            <mat-form-field>
+                <mat-label>Название тура</mat-label>
+                <input matInput
+                       formControlName="name">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Страна</mat-label>
+                <input matInput
+                       formControlName="country">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Город</mat-label>
+                <input matInput
+                       formControlName="region">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Начало тура</mat-label>
+                <input matInput
+                       [matDatepicker]="startDate"
+                       formControlName="startDate">
+                <mat-datepicker-toggle matSuffix
+                                       [for]="startDate"></mat-datepicker-toggle>
+                <mat-datepicker #startDate></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Окончание тура</mat-label>
+                <input matInput
+                       [matDatepicker]="endDate"
+                       formControlName="endDate">
+                <mat-datepicker-toggle matSuffix
+                                       [for]="endDate"></mat-datepicker-toggle>
+                <mat-datepicker #endDate></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Количество мест</mat-label>
+                <input matInput
+                       type="number"
+                       formControlName="quantity">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Стоимость</mat-label>
+                <input matInput
+                       type="number"
+                       formControlName="price">
+            </mat-form-field>
+
+            <div style="display: block;">
+                <mat-form-field style="width: 100%;">
+                    <mat-label>Описание</mat-label>
+                    <textarea matInput
+                              formControlName="description">
+                    </textarea>
+                </mat-form-field>
+            </div>
+        </form>
+        <button mat-button
+                (click)="createTour()">
+            Добавить тур
+        </button>
+    </div>
+</div>

@@ -38,6 +38,7 @@ import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { MatDividerModule } from '@angular/material/divider';
 import { RouterDialogComponent } from './Components/router-dialog/router-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { CreateTourDialogComponent } from './Components/create-tour-dialog/create-tour-dialog.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     TravelAgentPageComponent,
     ToursComponent,
     NotFoundComponent,
+    CreateTourDialogComponent,
     //Страницы
   ],
   imports: [

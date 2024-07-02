@@ -15,6 +15,8 @@ namespace Backend.Application.Models.Tours.Commands.CreateTour
             RuleFor(createTourCommand =>
                 createTourCommand.Name).NotEmpty().MaximumLength(60);
             RuleFor(createTourCommand =>
+                createTourCommand.UserId).NotEmpty();
+            RuleFor(createTourCommand =>
                 createTourCommand.Description).NotEmpty().MaximumLength(3200);
             RuleFor(createTourCommand =>
                 createTourCommand.Country).NotEmpty().MaximumLength(25);

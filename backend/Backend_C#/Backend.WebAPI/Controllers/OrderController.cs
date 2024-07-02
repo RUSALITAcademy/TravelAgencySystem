@@ -146,5 +146,27 @@ namespace Backend.WebAPI.Controllers
                 throw;
             }
         }
+
+        [HttpGet]
+        [Authorize(Roles = "TourAgent")]
+        public async Task<ActionResult<OrderListVm>> GetAllOrdersFromAgent()
+        {
+            try
+            {
+                var UserId = HttpContext.User.GetUserId();
+                var query = new GetOrderListQuery
+                {
+                    UserId = UserId,
+                    IsTourAgent = true
+                };
+                var vm = await Mediator.Send(query);
+                return Ok(vm);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("An error occurred - {ex}", ex);
+                throw;
+            }
+        }
     }
 }

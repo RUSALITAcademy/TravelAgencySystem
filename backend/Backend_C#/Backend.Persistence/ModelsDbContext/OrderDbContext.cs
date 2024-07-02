@@ -14,6 +14,7 @@ namespace Backend.Persistence.ModelsDbContext
         : DbContext, IOrderDbContext
     {
         public DbSet<Order> Order { get; set; }
+        public DbSet<Tour> Tour { get; set; }
 
         public OrderDbContext(DbContextOptions<OrderDbContext> options)
             : base(options) { }
