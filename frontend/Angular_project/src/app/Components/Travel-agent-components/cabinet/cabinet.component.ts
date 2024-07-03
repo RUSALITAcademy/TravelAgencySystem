@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { cloneDeep } from 'lodash';
 import { IUser } from 'src/app/Models/user.model';
 import { UserService } from 'src/app/Services/user.service';
+import { SnackbarComponent } from '../../Common/snackbar/snackbar.component';
 
 @Component({
   selector: 'app-cabinet',
@@ -15,6 +17,7 @@ export class CabinetComponent {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
+    private snackBar: MatSnackBar
   ) {
   }
 
@@ -75,12 +78,37 @@ export class CabinetComponent {
   }
 
   saveInfo() {
-    this.userService.updateUser(this.infoForm.value).subscribe();
+    this.userService.updateUser(this.infoForm.value).subscribe({
+      next: () => {
+        this.toggleEditMode();
+        this.openSnackBar('Данные сохранёны');
+      },
+      error: (err) => {
+        this.openSnackBar('Произошла ошибка при сохранении данных , попробуйте ещё раз');
+        console.error(err);
+      },
+    });
   }
 
   savePassword() {
     const value = this.passwordForm.value;
     delete value.newPasswordRepeat;
-    this.userService.changePassword(this.passwordForm.value).subscribe();
+    this.userService.changePassword(this.passwordForm.value).subscribe({
+      next: () => {
+        this.toggleEditModePass();
+        this.openSnackBar('Пороль сохранён')
+      },
+      error: (err) => {
+        this.openSnackBar('Произошла ошибка при сохранении пороля, попробуйте ещё раз')
+        console.error(err);
+      },
+    });
+  }
+
+  openSnackBar(text: string) {
+    this.snackBar.openFromComponent(SnackbarComponent, {
+      data: text,
+      duration: 3000
+    });
   }
 }
