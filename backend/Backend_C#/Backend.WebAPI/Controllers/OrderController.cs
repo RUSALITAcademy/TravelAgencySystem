@@ -128,7 +128,7 @@ namespace Backend.WebAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "TourAgent")]
+        [Authorize(Roles = "TourAgency")]
         public async Task<ActionResult<OrderListVm>> GetAllOrdersByTour(Guid id)
         {
             try
@@ -148,7 +148,7 @@ namespace Backend.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "TourAgent")]
+        [Authorize(Roles = "TourAgency")]
         public async Task<ActionResult<OrderListVm>> GetAllOrdersFromAgent()
         {
             try

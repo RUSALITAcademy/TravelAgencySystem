@@ -38,7 +38,7 @@ export class CreateTourDialogComponent implements OnInit {
   images: File[] = [];
 
   ngOnInit(): void {
-    if (this.data.tourId) {
+    if (this.data?.tourId) {
       this.tourForm.patchValue({
         tourId: this.data.tourId,
         name: this.data.name,
