@@ -8,6 +8,7 @@ namespace Backend.Application.Models.Tours.Queries.GetTourDetails
     public class TourDetailsVm : IMapWith<Tour>
     {
         public Guid TourId { get; set; }
+        public string UserId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Country { get; set; }
@@ -25,6 +26,8 @@ namespace Backend.Application.Models.Tours.Queries.GetTourDetails
             profile.CreateMap<Tour, TourDetailsVm>()
                 .ForMember(clientVm => clientVm.TourId,
                     opt => opt.MapFrom(client => client.TourId))
+                .ForMember(clientVm => clientVm.UserId,
+                    opt => opt.MapFrom(client => client.UserId))
                 .ForMember(clientVm => clientVm.Name,
                     opt => opt.MapFrom(client => client.Name))
                 .ForMember(clientVm => clientVm.Description,

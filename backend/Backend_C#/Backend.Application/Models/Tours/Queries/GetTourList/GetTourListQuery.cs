@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Backend.Domain.Models;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,8 @@ namespace Backend.Application.Models.Tours.Queries.GetTourList
     {
         public double? MinPrice { get; set; }
         public double? MaxPrice { get; set; }
+        public string? UserId { get; set; }
+
+        public TourStatus? TourStatus { get; set; }
     }
 }

@@ -26,6 +26,10 @@ export class OrderService {
   GetAllOrdersFromUser(): Observable<any> {
     return this.http.get<IOrder[]>(`${this.apiUrl}/GetAllOrdersFromUser`)
   }
+
+  GetAllOrdersFromAgent(): Observable<any> {
+    return this.http.get<IOrder[]>(`${this.apiUrl}/GetAllOrdersFromAgent`)
+  }
   ////
 
   ////

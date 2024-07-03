@@ -1,35 +1,63 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ITour } from 'src/app/Models/tour.model';
+import { CreateTourDialogComponent } from '../../create-tour-dialog/create-tour-dialog.component';
+import { TourService } from 'src/app/Services/tour.service';
 
 @Component({
   selector: 'app-tours',
   templateUrl: './tours.component.html',
   styleUrls: ['./tours.component.scss']
 })
-export class ToursComponent {
-  // tours: ITour[] = [{
-  //   tourId: "1",
-  //   name: "Бескрайние поля",
-  //   description: "Самые бескрайние",
-  //   country: "Россия",
-  //   region: "Красноярск",
-  //   startDate: new Date(2024, 1, 1),
-  //   endDate: new Date(2024, 1, 12),
-  //   price: 214321,
-  //   quantity: 111,
-  //   images: ["1234", "2134"],
-  // },
-  // {
-  //   tourId: "2",
-  //   name: "Горные вершины",
-  //   description: "Вершины мира",
-  //   country: "Непал",
-  //   region: "Гималаи",
-  //   startDate: new Date(2024, 3, 15),
-  //   endDate: new Date(2024, 3, 25),
-  //   price: 189999,
-  //   quantity: 50,
-  //   images: ["5678", "91011"],
-  // }
-  // ]
+export class ToursComponent implements OnInit {
+  constructor(public dialog: MatDialog,
+    private tourService: TourService,
+  ) {
+
+  }
+
+  tours: ITour[] = [];
+
+  ngOnInit() {
+    this.getToursByUser();
+  }
+
+  getToursByUser() {
+    return this.tourService.GetUserTours().subscribe((list) => {
+      this.tours = list.tours;
+    });
+  }
+
+  deleteTour(id: string) {
+    return this.tourService.DeleteTour(id).subscribe(() => {
+      this.getToursByUser();
+    });
+  }
+
+  changeTourStatus(tour: ITour) {
+    if (tour.status == 0) {
+      tour.status = 1;
+    }
+    else {
+      tour.status = 0;
+    }
+    return this.tourService.UpdateTour(tour).subscribe(() => {
+      this.getToursByUser();
+    });
+  }
+
+  openCreateTourDialog(tour?: ITour) {
+    const dialogRef = this.dialog.open(CreateTourDialogComponent, {
+      width: '80%',
+      height: '90%',
+      backdropClass: 'dialog-backdrop',
+      data: tour,
+    })
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.getToursByUser();
+    })
+
+  }
+
 }

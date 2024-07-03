@@ -41,6 +41,7 @@ import { SnackbarComponent } from './Components/Common/snackbar/snackbar.compone
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterDialogComponent } from './Components/router-dialog/router-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { CreateTourDialogComponent } from './Components/create-tour-dialog/create-tour-dialog.component';
 import { CabinetComponent } from './Components/Travel-agent-components/cabinet/cabinet.component';
 import { OrdersComponent } from './Components/Travel-agent-components/orders/orders.component';
 
@@ -62,6 +63,7 @@ import { OrdersComponent } from './Components/Travel-agent-components/orders/ord
     TravelAgentPageComponent,
     ToursComponent,
     NotFoundComponent,
+    CreateTourDialogComponent,
     SnackbarComponent,
     CabinetComponent,
     OrdersComponent,

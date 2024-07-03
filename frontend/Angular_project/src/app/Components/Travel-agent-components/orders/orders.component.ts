@@ -8,36 +8,16 @@ import { OrderService } from 'src/app/Services/order.service';
   styleUrls: ['./orders.component.scss']
 })
 export class OrdersComponent implements OnInit {
-  // orders: IOrder[];
-  orders: IOrder[] = [{
-    orderId: '123',
-    userId: '1',
-    tourId: '1',
-    registrationStartDate: new Date(),
-    registrationEndDate: new Date(),
-    status: 1,
-    numberPhone: '1234567890',
-    hasChildren: false,
-    numberOfPeople: 2
-  },
-  {
-    orderId: '123',
-    userId: '1',
-    tourId: '1',
-    registrationStartDate: new Date(),
-    registrationEndDate: new Date(),
-    status: 1,
-    numberPhone: '1234567890',
-    hasChildren: false,
-    numberOfPeople: 2
-  }];
+  orders: IOrder[];
 
   constructor(
     private orderService: OrderService,
   ) { }
 
   ngOnInit(): void {
-    this.orderService.GetAllOrders
+    this.orderService.GetAllOrdersFromAgent().subscribe((orders => {
+      this.orders = orders.orders;
+    }));
   }
 
 

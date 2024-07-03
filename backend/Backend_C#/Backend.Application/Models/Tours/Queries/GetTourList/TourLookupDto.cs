@@ -7,6 +7,7 @@ namespace Backend.Application.Models.Tours.Queries.GetTourList
     public class TourLookupDto : IMapWith<Tour>
     {
         public Guid TourId { get; set; }
+        public string UserId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Country { get; set; }
@@ -24,6 +25,8 @@ namespace Backend.Application.Models.Tours.Queries.GetTourList
             profile.CreateMap<Tour, TourLookupDto>()
                 .ForMember(tourVm => tourVm.Name,
                     opt => opt.MapFrom(tour => tour.Name))
+                .ForMember(clientVm => clientVm.UserId,
+                    opt => opt.MapFrom(client => client.UserId))
                 .ForMember(tourVm => tourVm.Description,
                     opt => opt.MapFrom(tour => tour.Description))
                 .ForMember(tourVm => tourVm.Country,

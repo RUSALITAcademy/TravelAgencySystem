@@ -1,4 +1,5 @@
 import { IImage } from "./image.mode";
+import { IOrder } from "./order.model";
 
 export interface ITour {
   tourId: string;
@@ -12,4 +13,6 @@ export interface ITour {
   quantity: number;
   images: IImage[];
   mainImageUrl: string;
+  status: number;
+  orders?: IOrder[];
 }

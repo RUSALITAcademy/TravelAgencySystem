@@ -18,6 +18,7 @@ namespace Backend.Application.Models.Tours.Commands.CreateTour
             var tour = new Tour
             {
                 TourId = Guid.NewGuid(),
+                UserId = request.UserId,
                 Name = request.Name,
                 Description = request.Description,
                 Country = request.Country,

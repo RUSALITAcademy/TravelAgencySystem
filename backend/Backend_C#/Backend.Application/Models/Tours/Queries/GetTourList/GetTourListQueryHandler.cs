@@ -34,6 +34,16 @@ namespace Backend.Application.Models.Tours.Queries.GetTourList
                 query = query.Where(t => t.Price <= request.MaxPrice.Value);
             }
 
+            if (!string.IsNullOrEmpty(request.UserId))
+            {
+                query = query.Where(t => t.UserId == request.UserId);
+            }
+
+            if (request.TourStatus.HasValue)
+            {
+                query = query.Where(t => t.Status == request.TourStatus);
+            }
+
             var tourQuery = await query
                 .ProjectTo<TourLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancelToken);

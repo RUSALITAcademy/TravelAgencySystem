@@ -6,6 +6,7 @@ namespace Backend.Application.Models.Tours.Commands.CreateTour
     public class CreateTourCommand
         : IRequest<Guid>
     {
+        public string UserId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Country { get; set; }

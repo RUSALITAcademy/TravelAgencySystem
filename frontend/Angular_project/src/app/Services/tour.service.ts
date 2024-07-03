@@ -23,11 +23,15 @@ export class TourService {
     const url = `${this.apiUrl}/GetTour/${id}`;
     return this.http.get<ITour>(url);
   }
+
+  GetUserTours(): Observable<any> {
+    return this.http.get<ITour[]>(`${this.apiUrl}/GetUserTours`);
+  }
   ////
 
   ////
-  CreateTour(tour: ITour): Observable<ITour> {
-    return this.http.post<ITour>(this.apiUrl + "/CreateTour", tour);
+  CreateTour(tour: ITour): Observable<string> {
+    return this.http.post<string>(this.apiUrl + "/CreateTour", tour);
   }
   ////
 

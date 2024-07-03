@@ -18,8 +18,8 @@ namespace Backend.WebAPI.Controllers
             _logger = logger;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> UploadImage(IFormFile file, Guid tourId)
+        [HttpPost("{tourId}")]
+        public async Task<IActionResult> UploadImage( IFormFile file, Guid tourId)
         {
             try
             {

@@ -5,6 +5,7 @@ using Backend.Application.Models.Tours.Commands.UpdateTour;
 using Backend.Application.Models.Tours.Queries.GetTourDetails;
 using Backend.Application.Models.Tours.Queries.GetTourList;
 using Backend.Domain.Models;
+using Backend.WebAPI.Middleware;
 using Backend.WebAPI.Models.CreateDto;
 using Backend.WebAPI.Models.UpdateDto;
 using Microsoft.AspNetCore.Authorization;
@@ -46,7 +47,6 @@ namespace Backend.WebAPI.Controllers
                 _logger.LogInformation("Произошла ошибка  - {ex}", ex);
                 throw;
             }
-            
         }
 
 
@@ -56,7 +56,10 @@ namespace Backend.WebAPI.Controllers
             try
             {
                 //HttpContext.User.IsInRole();
+                var UserId = HttpContext.User.GetUserId();
+
                 var command = _mapper.Map<CreateTourCommand>(createTourDto);
+                command.UserId = UserId;
                 var TourId = await Mediator.Send(command);
                 return Ok(TourId);
             }
@@ -114,8 +117,10 @@ namespace Backend.WebAPI.Controllers
             {
                 var query = new GetTourListQuery
                 {
-                     MinPrice = filters.minPrice,
-                    MaxPrice = filters.maxPrice
+                    MinPrice = filters.minPrice,
+                    MaxPrice = filters.maxPrice,
+                    TourStatus = TourStatus.Published,
+                    
                 };
                 var vm = await Mediator.Send(query);
                 return Ok(vm);
@@ -134,9 +139,10 @@ namespace Backend.WebAPI.Controllers
             try
             {
                 //Получение Id через claim
-                var UserId = Guid.Parse(HttpContext.User.FindFirstValue("UserId"));
+                var UserId = HttpContext.User.GetUserId();
                 var query = new GetTourListQuery
                 {
+                    UserId = UserId
                 };
                 var vm = await Mediator.Send(query);
                 return Ok(vm);

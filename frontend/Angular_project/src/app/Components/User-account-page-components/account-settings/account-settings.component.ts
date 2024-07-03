@@ -57,7 +57,6 @@ export class AccountSettingsComponent implements OnInit {
   }
 
   toggleEditMode(): void {
-    console.log(this.editMode)
     if (this.editMode) {
       this.infoForm = cloneDeep(this.infoFormSaved);
       this.infoForm.disable();
@@ -83,7 +82,7 @@ export class AccountSettingsComponent implements OnInit {
         this.toggleEditMode();
         this.openSnackBar('Данные сохранёны');
       },
-      error(err) {
+      error: (err) => {
         this.openSnackBar('Произошла ошибка при сохранении данных , попробуйте ещё раз');
         console.error(err);
       },
@@ -99,7 +98,6 @@ export class AccountSettingsComponent implements OnInit {
         this.openSnackBar('Пороль сохранён')
       },
       error: (err) => {
-        console.log('here')
         this.openSnackBar('Произошла ошибка при сохранении пороля, попробуйте ещё раз')
         console.error(err);
       },

@@ -128,7 +128,7 @@ namespace Backend.WebAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "TourAgent")]
+        [Authorize(Roles = "TourAgency")]
         public async Task<ActionResult<OrderListVm>> GetAllOrdersByTour(Guid id)
         {
             try
@@ -143,6 +143,28 @@ namespace Backend.WebAPI.Controllers
             catch (Exception ex)
             {
                 _logger.LogInformation("Произошла ошибка  - {ex}", ex);
+                throw;
+            }
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "TourAgency")]
+        public async Task<ActionResult<OrderListVm>> GetAllOrdersFromAgent()
+        {
+            try
+            {
+                var UserId = HttpContext.User.GetUserId();
+                var query = new GetOrderListQuery
+                {
+                    UserId = UserId,
+                    IsTourAgent = true
+                };
+                var vm = await Mediator.Send(query);
+                return Ok(vm);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("An error occurred - {ex}", ex);
                 throw;
             }
         }
