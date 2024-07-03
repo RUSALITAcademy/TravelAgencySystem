@@ -1,73 +1,128 @@
 <div class="container">
-    <h2 mat-dialog-title
-        class="dialog-title">Добавить тур</h2>
+  <h2 mat-dialog-title
+      class="dialog-title">
+    <span *ngIf="tourForm.value?.tourId">Редактировать тур</span>
+    <span *ngIf="!tourForm.value?.tourId">Добавить тур</span>
+  </h2>
 
-    <div mat-dialog-content>
-        <form [formGroup]="tourForm">
-            <mat-form-field>
-                <mat-label>Название тура</mat-label>
-                <input matInput
-                       formControlName="name">
-            </mat-form-field>
+  <div mat-dialog-content
+       style="height: 100%;">
+    <form [formGroup]="tourForm">
+      <div class="form__container">
 
-            <mat-form-field>
-                <mat-label>Страна</mat-label>
-                <input matInput
-                       formControlName="country">
-            </mat-form-field>
+        <div class="form-row">
 
-            <mat-form-field>
-                <mat-label>Город</mat-label>
-                <input matInput
-                       formControlName="region">
-            </mat-form-field>
+          <mat-form-field appearance="outline"
+                          subscriptSizing="dynamic"
+                          style="width: 100%;">
+            <mat-label>Название тура</mat-label>
+            <input matInput
+                   formControlName="name">
+          </mat-form-field>
+        </div>
 
-            <mat-form-field>
-                <mat-label>Начало тура</mat-label>
-                <input matInput
-                       [matDatepicker]="startDate"
-                       formControlName="startDate">
-                <mat-datepicker-toggle matSuffix
-                                       [for]="startDate"></mat-datepicker-toggle>
-                <mat-datepicker #startDate></mat-datepicker>
-            </mat-form-field>
+        <div class="form-row">
 
-            <mat-form-field>
-                <mat-label>Окончание тура</mat-label>
-                <input matInput
-                       [matDatepicker]="endDate"
-                       formControlName="endDate">
-                <mat-datepicker-toggle matSuffix
-                                       [for]="endDate"></mat-datepicker-toggle>
-                <mat-datepicker #endDate></mat-datepicker>
-            </mat-form-field>
+          <mat-form-field appearance="outline"
+                          subscriptSizing="dynamic"
+                          style="width: 50%;">
+            <mat-label>Страна</mat-label>
+            <input matInput
+                   formControlName="country">
+          </mat-form-field>
 
-            <mat-form-field>
-                <mat-label>Количество мест</mat-label>
-                <input matInput
-                       type="number"
-                       formControlName="quantity">
-            </mat-form-field>
+          <mat-form-field appearance="outline"
+                          subscriptSizing="dynamic"
+                          style="width: 50%;">
+            <mat-label>Город</mat-label>
+            <input matInput
+                   formControlName="region">
+          </mat-form-field>
+        </div>
 
-            <mat-form-field>
-                <mat-label>Стоимость</mat-label>
-                <input matInput
-                       type="number"
-                       formControlName="price">
-            </mat-form-field>
+        <div class="form-row">
 
-            <div style="display: block;">
-                <mat-form-field style="width: 100%;">
-                    <mat-label>Описание</mat-label>
-                    <textarea matInput
-                              formControlName="description">
+          <mat-form-field appearance="outline"
+                          subscriptSizing="dynamic"
+                          style="width: 50%;">
+            <mat-label>Начало тура</mat-label>
+            <input matInput
+                   [matDatepicker]="startDate"
+                   formControlName="startDate">
+            <mat-datepicker-toggle matSuffix
+                                   [for]="startDate"></mat-datepicker-toggle>
+            <mat-datepicker #startDate></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline"
+                          subscriptSizing="dynamic"
+                          style="width: 50%;">
+            <mat-label>Окончание тура</mat-label>
+            <input matInput
+                   [matDatepicker]="endDate"
+                   formControlName="endDate">
+            <mat-datepicker-toggle matSuffix
+                                   [for]="endDate"></mat-datepicker-toggle>
+            <mat-datepicker #endDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+
+          <mat-form-field appearance="outline"
+                          subscriptSizing="dynamic"
+                          style="width: 50%;">
+            <mat-label>Количество мест</mat-label>
+            <input matInput
+                   type="number"
+                   formControlName="quantity">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline"
+                          subscriptSizing="dynamic"
+                          style="width: 50%;">
+            <mat-label>Стоимость</mat-label>
+            <input matInput
+                   type="number"
+                   formControlName="price">
+          </mat-form-field>
+        </div>
+
+        <div style="display: block;">
+          <mat-form-field appearance="outline"
+                          subscriptSizing="dynamic"
+                          style="width: 100%;">
+            <mat-label>Описание</mat-label>
+            <textarea matInput
+                      rows=5
+                      formControlName="description">
                     </textarea>
-                </mat-form-field>
-            </div>
-        </form>
-        <button mat-button
-                (click)="createTour()">
-            Добавить тур
-        </button>
-    </div>
+          </mat-form-field>
+        </div>
+
+        <span>Основное изображение</span>
+        <input type="file"
+               (change)="onMainImageSelected($event)"
+               accept="image/*">
+
+
+        <span>Остальные изображения</span>
+        <input type="file"
+               (change)="onImagesSelected($event)"
+               accept="image/*"
+               multiple>
+      </div>
+    </form>
+  </div>
+
+  <div mat-dialog-actions>
+    <button class="button"
+            mat-button
+            mat-raised-button
+            [disabled]="!tourForm.valid"
+            (click)="onSave()">
+      <span *ngIf="tourForm.value.tourId">Сохранить тур</span>
+      <span *ngIf="!tourForm.value.tourId">Добавить тур</span>
+    </button>
+  </div>
 </div>

@@ -30,8 +30,8 @@ export class TourService {
   ////
 
   ////
-  CreateTour(tour: ITour): Observable<ITour> {
-    return this.http.post<ITour>(this.apiUrl + "/CreateTour", tour);
+  CreateTour(tour: ITour): Observable<string> {
+    return this.http.post<string>(this.apiUrl + "/CreateTour", tour);
   }
   ////
 

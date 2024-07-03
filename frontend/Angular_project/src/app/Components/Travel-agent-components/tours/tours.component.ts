@@ -46,11 +46,12 @@ export class ToursComponent implements OnInit {
     });
   }
 
-  openCreateTourDialog() {
+  openCreateTourDialog(tour?: ITour) {
     const dialogRef = this.dialog.open(CreateTourDialogComponent, {
       width: '80%',
       height: '90%',
-      backdropClass: 'dialog-backdrop'
+      backdropClass: 'dialog-backdrop',
+      data: tour,
     })
 
     dialogRef.afterClosed().subscribe(() => {

@@ -29,9 +29,8 @@ export class ImageService {
   ////
 
   ////
-  CreateImage(file: File, tourId: number): Observable<any> {
-    let body = { file, tourId }
-    return this.http.post<any>(this.apiUrl + "/images", body);
+  CreateImage(file: FormData, tourId: string): Observable<any> {
+    return this.http.post<any>(this.apiUrl + '/' + tourId, file);
   }
   ////
 }
