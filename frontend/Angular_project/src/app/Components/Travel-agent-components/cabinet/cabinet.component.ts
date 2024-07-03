@@ -1,22 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { IUser } from 'src/app/Models/user.model';
+
 import { cloneDeep } from 'lodash';
+import { IUser } from 'src/app/Models/user.model';
 import { UserService } from 'src/app/Services/user.service';
-import { SnackbarComponent } from '../../Common/snackbar/snackbar.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-account-settings',
-  templateUrl: './account-settings.component.html',
-  styleUrls: ['./account-settings.component.scss']
+  selector: 'app-cabinet',
+  templateUrl: './cabinet.component.html',
+  styleUrls: ['./cabinet.component.scss']
 })
-export class AccountSettingsComponent implements OnInit {
+export class CabinetComponent {
 
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private snackBar: MatSnackBar
   ) {
   }
 
@@ -57,7 +55,6 @@ export class AccountSettingsComponent implements OnInit {
   }
 
   toggleEditMode(): void {
-    console.log(this.editMode)
     if (this.editMode) {
       this.infoForm = cloneDeep(this.infoFormSaved);
       this.infoForm.disable();
@@ -78,38 +75,12 @@ export class AccountSettingsComponent implements OnInit {
   }
 
   saveInfo() {
-    this.userService.updateUser(this.infoForm.value).subscribe({
-      next: () => {
-        this.toggleEditMode();
-        this.openSnackBar('Данные сохранёны');
-      },
-      error(err) {
-        this.openSnackBar('Произошла ошибка при сохранении данных , попробуйте ещё раз');
-        console.error(err);
-      },
-    });
+    this.userService.updateUser(this.infoForm.value).subscribe();
   }
 
   savePassword() {
     const value = this.passwordForm.value;
     delete value.newPasswordRepeat;
-    this.userService.changePassword(this.passwordForm.value).subscribe({
-      next: () => {
-        this.toggleEditModePass();
-        this.openSnackBar('Пороль сохранён')
-      },
-      error: (err) => {
-        console.log('here')
-        this.openSnackBar('Произошла ошибка при сохранении пороля, попробуйте ещё раз')
-        console.error(err);
-      },
-    });
-  }
-
-  openSnackBar(text: string) {
-    this.snackBar.openFromComponent(SnackbarComponent, {
-      data: text,
-      duration: 3000
-    });
+    this.userService.changePassword(this.passwordForm.value).subscribe();
   }
 }

@@ -1,35 +1,45 @@
 <div>
-    <app-navbar></app-navbar>
-    <div class="container">
-        <div class="buttons">
-            <div class="account_link_menu">
-                <ul>
+  <app-navbar></app-navbar>
+  <div class="container">
+    <div class="buttons">
+      <div class="account_link_menu">
+        <ul>
 
-                    <li>
-                        <button class="nav-menu-button"
-                                routerLink="/travelagent/tours">
-                            <i class="fas fa-cog"></i>
-                            <div class="navbar__item__text">
-                                Туры
-                            </div>
-                        </button>
-                    </li>
+          <li>
+            <button class="nav-menu-button"
+                    routerLink="/travelagent/cabinet">
+              <i class="fas fa-user-circle"></i>
+              <div class="navbar__item__text">
+                Личный кабинет
+              </div>
+            </button>
+          </li>
 
-                    <li>
-                        <button class="nav-menu-button"
-                                routerLink="/travelagent/orders">
-                            <i class="fas fa-history"></i>
-                            <div class="navbar__item__text">
-                                Заявки
-                            </div>
-                        </button>
-                    </li>
+          <li>
+            <button class="nav-menu-button"
+                    routerLink="/travelagent/tours">
+              <i class="fas fa-plane"></i>
+              <div class="navbar__item__text">
+                Туры
+              </div>
+            </button>
+          </li>
 
-                </ul>
-            </div>
-        </div>
-        <div class="page">
-            <router-outlet></router-outlet>
-        </div>
+          <li>
+            <button class="nav-menu-button"
+                    routerLink="/travelagent/orders">
+              <i class="fas fa-server"></i>
+              <div class="navbar__item__text">
+                Заявки
+              </div>
+            </button>
+          </li>
+
+        </ul>
+      </div>
     </div>
+    <div class="page">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>
