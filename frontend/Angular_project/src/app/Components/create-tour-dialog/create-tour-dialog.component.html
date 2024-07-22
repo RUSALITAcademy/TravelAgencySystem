@@ -124,5 +124,13 @@
       <span *ngIf="tourForm.value.tourId">Сохранить тур</span>
       <span *ngIf="!tourForm.value.tourId">Добавить тур</span>
     </button>
+    <button *ngIf="!tourForm.get('tourId').value"
+            class="button"
+            mat-button
+            mat-raised-button
+            [disabled]="!tourForm.valid"
+            (click)="previewTour()">
+      Предпросмотр страницы тура
+    </button>
   </div>
 </div>

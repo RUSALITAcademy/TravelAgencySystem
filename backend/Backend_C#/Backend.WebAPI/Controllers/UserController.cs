@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
@@ -23,6 +24,7 @@ namespace Backend.WebAPI.Controllers
 {
     public class UserController : BaseController
     {
+        private readonly IEmailSender _emailSender;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -30,12 +32,89 @@ namespace Backend.WebAPI.Controllers
         private static readonly EmailAddressAttribute _emailAddressAttribute = new();
         string? confirmEmailEndpointName = null;
 
-        public UserController(IMapper mapper, UserManager<User> userManager, RoleManager<IdentityRole> roleManager, ILogger<TourController> logger)
+        public UserController(IEmailSender emailSender, IMapper mapper, UserManager<User> userManager, RoleManager<IdentityRole> roleManager, ILogger<TourController> logger)
         {
+            _emailSender = emailSender;
             _mapper = mapper;
             _userManager = userManager;
             _roleManager = roleManager;
             _logger = logger;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+            if (result.Succeeded)
+            {
+                return Ok("Email confirmed successfully.");
+            }
+            else
+            {
+                return BadRequest("Error confirming email.");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SendEmailConfirmation(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var callbackUrl = Url.Action(nameof(ConfirmEmail), "User", new { userId = user.Id, token = token }, protocol: HttpContext.Request.Scheme);
+
+            await _emailSender.SendEmailAsync(email, "Confirm your email",
+                $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
+
+            return Ok("Confirmation email sent.");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var callbackUrl = Url.Action(nameof(ResetPasswordConfirm), "User", new { token = token, email = email }, protocol: HttpContext.Request.Scheme);
+
+            await _emailSender.SendEmailAsync(email, "Reset Password",
+                $"Please reset your password by clicking this link: <a href='{callbackUrl}'>link</a>");
+
+            return Ok("Password reset email sent.");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPasswordConfirm(string token, string email, string newPassword)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            var result = await _userManager.ResetPasswordAsync(user, token, newPassword);
+            if (result.Succeeded)
+            {
+                return Ok("Password reset successfully.");
+            }
+            else
+            {
+                return BadRequest("Error resetting password.");
+            }
         }
 
         [HttpGet]

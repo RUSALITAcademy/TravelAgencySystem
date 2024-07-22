@@ -84,6 +84,38 @@ export class AuthPanelComponent implements OnInit {
     }
   }
 
+  // login(email: string, password: string) {
+  //   this.authService.login(email, password).subscribe({
+  //     next: data => {
+  //       if (data && !environment.production) {
+  //         this.storageService.saveToken(data);
+  //       }
+
+  //       this.authService.getUserInfo().subscribe({
+
+  //         next: (user) => {
+  //           if (user.roles?.includes('Admin')) {
+  //             // this.router.navigate(['admin']);
+  //           } else if (user.roles?.includes('TourAgency')) {
+  //             this.router.navigate(['travelagent/tours']);
+  //           } else if (user.roles?.includes('User')) {
+  //             this.router.navigate(['main']);
+  //           }
+  //         },
+  //         error: (err) => {
+  //           console.log("Произошла ошибка - " + err)
+  //         }
+
+  //       });
+  //     },
+  //     error: (err) => {
+  //       if (err instanceof HttpErrorResponse && err.status === 401) {
+  //         this.isLoginFailed = true;
+  //       }
+  //     }
+  //   });
+  // }
+
   login(email: string, password: string) {
     this.authService.login(email, password).subscribe({
       next: data => {
@@ -92,7 +124,6 @@ export class AuthPanelComponent implements OnInit {
         }
 
         this.authService.getUserInfo().subscribe({
-
           next: (user) => {
             if (user.roles?.includes('Admin')) {
               // this.router.navigate(['admin']);
@@ -103,14 +134,20 @@ export class AuthPanelComponent implements OnInit {
             }
           },
           error: (err) => {
-            console.log("Произошла ошибка - " + err)
+            console.log("Произошла ошибка - " + err);
           }
-
         });
       },
       error: (err) => {
-        if (err instanceof HttpErrorResponse && err.status === 401) {
-          this.isLoginFailed = true;
+        debugger
+        if (err) {
+          if (err.error.detail === "LockedOut") {
+            alert("Ваша учетная запись заблокирована из-за нескольких неудачных попыток входа в систему. Пожалуйста, повторите попытку позже.");
+          }
+          if (err.status === 401) {
+            this.isLoginFailed = true;
+          }
+
         }
       }
     });

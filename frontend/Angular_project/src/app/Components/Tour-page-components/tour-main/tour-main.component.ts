@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit, Optional } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Router, NavigationEnd } from '@angular/router';
 import { concatMap, from } from 'rxjs';
@@ -13,18 +14,19 @@ import { TourService } from 'src/app/Services/tour.service';
 
 })
 export class TourMainComponent implements OnInit {
-  tourId: string = "";
-  tourTitle: string = '';
-  tourDescription: string = '';
-  smallDescription: string = '';
-  tourCountry: string = '';
-  tourCity: string = '';
-  tourStartDate: string = '';
-  tourEndDate: string = '';
-  price!: number;
-  quantity!: number;
+  @Input() tourId: string = "";
+  @Input() tourTitle: string = '';
+  @Input() tourDescription: string = '';
+  @Input() smallDescription: string = '';
+  @Input() tourCountry: string = '';
+  @Input() tourCity: string = '';
+  @Input() tourStartDate: string = '';
+  @Input() tourEndDate: string = '';
+  @Input() price!: number;
+  @Input() quantity!: number;
   overlayColor: string = 'rgba(11, 8, 11, 0.681);'; // Прозрачность затемнения
-  images: string[] = [];
+  @Input() images: string[] = [];
+  @Input() isPreview: boolean = false;
 
   currentIndex: number = 0;
   totalImages!: number;
@@ -33,40 +35,62 @@ export class TourMainComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private tourService: TourService,
-    private imageService: ImageService) {
+    private imageService: ImageService,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any, // Получение данных из диалога
+    @Optional() private dialogRef: MatDialogRef<TourMainComponent>) {
+
   }
+
   ngOnInit(): void {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        // Прокрутка страницы вверх при каждом завершении навигации
-        window.scrollTo(0, 0);
-      }
-    });
-    this.route.params.subscribe(params => {
-      this.tourId = String(params['id']);
-      this.tourService.GetTourById(this.tourId).subscribe((tourData) => {
-        if (tourData) {
+    if (this.data) {
+      this.tourId = this.data.tourId;
+      this.tourTitle = this.data.name;
+      this.tourDescription = this.data.description;
+      this.tourCountry = this.data.country;
+      this.tourCity = this.data.region;
+      this.tourStartDate = this.data.startDate;
+      this.tourEndDate = this.data.endDate;
+      this.price = this.data.price;
+      this.quantity = this.data.quantity;
+      this.images = this.data.imageUrls;
+      this.isPreview = this.data.isPreview;
 
-          this.loadImages(tourData);
-          // Обновите поля данными из ответа сервиса
-
-          this.tourTitle = tourData.name || this.tourTitle;
-          this.tourDescription = tourData.description || this.tourDescription;
-          this.tourCountry = tourData.country || this.tourCountry;
-          this.tourCity = tourData.region || this.tourCity;
-          this.tourStartDate = tourData.startDate?.toString() || this.tourStartDate;
-          this.tourEndDate = tourData.endDate?.toString() || this.tourEndDate;
-          this.price = tourData.price || this.price;
-          this.quantity = tourData.quantity || this.quantity;
-          // Добавьте любые дополнительные поля, которые нужно обновить
-
-
-          const sentences = this.splitIntoSentences(this.tourDescription);
-          const firstFourSentences = sentences.slice(0, 4);
-          this.smallDescription = firstFourSentences.join(' ');
+      const sentences = this.splitIntoSentences(this.tourDescription);
+      const firstFourSentences = sentences?.slice(0, 4);
+      this.smallDescription = firstFourSentences?.join(' ');
+    }
+    console.log(this.data?.imageUrls)
+    if (!this.isPreview) {
+      this.router.events.subscribe(event => {
+        if (event instanceof NavigationEnd) {
+          window.scrollTo(0, 0);
         }
       });
-    });
+
+      this.route.params.subscribe(params => {
+        this.tourId = String(params['id']);
+        this.tourService.GetTourById(this.tourId).subscribe((tourData) => {
+          if (tourData) {
+            this.loadImages(tourData);
+
+            this.tourTitle = tourData.name || this.tourTitle;
+            this.tourDescription = tourData.description || this.tourDescription;
+            this.tourCountry = tourData.country || this.tourCountry;
+            this.tourCity = tourData.region || this.tourCity;
+            this.tourStartDate = tourData.startDate?.toString() || this.tourStartDate;
+            this.tourEndDate = tourData.endDate?.toString() || this.tourEndDate;
+            this.price = tourData.price || this.price;
+            this.quantity = tourData.quantity || this.quantity;
+
+            const sentences = this.splitIntoSentences(this.tourDescription);
+            const firstFourSentences = sentences.slice(0, 4);
+            this.smallDescription = firstFourSentences.join(' ');
+          }
+        });
+      });
+    } else {
+      this.totalImages = this.images?.length;
+    }
   }
 
   loadImages(tour: ITour) {
@@ -76,7 +100,7 @@ export class TourMainComponent implements OnInit {
         this.images.push(this.imageService.GetImageByFileName(element.fileName));
 
       });
-      this.totalImages = this.images.length;
+      this.totalImages = this.images?.length;
     });
   }
 
@@ -110,6 +134,8 @@ export class TourMainComponent implements OnInit {
   //   this.router.navigate(['payment/']);
   // }
   splitIntoSentences(text: string): string[] {
-    return text.split(/(?<=[.!?])\s+/);
+    if (text) {
+      return text?.split(/(?<=[.!?])\s+/);
+    } else return null;
   }
 }

@@ -37,7 +37,12 @@ builder.Services.AddControllers();
 builder.Services.AddAuthorization();
 builder.Services.AddIdentityApiEndpoints<User>().AddRoles<IdentityRole>().AddEntityFrameworkStores<UserDbContext>();
 builder.Services.AddTransient<IClaimsTransformation, ClaimsTransformation>();
-//builder.Services.
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+    options.Lockout.MaxFailedAccessAttempts = 5;
+    options.Lockout.AllowedForNewUsers = true;
+});
 //МБ не надо
 builder.Services.AddControllersWithViews();
 

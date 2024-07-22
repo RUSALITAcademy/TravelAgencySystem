@@ -1,8 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ImageService } from 'src/app/Services/image.service';
 import { TourService } from 'src/app/Services/tour.service';
+import { TourMainComponent } from '../Tour-page-components/tour-main/tour-main.component';
 
 @Component({
   selector: 'app-create-tour-dialog',
@@ -16,6 +17,7 @@ export class CreateTourDialogComponent implements OnInit {
     private tourService: TourService,
     private imageService: ImageService,
     private dialogRef: MatDialogRef<CreateTourDialogComponent>,
+    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) private data: any,
   ) {
     this.tourForm = this.fb.group({
@@ -103,5 +105,24 @@ export class CreateTourDialogComponent implements OnInit {
         }
       });
     }
+  }
+
+  previewTour() {
+    console.log(this.images)
+    const tourData = this.tourForm.value;
+    console.log(this.images)
+    const imageUrls = this.images.length > 0 ? Array.from(this.images).map(file => URL.createObjectURL(file)) : [];
+
+    console.log('Preview Tour Data:', tourData);
+    console.log('Preview Tour images:', imageUrls);
+    this.dialog.open(TourMainComponent, {
+      data: {
+        ...tourData,
+        imageUrls,
+        isPreview: true
+      },
+      width: '85%',
+      height: '90%'
+    });
   }
 }
