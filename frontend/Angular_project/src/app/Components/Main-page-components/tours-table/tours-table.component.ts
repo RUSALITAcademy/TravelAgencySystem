@@ -54,6 +54,8 @@ export class ToursTableComponent implements OnInit {
         this.getFiltredCities(this.destinationLocation.value, this.destinationLocations)
       }
     });
+
+    this.search();
   }
 
   search() {

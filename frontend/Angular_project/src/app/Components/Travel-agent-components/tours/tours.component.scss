@@ -55,7 +55,7 @@
   display: flex;
   border: none;
   // background: linear-gradient(to right, rgba(138, 35, 135, 0.7), rgba(233, 64, 87, 0.7));
-  background: linear-gradient(to right, rgba(233, 64, 87, 0.7), rgba(138, 35, 135, 0.7));
+  background-color: rgb(var(--main-color)) !important;
   align-items: center;
   color: #fff !important;
   padding: 16px;

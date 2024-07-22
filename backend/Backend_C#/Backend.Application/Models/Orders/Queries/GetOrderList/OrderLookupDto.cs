@@ -15,6 +15,8 @@ namespace Backend.Application.Models.Orders.Queries.GetOrderList
     public class OrderLookupDto : IMapWith<Order>
     {
         public string UserId { get; set; }
+
+        public Guid OrderId { get; set; }
         public Guid TourId { get; set; }
         public Tour Tour { get; set; }
         public DateTime RegistrationStartDate { get; set; }
@@ -29,6 +31,8 @@ namespace Backend.Application.Models.Orders.Queries.GetOrderList
             profile.CreateMap<Order, OrderLookupDto>()
                 .ForMember(clientVm => clientVm.UserId,
                     opt => opt.MapFrom(client => client.UserId))
+                .ForMember(clientVm => clientVm.OrderId,
+                    opt => opt.MapFrom(client => client.OrderId))
                 .ForMember(clientVm => clientVm.TourId,
                     opt => opt.MapFrom(client => client.TourId))
                 .ForMember(clientVm => clientVm.RegistrationStartDate,

@@ -10,7 +10,7 @@
       <div>
         <!-- <p><strong>Клиент:</strong> {{ order.user }} ({{ order.user?.email }})</p> -->
         <p><strong>Клиент</strong></p>
-        <p><strong>Номер телефонаr:</strong> {{ order.numberPhone }}</p>
+        <p><strong>Номер телефона:</strong> +7 {{ order.numberPhone }}</p>
       </div>
       <div>
         <p><strong>С детьми:</strong> {{ order.hasChildren ? 'Да' : 'Нет' }}</p>
@@ -19,16 +19,28 @@
       <div>
         <p><strong>Тур:</strong> {{ order.tour?.name }} - {{ order.tour?.description }}</p>
         <p><strong>Начало регистрации:</strong> {{ order.registrationStartDate | date: "dd.MM.yyyy" }}</p>
-        <p><strong>Конец регистрации:</strong> {{ order.registrationEndDate | date: "dd.MM.yyyy" }}</p>
+        <p><strong>Конец регистрации:</strong> {{ order.registrationEndDate.toString() === '0001-01-01T00:00:00' ? '-' :
+          (order.registrationEndDate | date: 'dd.MM.yyyy') }}</p>
       </div>
     </div>
     <mat-card-actions>
       <div class="status">
-        <p><strong>Статус:</strong> {{ order.status }}</p>
-        <button mat-raised-button
-                class="button">Принять</button>
-        <button mat-raised-button
-                class="button">Отклонить</button>
+        <p><strong>Статус:</strong> {{ statuses[order.status] }}</p>
+
+        <div class="status"
+             *ngIf="order.status != 1 && order.status != 3">
+
+          <button mat-raised-button
+                  class="button"
+                  (click)="onAcceptOrder(order)">
+            Принять
+          </button>
+          <button mat-raised-button
+                  class="button"
+                  (click)="onRejectOrder(order)">
+            Отклонить
+          </button>
+        </div>
       </div>
     </mat-card-actions>
   </div>

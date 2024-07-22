@@ -73,7 +73,7 @@ mat-form-field {
   //width: 50%;
   display: flex;
   border: none;
-  background: linear-gradient(to right, rgba(138, 35, 135, 0.7), rgba(233, 64, 87, 0.7));
+  background-color: rgb(var(--main-color)) !important;
   align-items: center;
   color: #fff !important;
   padding: 16px;
@@ -81,7 +81,7 @@ mat-form-field {
 
 .save_button {
   height: 44px;
-  background: linear-gradient(to right, rgba(233, 79, 65, 0.7), rgba(240, 105, 42, 0.7));
+  background-color: rgb(var(--main-color)) !important;
   color: #fff !important;
   padding: 16px;
   align-items: center;
