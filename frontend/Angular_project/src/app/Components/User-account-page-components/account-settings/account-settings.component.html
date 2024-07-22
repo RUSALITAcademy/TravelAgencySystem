@@ -49,7 +49,7 @@
         </div>
 
         <div class="buttons_box">
-          <button *ngIf="editMode"
+          <button *ngIf="!infoForm.disabled"
                   mat-raised-button
                   class="save_button"
                   color="link"
@@ -60,7 +60,7 @@
                   class="change_button"
                   color="link"
                   (click)="toggleEditMode()">
-            {{ editMode ? 'Отменить изменения' : 'Изменить' }}
+            {{ !infoForm.disabled ? 'Отменить изменения' : 'Изменить' }}
           </button>
         </div>
       </div>

@@ -58,14 +58,13 @@ export class CabinetComponent {
   }
 
   toggleEditMode(): void {
-    if (this.editMode) {
-      this.infoForm = cloneDeep(this.infoFormSaved);
-      this.infoForm.disable();
-    } else {
+    if (this.infoForm.disabled) {
       this.infoForm.enable();
       this.infoFormSaved = cloneDeep(this.infoForm);
+    } else {
+      this.infoForm = cloneDeep(this.infoFormSaved);
+      this.infoForm.disable();
     }
-    this.editMode = !this.editMode;
   }
 
   toggleEditModePass(): void {
@@ -80,8 +79,8 @@ export class CabinetComponent {
   saveInfo() {
     this.userService.updateUser(this.infoForm.value).subscribe({
       next: () => {
-        this.toggleEditMode();
-        this.openSnackBar('Данные сохранёны');
+        this.infoForm.disable();
+        this.openSnackBar('Данные сохранены');
       },
       error: (err) => {
         this.openSnackBar('Произошла ошибка при сохранении данных , попробуйте ещё раз');
